@@ -26,6 +26,10 @@ The three skills in this section come from K-Dense. They include optional local 
 
 [Matt Pocock's collection](https://github.com/mattpocock/skills) gives the assistant a workflow for decisions that often get skipped when you go straight from a prompt to code. For example, if you are changing how a pipeline treats missing measurements, use `grill-with-docs` to agree what counts as missing, then `tdd` to cover the cases you decide to support. Start with `research` if the decision turns on what a library or a paper actually says.
 
+### Installing a selection
+
+If you [install only some skills](../INSTALL.md#install-a-selection), start with the workflow you want to use and read its **Companions** column. When it calls another skill, include that folder and check its row too. For example, to use `grill-with-docs`, select `grill-with-docs`, `grilling` and `domain-modeling`. Add companions marked for particular tasks when you need those parts of the workflow.
+
 ### Research software
 
 | Skill | When to use it | Companions |

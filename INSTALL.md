@@ -10,6 +10,25 @@ toolkit_dir="$HOME/.local/share/research-ai-toolkit"
 
 Use the same `toolkit_dir` in the rest of this guide. If you cloned the repository somewhere else, substitute that path.
 
+## Choose a version
+
+Use the default clone to follow `main`. To update it, run:
+
+```sh
+git -C "$toolkit_dir" pull --ff-only origin main
+```
+
+For a project that needs a fixed version, clone a [release tag](https://github.com/mug-n-ai/research-ai-toolkit/releases) into its own directory. Use that clone as `toolkit_dir` before following the rest of this guide.
+
+```sh
+version="v0.1.0"
+mkdir -p "$HOME/.local/share"
+toolkit_dir="$HOME/.local/share/research-ai-toolkit-$version"
+git clone --branch "$version" --single-branch https://github.com/mug-n-ai/research-ai-toolkit.git "$toolkit_dir"
+```
+
+To move the project to another version, use a new clone for that tag and update the paths or copies the project uses. Record the toolkit revision and client version alongside the workflow you want to rerun.
+
 ## Ask an assistant to set it up
 
 Paste this into an assistant session with terminal access on the machine where you run your tools. For a remote machine, run it in a session that can access that machine.
@@ -17,13 +36,15 @@ Paste this into an assistant session with terminal access on the machine where y
 ```text
 Install Research AI Toolkit for [Codex, Claude Code, OpenCode, or several].
 Use it [across my projects or only in this project].
+Install [all skills or the following skills and their required companions].
 Read https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/INSTALL.md.
 
 Check my OS, installed client versions and current configuration. Choose a
 supported setup for each client. Reuse an existing clone if available.
 Keep my existing instructions, settings and skills. Report any name clashes.
-Verify that the toolkit rules and literature-review are discoverable in the
-requested scope. Tell me what you changed and how to update the toolkit.
+Verify that the toolkit rules and a skill I selected are discoverable in the
+requested scope. Use literature-review if I selected all skills. Tell me what
+you changed and how to update the toolkit.
 If you cannot access the machine or start a client, tell me what remains to do.
 ```
 
@@ -57,15 +78,22 @@ Claude Code discovers skills through its personal directory. Run the [linking co
 
 ### Link skills from the clone
 
-Set `skill_root` for your client in the first line, then run the loop. It leaves existing skills in place.
+Set `skill_root` for your client. Leave `skill_selection` empty to link the whole catalogue, or set it to the skill names you want, separated by spaces. The loop keeps any existing skills in place.
 
 ```sh
 skill_root="$HOME/.claude/skills"  # Use "$HOME/.agents/skills" for Codex.
+skill_selection=""  # For example: "literature-review reproduce-analysis"
 mkdir -p "$skill_root"
 for skill_file in "$toolkit_dir"/skills/*/SKILL.md; do
     [ -f "$skill_file" ] || continue
     skill_dir=${skill_file%/SKILL.md}
     skill_name=${skill_dir##*/}
+    if [ -n "$skill_selection" ]; then
+        case " $skill_selection " in
+            *" $skill_name "*) ;;
+            *) continue ;;
+        esac
+    fi
     skill_target="$skill_root/$skill_name"
     if [ -e "$skill_target" ] || [ -L "$skill_target" ]; then
         printf 'Keeping existing skill %s\n' "$skill_name"
@@ -75,11 +103,17 @@ for skill_file in "$toolkit_dir"/skills/*/SKILL.md; do
 done
 ```
 
-For updates, run `git -C "$toolkit_dir" pull --ff-only`. The existing links use the updated files. Run the loop again to pick up new skill names.
+If the clone follows `main`, its links use the updated files after a pull. Run the loop again to pick up any new skill names you want.
+
+### Install a selection
+
+For Codex or Claude Code, use the loop above with a list such as `skill_selection="literature-review reproduce-analysis"`. Check the [companion skills](skills/README.md#installing-a-selection) before choosing a workflow from Matt Pocock's collection. For any client, you can [copy selected skill folders into one project](#copying-skills).
+
+For a personal selection in OpenCode v2, keep the `instructions` entry below. In the `skills` array, list the full path to each chosen folder, such as `/path/to/research-ai-toolkit/skills/literature-review`, in place of the toolkit's full `skills` directory. Keep any entries for other sources. OpenCode may also discover skills you installed through its compatibility paths. For v1, you can [copy the selected folders into the project](#copying-skills).
 
 ## OpenCode from the clone
 
-In OpenCode v2, add the toolkit paths to your personal `~/.config/opencode/opencode.json` or `opencode.jsonc`. Append the values to any existing `instructions` and `skills` arrays. This example uses the default clone location above.
+In OpenCode v2, add the toolkit paths to your personal `~/.config/opencode/opencode.json` or `opencode.jsonc`. Append the values to any existing `instructions` and `skills` arrays. The example uses the default clone location. Substitute the directory of your clone if you chose a release or a different location.
 
 ```json
 {
@@ -88,7 +122,7 @@ In OpenCode v2, add the toolkit paths to your personal `~/.config/opencode/openc
 }
 ```
 
-Start a new OpenCode session from a research project and ask it to use `@literature-review`. OpenCode reads the rules from `AGENTS.md` and discovers the skill folders under the configured path. A pull in the clone makes new and updated skills available to new sessions.
+Start a new OpenCode session from a research project and ask it to use `@literature-review`. OpenCode reads the rules from `AGENTS.md` and discovers the skill folders under the configured path. If you follow `main`, a pull makes new and updated skills available to new sessions.
 
 If OpenCode v2 already discovers the toolkit skills through `~/.agents/skills/` or `~/.claude/skills/`, add only the `instructions` entry for the toolkit. [OpenCode skill locations](https://opencode.ai/docs/skills/#discovery)
 
@@ -151,7 +185,7 @@ else
 fi
 ```
 
-To update the toolkit, pull the latest changes in its clone. Compare the new files with the copies in your project, then merge changes you want to adopt.
+To update the copies, compare them with the files in the latest `main` or the release you chose. Merge the changes you want to adopt.
 
 ### Matt Pocock's collection
 
@@ -172,7 +206,7 @@ If you already use the upstream Matt Pocock plugin, use that installation or the
 
 ## Verify the setup
 
-Open a fresh session from the project you intend to use. Check that the assistant can find both the toolkit rules and `literature-review` before giving it research material.
+Open a fresh session from the project you intend to use. Check that the assistant can find both the toolkit rules and an installed skill before giving it research material. Substitute a skill from your selection for `literature-review` in the checks below if needed.
 
 | Client | What to check |
 | --- | --- |
@@ -180,7 +214,7 @@ Open a fresh session from the project you intend to use. Check that the assistan
 | Claude Code | Check the relevant files in `/memory` and look for `/literature-review`. |
 | OpenCode | Ask the client to load `literature-review` and identify the instruction file it sees. In v2 you can select the skill with `@literature-review`. |
 
-For a reproducible setup, record the toolkit commit from `git -C "$toolkit_dir" rev-parse HEAD` alongside the client version. To use a fixed snapshot for a project, check out that revision in a separate clone before copying the files.
+To check the exact revision you installed, run `git -C "$toolkit_dir" rev-parse HEAD`.
 
 ## Optional AI footprint hook
 

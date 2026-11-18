@@ -132,6 +132,11 @@ def smoke_setup(skill_files):
     codex = next(body for body in shell if body.startswith("codex_config_dir="))
     claude = next(body for body in shell if body.startswith("printf '@"))
     link_skills = next(body for body in shell if body.startswith("skill_root="))
+    selection = ("literature-review", "reproduce-analysis")
+    assert 'skill_selection=""' in link_skills, "Missing skill selection setting"
+    link_selection = link_skills.replace(
+        'skill_selection=""', f'skill_selection="{" ".join(selection)}"', 1,
+    )
     copy_skill = next(body for body in shell if body.startswith("skill_name="))
     project_rules = [body for body in shell if body.startswith("cp -n")]
     assert len(project_rules) == 2, "Expected project instruction snippets for AGENTS.md and CLAUDE.md"
@@ -162,6 +167,14 @@ def smoke_setup(skill_files):
         claude_rules.write_text("Existing personal rules\n" + setup_shell(claude, project, env))
         assert claude_rules.read_text().splitlines()[-1] == f"@{checkout}/CLAUDE.md"
         assert (checkout / "CLAUDE.md").read_text().splitlines().count("@AGENTS.md") == 1
+
+        for skill_root in (".claude/skills", ".agents/skills"):
+            snippet = link_selection.replace(".claude/skills", skill_root, 1)
+            setup_shell(snippet, project, env)
+            linked = home / skill_root
+            assert sorted(path.name for path in linked.iterdir()) == sorted(selection)
+            for name in selection:
+                assert (linked / name / "SKILL.md").resolve() == ROOT / "skills" / name / "SKILL.md"
 
         for skill_root in (".claude/skills", ".agents/skills"):
             snippet = link_skills.replace(".claude/skills", skill_root, 1)
@@ -221,7 +234,10 @@ def main():
     """
     skill_files = sorted(ROOT.glob("skills/*/SKILL.md"))
     errors = list(check_skills(skill_files))
-    docs = [*ROOT.glob("*.md"), CATALOGUE, ROOT / "integrations/ai-footprint/README.md"]
+    docs = [
+        *ROOT.glob("*.md"), CATALOGUE, ROOT / "integrations/ai-footprint/README.md",
+        *ROOT.glob("examples/*/*.md"),
+    ]
     for path in docs:
         errors.extend(check_links(path))
     if errors:
