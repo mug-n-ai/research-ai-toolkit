@@ -36,11 +36,11 @@ Use `.claude/skills/` as the destination when [copying skills](#copying-skills).
 
 ## OpenCode
 
-OpenCode reads the project's `AGENTS.md`. Once it is in place, use `.opencode/skills/` as the destination when [copying skills](#copying-skills). Open a new OpenCode session from the project and ask it to identify the project instructions or load an installed skill by name.
+OpenCode reads the project's `AGENTS.md`. Once it is in place, use `.opencode/skills/` as the destination when [copying skills](#copying-skills). Open a new OpenCode session from the project and ask it to load an installed skill by name. In OpenCode v2 you can also mention it as `@skill-name`.
 
 ## Copying skills
 
-Choose a skill from the [catalogue](skills/README.md). Copy the whole `skills/<skill-name>/` directory, including any supporting files, to the destination for your tool. The path should end in `<skill-name>/SKILL.md`.
+Choose a skill from the [catalogue](skills/README.md). Copy the whole `skills/<skill-name>/` directory, including its supporting files and licence, to the destination for your tool. The path should end in `<skill-name>/SKILL.md`. Set `skill_name` to `no-ai-slop` to install the writing skill.
 
 ```sh
 skill_name="skill-name-from-the-catalogue"
@@ -57,6 +57,23 @@ fi
 ```
 
 To update the toolkit, pull the latest changes in its clone. Compare the new files with the copies in your project, then merge changes you want to adopt.
+
+### Matt Pocock's collection
+
+The catalogue lists the companion skills each workflow calls. You can copy just the ones you need, or ask an assistant with terminal access to install the collection from this toolkit.
+
+```text
+Install Matt Pocock's skills from the Research AI Toolkit for this project.
+Read https://github.com/mug-n-ai/research-ai-toolkit/blob/main/INSTALL.md
+and https://github.com/mug-n-ai/research-ai-toolkit/blob/main/skills/README.md.
+Clone the toolkit and copy the Matt Pocock skill directories listed in the
+catalogue, including their supporting files, using the destination for [Claude
+Code or OpenCode]. Keep existing skill directories and report any name clashes.
+```
+
+Run `setup-matt-pocock-skills` in the research project if your chosen workflow uses an issue tracker, triage labels or the project's glossary and decision records. This setup lets you choose local Markdown for tracking work. In browser-only ChatGPT, ask for a local draft of a spec or tickets in the chat if the tracker is unavailable.
+
+If you already use the upstream Matt Pocock plugin, use that installation or the toolkit copies for that agent. Both use the same skill names.
 
 ## Official documentation
 

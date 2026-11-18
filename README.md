@@ -1,6 +1,6 @@
 # Research AI Toolkit
 
-A shared starting point for using AI in research projects. The toolkit gives a research group one place to keep project instructions and reusable workflows. This first version contains the instruction templates, setup guide and skill catalogue. Group rules and skills will be added here as they are agreed.
+A shared starting point for using AI in research projects. The toolkit gives a research group one place to keep project instructions and reusable workflows, from checking a draft to testing a change in an analysis pipeline.
 
 ## Choose your tool
 
@@ -17,18 +17,25 @@ Paste this prompt and replace the last line with your task. The public files pro
 ```text
 Use the Research AI Toolkit for this conversation.
 Read the README and AGENTS.md at these URLs before starting:
-https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/README.md
-https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/AGENTS.md
+https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/README.md
+https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/AGENTS.md
 
 When my task calls for a specific workflow, check the skill catalogue:
-https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/skills/README.md
+https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/skills/README.md
 If a listed skill matches, open its SKILL.md and any supporting files it needs.
+Use skills marked "By request" only when I name them. Resolve catalogue links
+relative to the catalogue URL above. Tell me when a step needs a tool you lack.
 Tell me if you cannot fetch a file you need so I can paste or attach it.
 
 My task: [describe what you want to do]
 ```
 
 If web access is unavailable, paste or attach [`AGENTS.md`](AGENTS.md) and the relevant `SKILL.md` directly in the chat. For a project that already uses the toolkit, provide its own instruction file so ChatGPT can see the project-specific details.
+
+## Skills for research work
+
+- **Review a draft.** No AI Slop flags vague attributions, stock phrases and inflated wording. It can report the passages to check or make a light edit that preserves the author's voice. [No AI Slop](skills/README.md#writing)
+- **Plan and check research software.** Matt Pocock's skills help you work through a design before writing code, trace answers to primary sources, reproduce bugs and test changes in small steps. [Matt Pocock's skills](skills/README.md#matt-pococks-skills)
 
 ## Keep a local knowledge base
 
