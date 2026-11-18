@@ -6,6 +6,21 @@
 
 Use this toolkit when you want an AI assistant to help with your own research, from checking the evidence behind a draft to rerunning an analysis.
 
+## Contents
+
+- [Quick start](#quick-start) · [Choose your tool](#choose-your-tool) · [Use the toolkit in a chat](#use-the-toolkit-in-a-chat)
+- [What is a skill?](#what-is-a-skill) · [Original toolkit contributions](#original-toolkit-contributions) · [Third-party skills](#third-party-skills-for-research-work)
+- [Estimate a reply's footprint](#estimate-the-footprint-of-a-reply) · [Keep a local knowledge base](#keep-a-local-knowledge-base) · [What the files do](#what-the-files-do)
+- [Contributing](#contributing) · [Licence](#licence) · [How this repository was made](#how-this-repository-was-made)
+
+## Quick start
+
+[Use the chat prompt](#use-the-toolkit-in-a-chat) or [install the toolkit](INSTALL.md), then give the assistant a task and the material it needs. Here are three requests to adapt.
+
+- “Check which papers support each claim in this paragraph. Read the full sources and inspect their original figures. Point me to the relevant passages and flag any claim you could not verify.” [Literature review](skills/literature-review/SKILL.md)
+- “Reproduce this figure using the data and code revision I supplied. Record the settings and seeds, save the new plot separately and report what differs.” [Reproduce analysis](skills/reproduce-analysis/SKILL.md)
+- “Check the units in this calculation and propagate the reported uncertainties. Tell me what correlation information you need and state what the final interval represents.” [Uncertainty and units](skills/uncertainty-and-units/SKILL.md)
+
 ## Choose your tool
 
 | Tool | How to use the toolkit |
@@ -156,6 +171,8 @@ If you ask an assistant why a parameter was fixed in an analysis, the answer sho
 
 Start with the papers you have checked, the versions of the code used in the analysis, and your notes on how decisions were made. Keep the DOI or original link for each paper and record the relevant version or commit where you can. Ask the assistant to cite the file and the relevant passage for each claim that matters. Check that the passage supports the claim, especially before using it in a paper or analysis. If the sources leave a question open, ask the assistant to say what evidence is missing.
 
+Keep unpublished work and restricted data in the environment approved for those materials. Before passing them to an AI service, check which tools and providers can access them. [Research practice](AGENTS.md#research-practice)
+
 ### Search the sources with Carsen
 
 Carsen is one example of a tool you can use to search a local knowledge base. You can use another search tool or work directly with the files in your repository.
@@ -187,6 +204,8 @@ For installation paths and commands, see the [setup guide](INSTALL.md). The [ski
 ## Contributing
 
 See the [contribution guide](CONTRIBUTING.md) to propose a rule, add a skill or improve the documentation.
+
+See the [changelog](CHANGELOG.md) for changes to the toolkit.
 
 ## Licence
 

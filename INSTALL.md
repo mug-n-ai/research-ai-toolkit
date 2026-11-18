@@ -90,7 +90,7 @@ In OpenCode v2, add the toolkit paths to your personal `~/.config/opencode/openc
 
 Start a new OpenCode session from a research project and ask it to use `@literature-review`. OpenCode reads the rules from `AGENTS.md` and discovers the skill folders under the configured path. A pull in the clone makes new and updated skills available to new sessions.
 
-If OpenCode already discovers the toolkit skills through `~/.claude/skills/`, the `instructions` entry is enough.
+If OpenCode v2 already discovers the toolkit skills through `~/.agents/skills/` or `~/.claude/skills/`, add only the `instructions` entry for the toolkit. [OpenCode skill locations](https://opencode.ai/docs/skills/#discovery)
 
 On OpenCode v1, put the skill directory in `skills.paths`. Replace `/absolute/path/to/research-ai-toolkit` with the full path to your clone and merge these entries into your existing configuration. [OpenCode configuration changes from v1 to v2](https://opencode.ai/docs/migrate-v1/#skills)
 
@@ -169,6 +169,18 @@ Code or OpenCode]. Keep existing skill directories and report any name clashes.
 Run `setup-matt-pocock-skills` in the research project if your chosen workflow uses an issue tracker, triage labels or the project's glossary and decision records. This setup lets you choose local Markdown for tracking work. In a chat without access to the tracker, ask for a draft of the spec or tickets in the conversation.
 
 If you already use the upstream Matt Pocock plugin, use that installation or the toolkit copies for that agent. Both use the same skill names.
+
+## Verify the setup
+
+Open a fresh session from the project you intend to use. Check that the assistant can find both the toolkit rules and `literature-review` before giving it research material.
+
+| Client | What to check |
+| --- | --- |
+| Codex | Look for `literature-review` in `/skills`. Ask which instruction file supplies the toolkit's literature-review rule. |
+| Claude Code | Check the relevant files in `/memory` and look for `/literature-review`. |
+| OpenCode | Ask the client to load `literature-review` and identify the instruction file it sees. In v2 you can select the skill with `@literature-review`. |
+
+For a reproducible setup, record the toolkit commit from `git -C "$toolkit_dir" rev-parse HEAD` alongside the client version. To use a fixed snapshot for a project, check out that revision in a separate clone before copying the files.
 
 ## Optional AI footprint hook
 

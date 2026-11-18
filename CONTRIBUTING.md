@@ -12,6 +12,16 @@ If a rule or skill gets in the way of a research task, tell us what you were try
 
 Try the rule or skill on a representative task and describe what you verified. Check that links open and that any referenced files are available. If you change installation instructions, check the steps in the relevant tool. For changes to a scientific workflow, check that the instructions preserve the evidence, assumptions and limits that affect the result.
 
+From the repository root, run the automated checks with Python 3.11 or newer and Bash.
+
+```sh
+python -m pip install PyYAML==6.0.3
+python scripts/check_toolkit.py
+python -m unittest discover -s integrations/ai-footprint
+```
+
+The setup checks exercise the documented file layout in a temporary home and project. To check discovery in a running client, follow [Verify the setup](INSTALL.md#verify-the-setup).
+
 ## Open a pull request
 
 Create a working branch and open a pull request into `main`. In the description, explain the problem, what changed and how you checked it. State whether the update needs a version bump under the project's release policy. Ask for explicit approval before merging. After the merge, delete the working branch unless it was requested to be kept or another open pull request depends on it. See the [full project rules](AGENTS.md).
