@@ -96,7 +96,8 @@ def codex_turn(rows, turn_id, model):
     """Return usage for one Codex turn ID from response records or counter deltas."""
     records = {}
     cumulative = dict.fromkeys(("input", "cache_creation", "cache_read", "output"), 0)
-    start = end = None
+    legacy_calls = []
+    legacy_complete = True
     active = False
     for row in rows:
         payload = row.get("payload") or {}
@@ -110,26 +111,29 @@ def codex_turn(rows, turn_id, model):
         event = payload.get("type")
         if event in {"task_started", "turn_started"}:
             active = payload.get("turn_id") == turn_id
-            if active:
-                start = cumulative
-                end = None
         elif event in {"task_complete", "turn_complete", "turn_aborted"}:
             active = False
         elif event == "token_count":
-            usage = (payload.get("info") or {}).get("total_token_usage")
+            info = payload.get("info") or {}
+            usage = info.get("total_token_usage")
             if usage:
-                cumulative = codex_counts(usage)
-                if active:
-                    end = cumulative
+                counts = codex_counts(usage)
+                delta = {key: counts[key] - cumulative[key] for key in counts}
+                # Compaction can reset the cumulative snapshot. Use the call's
+                # own usage across a reset, and skip repeated snapshots.
+                if active and counts != cumulative:
+                    last = info.get("last_token_usage")
+                    if last:
+                        legacy_calls.append((model, codex_counts(last)))
+                    elif min(delta.values()) >= 0:
+                        legacy_calls.append((model, delta))
+                    else:
+                        legacy_complete = False
+                cumulative = counts
 
     if records:
         return [(model, counts) for counts in records.values()]
-    if start is None or end is None:
-        return []
-    # Cumulative counters can be logged repeatedly when rate limits update.
-    # A delta avoids charging the same API response more than once.
-    counts = {key: end[key] - start[key] for key in start}
-    return [(model, counts)] if min(counts.values()) >= 0 else []
+    return legacy_calls if legacy_complete else []
 
 
 def load_estimator():

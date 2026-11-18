@@ -71,11 +71,14 @@ class TurnFootprintTests(unittest.TestCase):
             """Build a legacy Codex event record."""
             return {"type": "event_msg", "payload": {"type": event_type, **fields}}
 
-        def count(input_tokens, output_tokens):
+        def count(input_tokens, output_tokens, last=None):
             """Build a cumulative usage event."""
-            return event("token_count", info={"total_token_usage": {
+            info = {"total_token_usage": {
                 "input_tokens": input_tokens, "output_tokens": output_tokens,
-            }})
+            }}
+            if last is not None:
+                info["last_token_usage"] = dict(zip(("input_tokens", "output_tokens"), last))
+            return event("token_count", info=info)
 
         rows = [
             count(100, 20),
@@ -87,11 +90,13 @@ class TurnFootprintTests(unittest.TestCase):
             event("task_started", turn_id="later"),
             count(700, 400),
         ]
-        self.assertEqual(
-            codex_turn(rows, "target", "gpt-5"),
-            [("gpt-5", {"input": 60, "cache_creation": 0, "cache_read": 0, "output": 13})],
-        )
+        calls = codex_turn(rows, "target", "gpt-5")
+        self.assertEqual([(c["input"], c["output"]) for _, c in calls], [(20, 5), (40, 8)])
         self.assertEqual(codex_turn(rows, "missing", "gpt-5"), [])
+        compacted = rows[:5] + [count(8, 2, last=(8, 2))]
+        calls = codex_turn(compacted, "target", "gpt-5")
+        self.assertEqual([(c["input"], c["output"]) for _, c in calls], [(20, 5), (40, 8), (8, 2)])
+        self.assertEqual(codex_turn(rows[:5] + [count(8, 2)], "target", "gpt-5"), [])
 
     def test_hook_is_opt_in_and_missing_data_is_reported(self):
         """Ensure disabled hooks are silent and missing logs yield no numbers."""
