@@ -38,12 +38,12 @@ If web access is unavailable, paste or attach [`AGENTS.md`](AGENTS.md) and the r
 
 Lorenzo V. Mugnai developed this workflow while reviewing sources for a research textbook. Use it to find papers for a new question, check the evidence behind a draft, or work through a reading list over several sessions.
 
-- **Rule.** For each substantive claim, record what you actually read and point to the passage that supports it. Carry the study's assumptions and limits into the result. [Shared research group rules](AGENTS.md#shared-research-group-rules)
+- **Rule.** Read each source used as evidence in full and inspect the figures in the original paper. For each substantive claim, point to the passage that supports it. Carry the study's assumptions and limits into the result. [Shared research group rules](AGENTS.md#shared-research-group-rules)
 - **Skill.** `literature-review` takes you from finding and reading sources to comparing their evidence and deciding what belongs in the output. It includes an optional record for tracking sources, claims and figure decisions. [Literature review skill](skills/literature-review/SKILL.md)
 
 ### Git workflow and signatures
 
-Work on a separate branch and open a pull request into `develop` or `main`, according to the project's branch structure. Ask for approval before any direct commit or push to either branch and before each merge. Use the user's authorised identity for commits and signatures. [Git workflow](AGENTS.md#git-branches-and-pull-requests) · [Attribution and signatures](AGENTS.md#attribution-and-signatures)
+Work on a separate branch and open a pull request into `develop` or `main`, according to the project's branch structure. Ask for approval before any direct commit or push to either branch and before each merge. Delete temporary working branches after merge unless the user asks to keep them or another open pull request depends on them. Use the user's authorised identity for commits and signatures. [Git workflow](AGENTS.md#git-branches-and-pull-requests) · [Attribution and signatures](AGENTS.md#attribution-and-signatures)
 
 ## Third-party skills for research work
 
