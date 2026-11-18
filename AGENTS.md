@@ -12,6 +12,17 @@
 - When reviewing a draft, preserve its scientific claims, citations, units and degree of certainty. Use `no-ai-slop` for style feedback or a light edit when requested.
 - Use a task-specific skill when it fits the work. In a browser-only chat, the public skill files provide the workflow directly. The [skill catalogue](https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/skills/README.md) explains when to use each one.
 
+### Git branches and pull requests
+
+- Start code changes on a working branch. Get the user's explicit approval before committing or pushing directly to `develop` or `main`.
+- When the project uses `develop`, open a pull request from the working branch into `develop`. To promote the changes into `main`, open a separate pull request from `develop` into `main`. In a project that uses `main` as its integration branch, open the pull request from the working branch into `main`.
+- For each pull request, share its link and ask the user to confirm the merge before running it. Approval to open the pull request or merge into `develop` does not approve a merge into `main`. Enable auto-merge only with explicit approval for that pull request.
+
+### Attribution and signatures
+
+- Use the user's authorised identity for commits and sign-offs made on their behalf. If a document or message needs a signature, use the user's name. Omit AI signatures, bylines and `Co-authored-by` trailers that credit an AI tool.
+- Use the identity already configured for the user or supplied by them. If it is unavailable, ask for it. Keep any AI-use disclosure required by the project, institution or publisher.
+
 ## Project workflow
 
 <!-- Add project-specific conventions and the commands used to set up, run and check the work. -->
