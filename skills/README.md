@@ -4,7 +4,7 @@ Each link opens a `SKILL.md`. In ChatGPT, ask to read that file and the supporti
 
 ## Original toolkit skills
 
-[Literature review](literature-review/SKILL.md), by Lorenzo V. Mugnai, helps you find and read academic sources, check which claims each paper supports and decide what belongs in the synthesis. It works for an exploratory search, an update to an existing text or a review with a formal protocol. Use it when the outcome depends on the strength and limits of the evidence across studies.
+[Literature review](literature-review/SKILL.md) helps you find and read academic sources, check which claims each paper supports and decide what belongs in the synthesis. It works for an exploratory search, an update to an existing text or a review with a formal protocol. Use it when the outcome depends on the strength and limits of the evidence across studies.
 
 ## Writing
 
@@ -53,6 +53,7 @@ Each link opens a `SKILL.md`. In ChatGPT, ask to read that file and the supporti
 
 ## Sources and licences
 
+- **Literature review** is a toolkit contribution by Lorenzo V. Mugnai. See its [MIT licence](literature-review/LICENSE).
 - **No AI Slop** comes from [Peter Yang's repository at commit `000650b`](https://github.com/petergyang/no-ai-slop/tree/000650b156983f5159695b441477f4e63b25dc85). Its [MIT licence](no-ai-slop/LICENSE) is included with the skill.
 - **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This snapshot contains the 27 skills in the upstream plugin manifest. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata.
 
