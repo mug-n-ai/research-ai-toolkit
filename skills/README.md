@@ -2,6 +2,10 @@
 
 Each link opens a `SKILL.md`. In ChatGPT, ask to read that file and the supporting files it names. In Claude Code or OpenCode, [copy the skill directory into your project](../INSTALL.md#copying-skills). **By request** marks skills to invoke by name. A workflow that writes files, uses an issue tracker or delegates work needs a client with those capabilities.
 
+## Original toolkit skills
+
+[Literature review](literature-review/SKILL.md), by Lorenzo V. Mugnai, helps you find and read academic sources, check which claims each paper supports and decide what belongs in the synthesis. It works for an exploratory search, an update to an existing text or a review with a formal protocol. Use it when the outcome depends on the strength and limits of the evidence across studies.
+
 ## Writing
 
 [No AI Slop](no-ai-slop/SKILL.md), by [Peter Yang](https://github.com/petergyang/no-ai-slop), spots stock phrases, vague attributions and emphasis that adds little to a draft. Ask for a list of passages to revisit, or ask for an edit and a short account of what changed. For abstracts, reports and outreach copy, use it after you are happy with the substance. Check that any edit preserves the original claims, citations and uncertainty. The [editing checks](no-ai-slop/eval.md) cover both clarity and the author's voice. A flagged phrase tells you where the prose can improve. It gives you no basis for deciding who wrote the draft.

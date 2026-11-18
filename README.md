@@ -32,7 +32,16 @@ My task: [describe what you want to do]
 
 If web access is unavailable, paste or attach [`AGENTS.md`](AGENTS.md) and the relevant `SKILL.md` directly in the chat. For a project that already uses the toolkit, provide its own instruction file so ChatGPT can see the project-specific details.
 
-## Skills for research work
+## Original toolkit contributions
+
+### Literature review
+
+Lorenzo V. Mugnai developed this workflow while reviewing sources for a research textbook. Use it to find papers for a new question, check the evidence behind a draft, or work through a reading list over several sessions.
+
+- **Rule.** For each substantive claim, record what you actually read and point to the passage that supports it. Carry the study's assumptions and limits into the result. [Shared research group rules](AGENTS.md#shared-research-group-rules)
+- **Skill.** `literature-review` takes you from finding and reading sources to comparing their evidence and deciding what belongs in the output. It includes an optional record for tracking sources, claims and figure decisions. [Literature review skill](skills/literature-review/SKILL.md)
+
+## Third-party skills for research work
 
 - **Review a draft.** No AI Slop flags vague attributions, stock phrases and inflated wording. It can report the passages to check or make a light edit that preserves the author's voice. [No AI Slop](skills/README.md#writing)
 - **Plan and check research software.** Matt Pocock's skills help you work through a design before writing code, trace answers to primary sources, reproduce bugs and test changes in small steps. [Matt Pocock's skills](skills/README.md#matt-pococks-skills)
