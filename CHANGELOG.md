@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.3.0
 
 - Add `code-cleanup` to analyse dead code, unnecessary complexity, duplication and design consistency. It refactors and tests a named function, or prepares a prioritised action plan for an entire repository without changing the implementation.
 - Require a behaviour-based test whenever a new function or method is written, including standalone research scripts or one-off snippets without a test suite. Document how to run the test and report actual results or execution limits.
