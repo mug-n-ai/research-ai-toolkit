@@ -1,34 +1,35 @@
-# Rerun a calibration figure with an unknown seed
+# Reproduce Anscombe's quartet
 
-Use this example to try the [reproduce-analysis skill](../../skills/reproduce-analysis/SKILL.md). The reference run used a synthetic voltage calibration with a random perturbation for each temperature. The run record is missing its seed.
+In *Graphs in Statistical Analysis* (1973), Francis Anscombe constructed four datasets whose linear fits give nearly the same numerical summaries. The plots show why you would interpret the four fits differently. This example uses the [reproduce-analysis skill](../../skills/reproduce-analysis/SKILL.md) to check both parts of the result. [Published paper](https://doi.org/10.1080/00031305.1973.10478966) · [Scanned paper, §3 and Figures 1–4](https://garstats.wordpress.com/wp-content/uploads/2016/08/anscombe-as-1973.pdf#page=4)
 
 ## Input
 
-Share [the reference figure](reference/figure.svg), [its plotted values](reference/values.csv), [the inputs](inputs.csv) and [the plotting script](plot.py). The script and inputs here are the versions used for the reference. The reference used Python 3.12.14 and Matplotlib 3.10.8. Its run record lists the command as `python plot.py --seed <unrecorded> --output reference`.
+Use the [transcribed data](anscombe.csv) from the table on p. 19 and the [plotting script](plot.py). The column `x123` supplies the common predictor values for the first three datasets. The fourth dataset uses `x4`. Each has 11 observations.
 
-![Reference calibration figure showing simulated voltage in mV at four temperatures.](reference/figure.svg)
-
-> Use reproduce-analysis to rerun this figure. Keep the reference files and write new outputs elsewhere. If the reference seed is missing, run the supplied workflow with seed 7 to check that the code runs, then tell me what can be reproduced. Compare the voltages at the same temperatures using a tolerance of 0.01 mV per point, and check the axis labels and units.
+> Reproduce Figures 1–4 and the reported intercept, slope and R² from §3. Fit each dataset separately by ordinary least squares with an intercept. Preserve the input and save the new results in a separate directory. Compare the plotted points and lines to the original figures on common scales. Compare the intercept with 3 using an absolute tolerance of 0.005, and the slope and R² with 0.5 and 0.667 using an absolute tolerance of 0.001 each. Check what happens to the slope of set IV when you remove the point at x = 19.
 
 ## Run it
 
-From this directory, in a Python 3.12 environment with Matplotlib 3.10.8, run:
+From this directory, in a Python 3.12 environment, run:
 
 ```sh
-python plot.py --seed 7 --output rerun
+python -m pip install matplotlib==3.10.8
+python plot.py --output rerun
 ```
 
-This writes `rerun/figure.svg` and `rerun/values.csv`. Choose a fresh output directory if `rerun` already exists.
+The command writes `rerun/figure.svg` and `rerun/fits.csv`. Choose a fresh output directory for each run. The comparison below used Python 3.12.14 and Matplotlib 3.10.8. [Saved fit results](reference/fits.csv)
 
 ## Example output
 
-**Status.** Partly reproduced. The supplied code and input produced a figure with the same four temperatures, axis labels and units. All four rerun voltages fell outside the agreed tolerance of 0.01 mV.
+**Result.** The coefficients and R² agree with the published summary within the stated tolerances. Sets II and III round to 0.666 for R² at three decimal places. The values are close enough for the published comparison and still show small differences when reported at greater precision.
 
-| Temperature (°C) | Reference (mV) | Rerun with seed 7 (mV) | Absolute difference (mV) |
-| ---: | ---: | ---: | ---: |
-| 15 | 8.007 | 7.947 | 0.060 |
-| 20 | 8.292 | 8.095 | 0.197 |
-| 25 | 8.538 | 8.445 | 0.093 |
-| 30 | 8.537 | 8.472 | 0.065 |
+| Dataset | Intercept | Slope | R² |
+| --- | ---: | ---: | ---: |
+| I | 3.000091 | 0.500091 | 0.666542 |
+| II | 3.000909 | 0.500000 | 0.666242 |
+| III | 3.002455 | 0.499727 | 0.666324 |
+| IV | 3.001727 | 0.499909 | 0.666707 |
 
-**What remains open.** The largest difference is 0.197 mV at 20 °C. Seed 7 was a substitute for the test run. Recover the original seed or the saved perturbation values before checking whether the reference voltages can be reproduced to 0.01 mV.
+![Four scatterplots on common axes. Set I has scatter around the line. Set II curves. Set III has one point far above the others. Set IV has a column of points at x = 8 and a single point at x = 19.](reference/figure.svg)
+
+The four panels reproduce the patterns in the paper. Set I is reasonably described by a line. Set II curves. In set III, one point pulls the fitted line away from the pattern in the other points. In set IV, removing the point at x = 19 leaves all ten predictor values at x = 8. With no variation in x, the slope is undefined. The figure above is a new rendering from the published data.

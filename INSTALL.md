@@ -204,6 +204,8 @@ Run `setup-matt-pocock-skills` in the research project if your chosen workflow u
 
 If you already use the upstream Matt Pocock plugin, use that installation or the toolkit copies for that agent. Both use the same skill names.
 
+If an update to `main` removes a skill you linked from this clone, its symlink will no longer resolve. Check where it points with `ls -l` before removing the link. For OpenCode setups that list individual skill folders, remove the missing path from the configuration. To keep using a workflow from the original collection, use a separate [v0.1.0 clone](#choose-a-version) and install the skill with its companions. [Changelog](CHANGELOG.md)
+
 ## Verify the setup
 
 Open a fresh session from the project you intend to use. Check that the assistant can find both the toolkit rules and an installed skill before giving it research material. Substitute a skill from your selection for `literature-review` in the checks below if needed.

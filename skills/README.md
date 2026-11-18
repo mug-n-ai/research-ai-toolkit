@@ -34,37 +34,29 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 
 | Skill | When to use it | Companions |
 | --- | --- | --- |
-| [ask-matt](ask-matt/SKILL.md) | Find a workflow for the stage you are at. By request. | Install the skills you want it to suggest. |
 | [research](research/SKILL.md) | Ask a background agent to investigate a question against primary sources and write a cited Markdown note. | |
 | [grill-with-docs](grill-with-docs/SKILL.md) | Work through a design and record terms and durable decisions in a glossary and architecture decision records (ADRs). By request. | `grilling`, `domain-modeling` |
 | [domain-modeling](domain-modeling/SKILL.md) | Agree what a term means in your code and capture decisions future maintainers need to understand. | |
 | [prototype](prototype/SKILL.md) | Try an interface or state model in a disposable prototype before committing to a design. | |
 | [to-spec](to-spec/SKILL.md) | Turn an agreed discussion into a spec on your configured tracker. By request. | `setup-matt-pocock-skills` |
 | [to-tickets](to-tickets/SKILL.md) | Break an agreed plan into small, testable tickets and record what blocks each one. By request. | `setup-matt-pocock-skills` |
-| [wayfinder](wayfinder/SKILL.md) | Map the open decisions in a project that spans several sessions. By request. | `setup-matt-pocock-skills`, `grilling`, `domain-modeling`, plus `research` and `prototype` as needed |
 | [setup-matt-pocock-skills](setup-matt-pocock-skills/SKILL.md) | Set up the tracker, triage labels and location of the glossary and decision records in a project. By request. | |
 | [triage](triage/SKILL.md) | Decide what each issue needs next and apply the project's triage labels. By request. | `setup-matt-pocock-skills`, plus `grilling` and `domain-modeling` as needed |
 | [tdd](tdd/SKILL.md) | Change a small piece of behaviour by writing a test that fails first, implementing the change and running the test again. | `codebase-design` for interface questions |
 | [diagnosing-bugs](diagnosing-bugs/SKILL.md) | Reproduce a bug or performance regression, narrow it down, test a fix and capture a regression check. | |
 | [implement](implement/SKILL.md) | Carry out a spec or set of tickets on the current branch with tests and review. By request. | `tdd`, `code-review` |
-| [implement-spec](implement-spec/SKILL.md) | Implement a larger spec on an integration branch, using separate agents for tickets that can proceed in parallel. By request. | `setup-matt-pocock-skills`, `tdd`, `code-review` |
 | [code-review](code-review/SKILL.md) | Review a diff against both the project's coding standards and the scope of the original spec. | `setup-matt-pocock-skills` |
 | [pr](pr/SKILL.md) | Write a pull request description with a clear summary, before-and-after evidence and the risks of merging. | |
 | [codebase-design](codebase-design/SKILL.md) | Evaluate module boundaries and design interfaces that callers can use and test. | |
 | [improve-codebase-architecture](improve-codebase-architecture/SKILL.md) | Survey the code and discuss where a different module boundary could make it easier to change or test. By request. | `codebase-design`, `grilling`, `domain-modeling` |
 | [retro](retro/SKILL.md) | Use a recent coding session to find friction in the project instructions, tools or checks. By request. | `writing-for-agents` |
-| [wizard](wizard/SKILL.md) | Generate a guided shell script for setup or migration steps that need a person at the keyboard. | |
 
 ### Planning, handovers and learning
 
 | Skill | When to use it | Companions |
 | --- | --- | --- |
-| [grill-me](grill-me/SKILL.md) | Test a plan or a decision through questions before acting on it. By request. | `grilling` |
 | [grilling](grilling/SKILL.md) | Work through open questions in dependency order, using the repo for facts it already answers. | |
 | [handoff](handoff/SKILL.md) | Give the next session enough context to pick up work without rereading the whole conversation. By request. | |
-| [teach](teach/SKILL.md) | Learn a concept over several sessions with a record of progress and resources. By request. | |
-| [to-questionnaire](to-questionnaire/SKILL.md) | Turn open decisions into a short Markdown questionnaire for the person who can answer them. By request. | |
-| [wait-what](wait-what/SKILL.md) | Ask for a clearer explanation of the last answer in the terms used by the project. By request. | |
 | [writing-for-agents](writing-for-agents/SKILL.md) | Write or revise agent instructions and skills so the essential guidance is easy to find. | |
 
 ## Sources and licences
@@ -73,7 +65,7 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 - **Reproduce analysis** is an original toolkit skill under the [MIT licence](reproduce-analysis/LICENSE).
 - **Scientific analysis skills** come from [K-Dense Scientific Agent Skills at commit `ec59a29`](https://github.com/K-Dense-AI/scientific-agent-skills/tree/ec59a29a03d5c40f73ab40878df04860bc00e876). Each imported folder includes the upstream MIT notice. The toolkit copies use the client's usual tool permissions, and the units skill's commands resolve from its own directory.
 - **No AI Slop** comes from [Peter Yang's repository at commit `000650b`](https://github.com/petergyang/no-ai-slop/tree/000650b156983f5159695b441477f4e63b25dc85). Its [MIT licence](no-ai-slop/LICENSE) is included with the skill.
-- **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This snapshot contains the 27 skills in the upstream plugin manifest. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata.
+- **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This toolkit includes a selection of 19 skills from that snapshot. The tracker templates omit the Wayfinder setup. The [v0.1.0 release](https://github.com/mug-n-ai/research-ai-toolkit/releases/tag/v0.1.0) includes the original collection of 27. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata.
 
 ## Skill format
 

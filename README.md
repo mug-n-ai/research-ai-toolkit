@@ -61,11 +61,11 @@ If the assistant cannot open the links, paste or attach [`AGENTS.md`](AGENTS.md)
 
 ### Literature review
 
-Use `literature-review` to find papers, check a claim or continue a reading list. Read each source used as evidence in full and inspect its figures in the original paper. Record which passage supports the claim and the conditions that limit what you can conclude. [Skill instructions](skills/literature-review/SKILL.md) · [Worked example](examples/literature-review/README.md)
+Use `literature-review` to find papers, check a claim or continue a reading list. Read each source used as evidence in full and inspect its figures in the original paper. Record which passage supports the claim and the conditions that limit what you can conclude. [Skill instructions](skills/literature-review/SKILL.md) · [Example: sodium in HD 209458 b](examples/literature-review/README.md)
 
 ### Reproduce an analysis
 
-Use `reproduce-analysis` to trace a figure, table or number to its inputs, code and run settings. Rerun it in a separate output directory and record what matches, what differs and what you could not check. [Skill instructions](skills/reproduce-analysis/SKILL.md) · [Worked example](examples/reproduce-analysis/README.md)
+Use `reproduce-analysis` to trace a figure, table or number to its inputs, code and run settings. Rerun it in a separate output directory and record what matches, what differs and what you could not check. [Skill instructions](skills/reproduce-analysis/SKILL.md) · [Example: Anscombe's quartet](examples/reproduce-analysis/README.md)
 
 ### Third-party skills for research work
 
