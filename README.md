@@ -45,6 +45,8 @@ Start with the papers the group has checked, the versions of the code used in th
 
 ### Search the sources with Carsen
 
+Carsen is one example of a tool you can use to search a local knowledge base. You can use another search tool or work directly with the files in your repository.
+
 [Carsen](https://github.com/LorenzoMugnai/Carsen) indexes selected code and document folders locally. An assistant can query that index through the Model Context Protocol (MCP) and get back passages with source paths and line ranges. This gives you a place to check where an answer came from.
 
 You can ask a coding assistant with terminal access to install Carsen, configure it for your project and test it. Give it the paths to the folders you want to index and point it to the [Carsen setup guide for AI agents](https://github.com/LorenzoMugnai/Carsen/blob/main/docs/agent-setup.md).
@@ -68,3 +70,7 @@ me the file and line range returned by the search.
 | [`SKILL.md`](skills/README.md#skill-format) | Instructions for a particular task. A skill has a name, a description that says when to use it, and a workflow. Claude Code and OpenCode can load individual skills when they are relevant. |
 
 For installation paths and commands, see the [setup guide](INSTALL.md). The [skill catalogue](skills/README.md) links to each skill as it is added.
+
+## How this repository was made
+
+This entire repository was put together using ChatGPT through its web chat, including the documentation, project templates and integration of the third-party skills. The [skill catalogue](skills/README.md#sources-and-licences) credits the original authors and links to their licences.
