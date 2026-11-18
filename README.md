@@ -19,6 +19,7 @@ Use this toolkit when you want an AI assistant to help with your own research, f
 - “Check which papers support each claim in this paragraph. Read the full sources and inspect their original figures. Point me to the relevant passages and flag any claim you could not verify.” [Literature review](skills/literature-review/SKILL.md)
 - “Reproduce this figure using the data and code revision I supplied. Record the settings and seeds, save the new plot separately and report what differs.” [Reproduce analysis](skills/reproduce-analysis/SKILL.md)
 - “Check the units in this calculation and propagate the reported uncertainties. Tell me what correlation information you need and state what the final interval represents.” [Uncertainty and units](skills/uncertainty-and-units/SKILL.md)
+- “Audit this repository for dead code, unnecessary complexity and duplication. Follow the existing design decisions and give me a prioritised plan without changing files.” [Code cleanup](skills/code-cleanup/SKILL.md)
 
 ## Use the toolkit
 
@@ -67,6 +68,10 @@ Use `literature-review` to find papers, check a claim or continue a reading list
 
 Use `reproduce-analysis` to trace a figure, table or number to its inputs, code and run settings. Rerun it in a separate output directory and record what matches, what differs and what you could not check. [Skill instructions](skills/reproduce-analysis/SKILL.md) · [Example: Anscombe's quartet](examples/reproduce-analysis/README.md)
 
+### Clean up code
+
+Use `code-cleanup` when you want to find dead code, remove unnecessary complexity, reduce duplication or check whether an implementation still follows the project's design. **For a single function**, it makes a targeted refactor and tests the behaviour. **For a whole repository**, it identifies candidates and writes a prioritised plan without changing the implementation. Static-analysis findings are leads, not proof that code is safe to remove. [Skill instructions](skills/code-cleanup/SKILL.md) · [Cleanup plan template](skills/code-cleanup/cleanup-plan-template.md)
+
 ### Third-party skills for research work
 
 Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software, or K-Dense's workflows to inspect data, check units and prepare figures. The [skill catalogue](skills/README.md) explains when to use each one and lists its source, licence and companions.
@@ -87,9 +92,12 @@ Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software
 | [Branches and pull requests](AGENTS.md#git-branches-and-pull-requests) | Work on a separate branch. With `develop`, open a PR into it and a separate PR when promoting the changes to `main`. In a `main`-only project, open the PR there. Get explicit approval for any direct commit or push to either branch and for each merge. |
 | [Branch cleanup](AGENTS.md#git-branches-and-pull-requests) | Delete the temporary working branch after merge, unless the user asks to keep it or another open PR depends on it. |
 | [Versioning](AGENTS.md#versioning-on-main) | Before each update to `main`, recommend no bump, a patch, a minor or a major release and give the reason. Follow the project's release policy and flag any effect on compatibility or existing scientific results. |
+| [Tests for every new function](AGENTS.md#tests-for-every-new-function) | Add a behaviour-based test when creating a function or method. Use the existing test suite if available; otherwise write a small independent test. Run it and report the command and result, or state why execution is pending. |
 | [Docstrings](AGENTS.md#code-documentation-and-physics) | When adding or changing code, document its use cases, an example, the inputs and outputs, and the errors callers may encounter. |
 | [Physics in code](AGENTS.md#code-documentation-and-physics) | Explain the model, equations, units, assumptions and limits in the docstring. Use comments beside the calculations to explain the physical reasoning. |
 | [Signatures and attribution](AGENTS.md#attribution-and-signatures) | Use the user's authorised identity for commits and signatures. Keep any AI-use disclosure required by the project or publisher. |
+
+Even a short script or a function written directly in chat needs a test. You do not need to introduce an entire testing framework for a one-off function, but you should still check a normal case and meaningful edge cases, and distinguish a test you ran from one you only supplied.
 
 ### Keep a local knowledge base
 

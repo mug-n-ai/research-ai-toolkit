@@ -8,6 +8,8 @@ Each link opens a `SKILL.md`. An assistant can [pick an available skill from its
 
 [Reproduce analysis](reproduce-analysis/SKILL.md) traces a reported result to its inputs and run settings, reruns the workflow and compares the new output with the reference. It includes an optional [reproduction record](reproduce-analysis/reproduction-record.md).
 
+[Code cleanup](code-cleanup/SKILL.md) checks for dead code, avoidable complexity, duplication and inconsistencies with the project's design choices. For a named function it performs and tests a targeted refactor; for a repository it delivers a prioritised [cleanup plan](code-cleanup/cleanup-plan-template.md) without modifying the code. It complements `codebase-design` and `code-review`, rather than replacing either.
+
 ## Scientific analysis
 
 | Skill | When to use it |
@@ -63,6 +65,7 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 
 - **Literature review** is a toolkit contribution by Lorenzo V. Mugnai. See its [MIT licence](literature-review/LICENSE).
 - **Reproduce analysis** is an original toolkit skill under the [MIT licence](reproduce-analysis/LICENSE).
+- **Code cleanup** is an original toolkit skill under the [MIT licence](code-cleanup/LICENSE).
 - **Scientific analysis skills** come from [K-Dense Scientific Agent Skills at commit `ec59a29`](https://github.com/K-Dense-AI/scientific-agent-skills/tree/ec59a29a03d5c40f73ab40878df04860bc00e876). Each imported folder includes the upstream MIT notice. The toolkit copies use the client's usual tool permissions, and the units skill's commands resolve from its own directory.
 - **No AI Slop** comes from [Peter Yang's repository at commit `000650b`](https://github.com/petergyang/no-ai-slop/tree/000650b156983f5159695b441477f4e63b25dc85). Its [MIT licence](no-ai-slop/LICENSE) is included with the skill.
 - **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This toolkit includes a selection of 19 skills from that snapshot. The tracker templates omit the Wayfinder setup. The [v0.1.0 release](https://github.com/mug-n-ai/research-ai-toolkit/releases/tag/v0.1.0) includes the original collection of 27. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata.
