@@ -1,6 +1,6 @@
 # Skill catalogue
 
-Each link opens a `SKILL.md`. In ChatGPT, ask to read that file and the supporting files it names. In Claude Code or OpenCode, [copy the skill directory into your project](../INSTALL.md#copying-skills). **By request** marks skills to invoke by name. A workflow that writes files, uses an issue tracker or delegates work needs a client with those capabilities.
+Each link opens a `SKILL.md`. An assistant can [pick an available skill from its description](../README.md#how-the-assistant-chooses-a-skill). If you are working from the public catalogue in ChatGPT, paste the [toolkit prompt](../README.md#chatgpt) or ask ChatGPT to read the skill file and its references. In Claude Code or OpenCode, [copy the skill directory into your project](../INSTALL.md#copying-skills). **By request** marks skills to invoke by name. A workflow that writes files, uses an issue tracker or delegates work needs a client with those capabilities.
 
 ## Original toolkit skills
 

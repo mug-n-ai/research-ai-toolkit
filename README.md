@@ -40,6 +40,14 @@ If web access is unavailable, paste or attach [`AGENTS.md`](AGENTS.md) and the r
 
 A skill is a folder of instructions for a task you expect to do again. For example, if your group checks a simulation's convergence every time it changes the grid, a skill can tell the assistant which runs to compare, what to report and when to flag a discrepancy. `AGENTS.md` holds the rules that apply across the project. The skill holds the steps for this particular check.
 
+### How the assistant chooses a skill
+
+Once a skill is installed and available in the current project or workspace, the assistant can pick it up from a normal request. For example, “Check what evidence supports this paragraph” can bring in `literature-review` if its description matches the task. The assistant can use the name and description to decide what fits and then load the instructions in `SKILL.md`. You can name the skill if you want a particular workflow or if the assistant misses it.
+
+Claude Code, Codex, OpenCode and ChatGPT workspaces with Skills enabled support automatic selection for eligible skills. Request any skill marked **By request** by name. Your client settings also affect which skills are available and which can be picked automatically. [Claude Code skills](https://code.claude.com/docs/en/skills#control-who-invokes-a-skill) · [ChatGPT and Codex skills](https://learn.chatgpt.com/docs/build-skills) · [OpenCode skills](https://opencode.ai/docs/skills/#loading)
+
+If you are using the public toolkit without installing it, paste the [ChatGPT prompt above](#chatgpt) to give the assistant the catalogue for that conversation. If a specific workflow matters, give it the link to that skill's `SKILL.md`.
+
 ### Create a skill
 
 1. Pick a task and write down what you would give a colleague to do it. Include the inputs, the expected output and how you would check the result.
