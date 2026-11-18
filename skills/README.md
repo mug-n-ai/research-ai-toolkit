@@ -1,6 +1,6 @@
 # Skill catalogue
 
-Each link opens a `SKILL.md`. An assistant can [pick an available skill from its description](../README.md#how-the-assistant-chooses-a-skill). In a chat that can open public links, paste the [toolkit prompt](../README.md#use-the-toolkit-in-a-chat) or ask the assistant to read a specific skill and its references. For Claude Code and OpenCode, use the [installation guide](../INSTALL.md). **By request** marks skills to invoke by name. A workflow that runs code or uses an issue tracker needs a client with those capabilities.
+Each link opens a `SKILL.md`. An assistant can [pick an available skill from its description](../README.md#how-the-assistant-chooses-a-skill). In a chat that can open public links, paste the [toolkit prompt](../README.md#use-the-toolkit-in-a-chat) or ask the assistant to read a specific skill and its references. For Codex, Claude Code and OpenCode, use the [installation guide](../INSTALL.md). **By request** marks skills to invoke by name. A workflow that runs code or uses an issue tracker needs a client with those capabilities.
 
 ## Original toolkit skills
 

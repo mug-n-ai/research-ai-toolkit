@@ -11,8 +11,13 @@ Use this toolkit when you want an AI assistant to help with your own research, f
 | Tool | How to use the toolkit |
 | --- | --- |
 | Chat interfaces | Use the prompt below in any chat that can open public links, or share the files directly. |
+| Codex | Use one local clone across your projects, or install the rules and skills in a single project. [Codex setup](INSTALL.md#codex-from-the-clone) |
 | Claude Code | Use one local clone for all your projects, or copy the files into a single project. [Claude Code setup](INSTALL.md#claude-code-from-the-clone) |
 | OpenCode | Point OpenCode at the same clone, or copy the files into a single project. [OpenCode setup](INSTALL.md#opencode-from-the-clone) |
+
+### Install it with an assistant
+
+An assistant with terminal access on the machine where you run Codex, Claude Code or OpenCode can install the toolkit for you. Tell it which tools and scope you want. It can check your existing setup, choose how to make the rules and skills available, and verify the result. [Copy the setup prompt](INSTALL.md#ask-an-assistant-to-set-it-up)
 
 ## Use the toolkit in a chat
 
@@ -150,7 +155,7 @@ me the file and line range returned by the search.
 
 | File | When it is useful |
 | --- | --- |
-| [`AGENTS.md`](AGENTS.md) | Shared project instructions. OpenCode reads this file from the project. Put rules here when they should apply across tasks, and add the local context an assistant needs to work on the project. |
+| [`AGENTS.md`](AGENTS.md) | Shared project instructions. Codex and OpenCode read this file from the project. Put rules here when they should apply across tasks, and add the local context an assistant needs to work on the project. |
 | [`CLAUDE.md`](CLAUDE.md) | Claude Code's project instruction file. This template imports the neighbouring `AGENTS.md` with `@AGENTS.md`, so both tools can use the same shared text. Claude-specific instructions can go below the import. |
 | [`SKILL.md`](skills/README.md#skill-format) | Instructions for a particular task. A skill has a name, a description that says when to use it, and a workflow. Claude Code and OpenCode can load individual skills when they are relevant. |
 

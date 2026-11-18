@@ -10,6 +10,39 @@ toolkit_dir="$HOME/.local/share/research-ai-toolkit"
 
 Use the same `toolkit_dir` in the rest of this guide. If you cloned the repository somewhere else, substitute that path.
 
+## Ask an assistant to set it up
+
+Paste this into an assistant session with terminal access on the machine where you run your tools. For a remote machine, run it in a session that can access that machine.
+
+```text
+Install Research AI Toolkit for [Codex, Claude Code, OpenCode, or several].
+Use it [across my projects or only in this project].
+Read https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/INSTALL.md.
+
+Check my OS, installed client versions and current configuration. Choose a
+supported setup for each client. Reuse an existing clone if available.
+Keep my existing instructions, settings and skills. Report any name clashes.
+Verify that the toolkit rules and literature-review are discoverable in the
+requested scope. Tell me what you changed and how to update the toolkit.
+If you cannot access the machine or start a client, tell me what remains to do.
+```
+
+## Codex from the clone
+
+Codex loads personal instructions from its configuration directory, normally `~/.codex`. Use `CODEX_HOME` if it is set. If that directory already has a non-empty `AGENTS.override.md`, add the toolkit rules there. Otherwise use its `AGENTS.md`. Merge the rules into the existing file if there is one. If neither file exists, you can link the toolkit's `AGENTS.md` directly.
+
+```sh
+codex_config_dir="${CODEX_HOME:-$HOME/.codex}"
+mkdir -p "$codex_config_dir"
+if [ ! -s "$codex_config_dir/AGENTS.override.md" ] &&
+   [ ! -e "$codex_config_dir/AGENTS.md" ] &&
+   [ ! -L "$codex_config_dir/AGENTS.md" ]; then
+    ln -s "$toolkit_dir/AGENTS.md" "$codex_config_dir/AGENTS.md"
+fi
+```
+
+For the skills, run the [linking commands below](#link-skills-from-the-clone) with `skill_root="$HOME/.agents/skills"`. Start a new Codex session in the intended project and look for `literature-review` in `/skills`. Check that Codex can see the toolkit instructions too. A pull in the clone updates linked files. If you merged the rules into an existing personal file, compare that file with the updated toolkit rules.
+
 ## Claude Code from the clone
 
 Add one import line to your personal `~/.claude/CLAUDE.md`. The command below prints the line with your full path. Paste it into the file as plain text on its own line, outside a code block. The toolkit's `CLAUDE.md` imports the `AGENTS.md` beside it.
@@ -20,15 +53,20 @@ printf '@%s/CLAUDE.md\n' "$toolkit_dir"
 
 If the path includes spaces, escape each one with a backslash in the import line. Keep any instructions already in your personal file.
 
-Claude Code discovers skills through its personal skills directory. Link each toolkit skill so the files stay in your clone.
+Claude Code discovers skills through its personal directory. Run the [linking commands below](#link-skills-from-the-clone) with `skill_root="$HOME/.claude/skills"`. Start Claude Code from one of your research projects. Check the instructions with `/memory` and look for `/literature-review`.
+
+### Link skills from the clone
+
+Set `skill_root` for your client in the first line, then run the loop. It leaves existing skills in place.
 
 ```sh
-mkdir -p "$HOME/.claude/skills"
+skill_root="$HOME/.claude/skills"  # Use "$HOME/.agents/skills" for Codex.
+mkdir -p "$skill_root"
 for skill_file in "$toolkit_dir"/skills/*/SKILL.md; do
     [ -f "$skill_file" ] || continue
     skill_dir=${skill_file%/SKILL.md}
     skill_name=${skill_dir##*/}
-    skill_target="$HOME/.claude/skills/$skill_name"
+    skill_target="$skill_root/$skill_name"
     if [ -e "$skill_target" ] || [ -L "$skill_target" ]; then
         printf 'Keeping existing skill %s\n' "$skill_name"
         continue
@@ -37,7 +75,7 @@ for skill_file in "$toolkit_dir"/skills/*/SKILL.md; do
 done
 ```
 
-Start Claude Code from one of your research projects. Check the instructions with `/memory` and try a linked skill, for example `/literature-review`. For updates, run `git -C "$toolkit_dir" pull --ff-only`. The existing links use the updated files. Run the loop again to pick up new skill names.
+For updates, run `git -C "$toolkit_dir" pull --ff-only`. The existing links use the updated files. Run the loop again to pick up new skill names.
 
 ## OpenCode from the clone
 
@@ -65,27 +103,19 @@ On OpenCode v1, put the skill directory in `skills.paths`. Replace `/absolute/pa
 }
 ```
 
-### Ask an assistant to set it up
-
-Use this prompt in a session with access to the terminal on the machine where you run your tools.
-
-```text
-Set up Research AI Toolkit for my account in [Claude Code, OpenCode, or both].
-Follow https://github.com/mug-n-ai/research-ai-toolkit/blob/main/INSTALL.md.
-Reuse my existing clone if there is one. Keep my current instructions,
-configuration and installed skills. Check that the toolkit's instructions
-and literature-review skill are available from a separate project.
-```
-
 ## Shared project instructions
 
-Use `AGENTS.md` in both Claude Code and OpenCode. If your project already has one, open both files and integrate the toolkit guidance alongside the instructions that belong to the project. For a project without an `AGENTS.md`, copy the starter file and fill in the project sections as needed.
+Use `AGENTS.md` in Codex, Claude Code and OpenCode. If your project already has one, open both files and integrate the toolkit guidance alongside the instructions that belong to the project. For a project without an `AGENTS.md`, copy the starter file and fill in the project sections as needed.
 
 ```sh
 cp -n "$toolkit_dir/AGENTS.md" ./AGENTS.md
 ```
 
 The `-n` option preserves an existing file. Commit the resulting `AGENTS.md` if you want those instructions versioned with the project.
+
+## Codex
+
+With `AGENTS.md` in place, use `.agents/skills/` as the destination when [copying skills](#copying-skills). Start a new Codex session from the project and check the skill in `/skills`.
 
 ## Claude Code
 
@@ -109,7 +139,7 @@ Choose a skill from the [catalogue](skills/README.md). Copy the whole `skills/<s
 
 ```sh
 skill_name="skill-name-from-the-catalogue"
-skill_destination=".claude/skills"  # Use .opencode/skills for OpenCode.
+skill_destination=".claude/skills"  # Use .agents/skills for Codex or .opencode/skills for OpenCode.
 skill_target="$skill_destination/$skill_name"
 
 if [ -f "$toolkit_dir/skills/$skill_name/SKILL.md" ] &&
@@ -142,6 +172,7 @@ If you already use the upstream Matt Pocock plugin, use that installation or the
 
 ## Official documentation
 
+- [Codex project instructions](https://learn.chatgpt.com/docs/agent-configuration/agents-md) and [skills](https://learn.chatgpt.com/docs/build-skills)
 - [Claude Code project instructions](https://code.claude.com/docs/en/memory) and [skills](https://code.claude.com/docs/en/skills)
 - [OpenCode project instructions](https://opencode.ai/docs/instructions/) and [skills](https://opencode.ai/docs/skills/)
 - [Searching the web with ChatGPT](https://help.openai.com/en/articles/9237897-chatgpt-search)
