@@ -1,10 +1,22 @@
 # Skill catalogue
 
-Each link opens a `SKILL.md`. An assistant can [pick an available skill from its description](../README.md#how-the-assistant-chooses-a-skill). If you are working from the public catalogue in ChatGPT, paste the [toolkit prompt](../README.md#chatgpt) or ask ChatGPT to read the skill file and its references. In Claude Code or OpenCode, [copy the skill directory into your project](../INSTALL.md#copying-skills). **By request** marks skills to invoke by name. A workflow that writes files, uses an issue tracker or delegates work needs a client with those capabilities.
+Each link opens a `SKILL.md`. An assistant can [pick an available skill from its description](../README.md#how-the-assistant-chooses-a-skill). In a chat that can open public links, paste the [toolkit prompt](../README.md#use-the-toolkit-in-a-chat) or ask the assistant to read a specific skill and its references. For Claude Code and OpenCode, use the [installation guide](../INSTALL.md). **By request** marks skills to invoke by name. A workflow that runs code or uses an issue tracker needs a client with those capabilities.
 
 ## Original toolkit skills
 
 [Literature review](literature-review/SKILL.md) helps you find and read papers, work out what each study supports and decide which results belong in the synthesis. You can use it for an exploratory search, to revise a draft or to carry out a review with a formal protocol. When you compare studies, record where their evidence agrees and what its limits allow you to conclude.
+
+[Reproduce analysis](reproduce-analysis/SKILL.md) traces a reported result to its inputs and run settings, reruns the workflow and compares the new output with the reference. It includes an optional [reproduction record](reproduce-analysis/reproduction-record.md).
+
+## Scientific analysis
+
+| Skill | When to use it |
+| --- | --- |
+| [Exploratory data analysis](exploratory-data-analysis/SKILL.md) | Check the structure of local data, missing values, outliers and sensitivity to transformations before fitting a model. The core tools handle CSV, TSV and JSON. See the skill's capability matrix for other formats. |
+| [Uncertainty and units](uncertainty-and-units/SKILL.md) | Check dimensions and orders of magnitude, propagate correlated uncertainties and report what an uncertainty interval means. |
+| [Scientific visualisation](scientific-visualization/SKILL.md) | Build or audit figures from your data. Check how the plot shows uncertainty, missing data and comparisons, then choose a suitable export format. |
+
+The three skills in this section come from K-Dense. They include optional local Python tools. Check the requirements in each skill for the workflow you need.
 
 ## Writing
 
@@ -47,13 +59,15 @@ Each link opens a `SKILL.md`. An assistant can [pick an available skill from its
 | [grilling](grilling/SKILL.md) | Work through open questions in dependency order, using the repo for facts it already answers. | |
 | [handoff](handoff/SKILL.md) | Give the next session enough context to pick up work without rereading the whole conversation. By request. | |
 | [teach](teach/SKILL.md) | Learn a concept over several sessions with a record of progress and resources. By request. | |
-| [to-questionnaire](to-questionnaire/SKILL.md) | Turn open decisions into a short Markdown questionnaire for the colleague who can answer them. By request. | |
+| [to-questionnaire](to-questionnaire/SKILL.md) | Turn open decisions into a short Markdown questionnaire for the person who can answer them. By request. | |
 | [wait-what](wait-what/SKILL.md) | Ask for a clearer explanation of the last answer in the terms used by the project. By request. | |
 | [writing-for-agents](writing-for-agents/SKILL.md) | Write or revise agent instructions and skills so the essential guidance is easy to find. | |
 
 ## Sources and licences
 
 - **Literature review** is a toolkit contribution by Lorenzo V. Mugnai. See its [MIT licence](literature-review/LICENSE).
+- **Reproduce analysis** is an original toolkit skill under the [MIT licence](reproduce-analysis/LICENSE).
+- **Scientific analysis skills** come from [K-Dense Scientific Agent Skills at commit `ec59a29`](https://github.com/K-Dense-AI/scientific-agent-skills/tree/ec59a29a03d5c40f73ab40878df04860bc00e876). Each imported folder includes the upstream MIT notice. The toolkit copies use the client's usual tool permissions, and the units skill's commands resolve from its own directory.
 - **No AI Slop** comes from [Peter Yang's repository at commit `000650b`](https://github.com/petergyang/no-ai-slop/tree/000650b156983f5159695b441477f4e63b25dc85). Its [MIT licence](no-ai-slop/LICENSE) is included with the skill.
 - **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This snapshot contains the 27 skills in the upstream plugin manifest. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata.
 

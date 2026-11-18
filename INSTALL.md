@@ -1,15 +1,80 @@
 # Install the toolkit
 
-These steps install the toolkit in an existing research project. The commands use Git and a shell such as Bash or Zsh. Clone the toolkit somewhere convenient, then open the root of the research project where you want to use it.
+Clone the toolkit once to use the same instructions and skills across your own projects. The examples use Git and a shell such as Bash or Zsh. You can also [copy files into one project](#shared-project-instructions) if it needs its own snapshot.
 
 ```sh
-git clone https://github.com/mug-n-ai/research-ai-toolkit.git
+mkdir -p "$HOME/.local/share"
+git clone https://github.com/mug-n-ai/research-ai-toolkit.git "$HOME/.local/share/research-ai-toolkit"
+toolkit_dir="$HOME/.local/share/research-ai-toolkit"
 ```
 
-From the research project, set `toolkit_dir` to the absolute path of that clone. Use this shell for the remaining commands.
+Use the same `toolkit_dir` in the rest of this guide. If you cloned the repository somewhere else, substitute that path.
+
+## Claude Code from the clone
+
+Add one import line to your personal `~/.claude/CLAUDE.md`. The command below prints the line with your full path. Paste it into the file as plain text on its own line, outside a code block. The toolkit's `CLAUDE.md` imports the `AGENTS.md` beside it.
 
 ```sh
-toolkit_dir="/absolute/path/to/research-ai-toolkit"
+printf '@%s/CLAUDE.md\n' "$toolkit_dir"
+```
+
+If the path includes spaces, escape each one with a backslash in the import line. Keep any instructions already in your personal file.
+
+Claude Code discovers skills through its personal skills directory. Link each toolkit skill so the files stay in your clone.
+
+```sh
+mkdir -p "$HOME/.claude/skills"
+for skill_file in "$toolkit_dir"/skills/*/SKILL.md; do
+    [ -f "$skill_file" ] || continue
+    skill_dir=${skill_file%/SKILL.md}
+    skill_name=${skill_dir##*/}
+    skill_target="$HOME/.claude/skills/$skill_name"
+    if [ -e "$skill_target" ] || [ -L "$skill_target" ]; then
+        printf 'Keeping existing skill %s\n' "$skill_name"
+        continue
+    fi
+    ln -s "$skill_dir" "$skill_target"
+done
+```
+
+Start Claude Code from one of your research projects. Check the instructions with `/memory` and try a linked skill, for example `/literature-review`. For updates, run `git -C "$toolkit_dir" pull --ff-only`. The existing links use the updated files. Run the loop again to pick up new skill names.
+
+## OpenCode from the clone
+
+In OpenCode v2, add the toolkit paths to your personal `~/.config/opencode/opencode.json` or `opencode.jsonc`. Append the values to any existing `instructions` and `skills` arrays. This example uses the default clone location above.
+
+```json
+{
+  "instructions": ["~/.local/share/research-ai-toolkit/AGENTS.md"],
+  "skills": ["~/.local/share/research-ai-toolkit/skills"]
+}
+```
+
+Start a new OpenCode session from a research project and ask it to use `@literature-review`. OpenCode reads the rules from `AGENTS.md` and discovers the skill folders under the configured path. A pull in the clone makes new and updated skills available to new sessions.
+
+If OpenCode already discovers the toolkit skills through `~/.claude/skills/`, the `instructions` entry is enough.
+
+On OpenCode v1, put the skill directory in `skills.paths`. Replace `/absolute/path/to/research-ai-toolkit` with the full path to your clone and merge these entries into your existing configuration. [OpenCode configuration changes from v1 to v2](https://opencode.ai/docs/migrate-v1/#skills)
+
+```json
+{
+  "instructions": ["/absolute/path/to/research-ai-toolkit/AGENTS.md"],
+  "skills": {
+    "paths": ["/absolute/path/to/research-ai-toolkit/skills"]
+  }
+}
+```
+
+### Ask an assistant to set it up
+
+Use this prompt in a session with access to the terminal on the machine where you run your tools.
+
+```text
+Set up Research AI Toolkit for my account in [Claude Code, OpenCode, or both].
+Follow https://github.com/mug-n-ai/research-ai-toolkit/blob/main/INSTALL.md.
+Reuse my existing clone if there is one. Keep my current instructions,
+configuration and installed skills. Check that the toolkit's instructions
+and literature-review skill are available from a separate project.
 ```
 
 ## Shared project instructions
@@ -20,7 +85,7 @@ Use `AGENTS.md` in both Claude Code and OpenCode. If your project already has on
 cp -n "$toolkit_dir/AGENTS.md" ./AGENTS.md
 ```
 
-The `-n` option preserves an existing file. Commit the resulting `AGENTS.md` to your project if the team should share it.
+The `-n` option preserves an existing file. Commit the resulting `AGENTS.md` if you want those instructions versioned with the project.
 
 ## Claude Code
 
@@ -71,7 +136,7 @@ catalogue, including their supporting files, using the destination for [Claude
 Code or OpenCode]. Keep existing skill directories and report any name clashes.
 ```
 
-Run `setup-matt-pocock-skills` in the research project if your chosen workflow uses an issue tracker, triage labels or the project's glossary and decision records. This setup lets you choose local Markdown for tracking work. In browser-only ChatGPT, ask for a local draft of a spec or tickets in the chat if the tracker is unavailable.
+Run `setup-matt-pocock-skills` in the research project if your chosen workflow uses an issue tracker, triage labels or the project's glossary and decision records. This setup lets you choose local Markdown for tracking work. In a chat without access to the tracker, ask for a draft of the spec or tickets in the conversation.
 
 If you already use the upstream Matt Pocock plugin, use that installation or the toolkit copies for that agent. Both use the same skill names.
 

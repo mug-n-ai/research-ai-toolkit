@@ -4,13 +4,13 @@
 
 <!-- Add a short description of the project and point to any files that explain its structure. -->
 
-## Shared research group rules
+## Research practice
 
-<!-- Add the group's agreed guidance here. -->
+<!-- Add any guidance that applies to your research projects. -->
 
 - **Literature review.** Read each source used as evidence in full and inspect its figures directly in the original paper. Record what you were able to read and see. Trace substantive claims to specific passages in the original sources and carry their assumptions and limitations into the synthesis. Use `literature-review` for the full workflow.
 - When reviewing a draft, preserve its scientific claims, citations, units and degree of certainty. Use `no-ai-slop` for style feedback or a light edit when requested.
-- Use a task-specific skill when it fits the work. In a browser-only chat, the public skill files provide the workflow directly. The [skill catalogue](https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/skills/README.md) explains when to use each one.
+- Use a task-specific skill when it fits the work. In a chat without installed skills, read the public skill files or use the copies provided by the user. The [skill catalogue](https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/skills/README.md) explains when to use each one.
 
 ### Git branches and pull requests
 
