@@ -1,5 +1,9 @@
 # Research AI Toolkit
 
+[![Licence: MIT](docs/badges/licence.svg)](LICENSE)
+[![Agent Skills: Catalogue](docs/badges/skills.svg)](skills/README.md)
+[![Contributions welcome](docs/badges/contributing.svg)](CONTRIBUTING.md)
+
 A shared starting point for using AI in research projects. The toolkit gives a research group one place to keep project instructions and reusable workflows, from checking a draft to testing a change in an analysis pipeline.
 
 ## Choose your tool
@@ -31,6 +35,54 @@ My task: [describe what you want to do]
 ```
 
 If web access is unavailable, paste or attach [`AGENTS.md`](AGENTS.md) and the relevant `SKILL.md` directly in the chat. For a project that already uses the toolkit, provide its own instruction file so ChatGPT can see the project-specific details.
+
+## What is a skill?
+
+A skill is a folder of instructions for a task you expect to do again. For example, if your group checks a simulation's convergence every time it changes the grid, a skill can tell the assistant which runs to compare, what to report and when to flag a discrepancy. `AGENTS.md` holds the rules that apply across the project. The skill holds the steps for this particular check.
+
+### Create a skill
+
+1. Pick a task and write down what you would give a colleague to do it. Include the inputs, the expected output and how you would check the result.
+2. Create `skills/<skill-name>/SKILL.md` in the toolkit. Start with a YAML header containing `name` and `description`, then write the workflow in Markdown. Use a lowercase, hyphenated name that matches the folder. The description should say what the skill does and when to use it.
+3. Keep any templates or reference files in the skill folder and link to them from `SKILL.md` with relative paths. Try the instructions on a real example and a case with missing inputs. Add the skill to the [catalogue](skills/README.md) if you are contributing it to the toolkit.
+
+For example, save this file as `skills/check-simulation-convergence/SKILL.md`.
+
+```markdown
+---
+name: check-simulation-convergence
+description: Compare results across grid resolutions. Use after a simulation grid changes or when checking convergence.
+---
+
+# Check simulation convergence
+
+1. Take the run outputs, the quantity to compare and the tolerance.
+   Ask for any input that is missing.
+2. Check that the runs use the same physical setup and report in the same units.
+   Compare the quantity between successive resolutions.
+3. Return a table with the resolutions, values and differences. State which
+   comparisons meet the tolerance and which still need checking.
+```
+
+### Ask Claude or ChatGPT to write it
+
+Copy this prompt and replace the examples in brackets with details from your project.
+
+```text
+Create a reusable Agent Skill for [task we repeat].
+It should take [inputs] and produce [output].
+Here is an example of how we do it now [paste an example or link to it].
+The result is ready when [checks].
+
+Write a SKILL.md with a name and a description that says when to use it.
+Include the steps, the checks and what to do if an input is missing.
+Add supporting files only if the workflow needs them and link them by
+relative path. Show how to try the skill on the example above.
+```
+
+In **Claude Code**, ask it to write the folder under `.claude/skills/` in your project, then try `/<skill-name>`. For **OpenCode**, use `.opencode/skills/`. If you are contributing to this toolkit, keep the source under `skills/` and follow the [installation guide](INSTALL.md#copying-skills) to try it in a project.
+
+In **ChatGPT or Claude in a browser**, ask for the complete `SKILL.md` and any supporting files. You can attach them or paste the instructions into a new chat and ask the assistant to apply them. If your ChatGPT workspace has a **Skills** menu, you can also create or upload skills there under **Create**. [Skills in ChatGPT](https://help.openai.com/en/articles/20001066-skills-in-chatgpt)
 
 ## Original toolkit contributions
 
