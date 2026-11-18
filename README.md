@@ -1,10 +1,18 @@
 # Research AI Toolkit
 
+*Reusable AI skills and guidelines for scientific research.*
+
+[![Latest release](https://img.shields.io/github/v/release/mug-n-ai/research-ai-toolkit?label=release&color=315588)](https://github.com/mug-n-ai/research-ai-toolkit/releases/latest)
+[![Toolkit checks](https://github.com/mug-n-ai/research-ai-toolkit/actions/workflows/check.yml/badge.svg?branch=main)](https://github.com/mug-n-ai/research-ai-toolkit/actions/workflows/check.yml)
+[![Skill count](https://img.shields.io/github/directory-file-count/mug-n-ai/research-ai-toolkit/skills?type=dir&label=skills&color=315588)](skills/README.md)
 [![Licence: MIT](docs/badges/licence.svg)](LICENSE)
-[![Agent Skills: Catalogue](docs/badges/skills.svg)](skills/README.md)
 [![Contributions welcome](docs/badges/contributing.svg)](CONTRIBUTING.md)
 
+**Works with:** [![Claude Code](https://img.shields.io/badge/Claude_Code-353B45?logo=anthropic&logoColor=white)](INSTALL.md#claude-code-from-the-clone) [![Codex](https://img.shields.io/badge/Codex-353B45?logo=openai&logoColor=white)](INSTALL.md#codex-from-the-clone) [![OpenCode](https://img.shields.io/badge/OpenCode-353B45?logo=opencode&logoColor=white)](INSTALL.md#opencode-from-the-clone) [![ChatGPT](https://img.shields.io/badge/ChatGPT-353B45?logo=openai&logoColor=white)](#use-the-toolkit-in-a-chat) and other chat interfaces that can read public links.
+
 Use this toolkit when you want an AI assistant to help with your own research, from checking the evidence behind a draft to rerunning an analysis.
+
+**Core principles:** Verify sources · Reproduce results · Reuse workflows
 
 ## Contents
 
@@ -14,7 +22,10 @@ Use this toolkit when you want an AI assistant to help with your own research, f
 
 ## Quick start
 
-[Use the chat prompt](#use-the-toolkit-in-a-chat) or [install the toolkit](INSTALL.md), then give the assistant a task and the material it needs. Here are three requests to adapt.
+[Use the chat prompt](#use-the-toolkit-in-a-chat) or [install the toolkit](INSTALL.md), then give the assistant a task and the material it needs. Here are four requests to adapt.
+
+> [!TIP]
+> **You can ask an AI assistant to install the toolkit.** Give Claude Code, Codex or OpenCode the [setup prompt](INSTALL.md#ask-an-assistant-to-set-it-up). It should check your existing configuration, preserve your settings and verify the installation.
 
 - “Check which papers support each claim in this paragraph. Read the full sources and inspect their original figures. Point me to the relevant passages and flag any claim you could not verify.” [Literature review](skills/literature-review/SKILL.md)
 - “Reproduce this figure using the data and code revision I supplied. Record the settings and seeds, save the new plot separately and report what differs.” [Reproduce analysis](skills/reproduce-analysis/SKILL.md)
@@ -40,6 +51,9 @@ An assistant with terminal access on the machine where you run Codex, Claude Cod
 
 Paste this prompt into ChatGPT, Claude, or any other assistant that can open public links. Replace the last line with your task. The assistant can then read the rules and choose a relevant workflow for that conversation.
 
+<details>
+<summary>Show the prompt for a web chat</summary>
+
 ```text
 Use the Research AI Toolkit for this conversation.
 Read the README and AGENTS.md at these URLs before starting:
@@ -55,6 +69,8 @@ Tell me if you cannot fetch a file you need so I can paste or attach it.
 
 My task: [describe what you want to do]
 ```
+
+</details>
 
 If the assistant cannot open the links, paste or attach [`AGENTS.md`](AGENTS.md), the relevant `SKILL.md` and any supporting files it needs. For a project that already uses the toolkit, share its own instruction file for project-specific details.
 
@@ -101,6 +117,9 @@ Even a short script or a function written directly in chat needs a test. You do 
 
 ### Keep a local knowledge base
 
+> [!IMPORTANT]
+> **Keep scientific work traceable.** Check AI-generated claims and citations against the original sources, and verify calculations and numerical results before relying on them. Use only approved tools and environments for unpublished manuscripts and restricted research data.
+
 Keep checked papers, code revisions and methods notes where the assistant can read them. Record the DOI or original link for each paper and ask the assistant to cite the passage behind each substantive claim. Before sharing unpublished work or restricted data, check which tools and providers can access it. [Research practice](AGENTS.md#research-practice)
 
 [Carsen](https://github.com/LorenzoMugnai/Carsen) is one example. It indexes local files and returns passages with their file paths and line ranges through MCP. You can ask an assistant with terminal access to install it, configure it to index your folders and test a search. [Carsen setup guide for AI agents](https://github.com/LorenzoMugnai/Carsen/blob/main/docs/agent-setup.md)
@@ -114,6 +133,21 @@ A skill is a folder of instructions for a task you expect to repeat. Its `SKILL.
 Codex, Claude Code, OpenCode and ChatGPT workspaces with Skills enabled can select eligible skills from their descriptions. For example, “Check what evidence supports this paragraph” can bring in `literature-review`. Request skills marked **By request** by name and check your client's settings if a skill is missing. Without installed skills, the [chat prompt](#use-the-toolkit-in-a-chat) points the assistant to the public catalogue.
 
 To create your own skill, follow the [instructions in CONTRIBUTING.md](CONTRIBUTING.md#create-a-skill). They include an example `SKILL.md` and a prompt you can give an assistant.
+
+### How the pieces fit together
+
+The project rules and task-specific skills do different jobs. `AGENTS.md` provides guidance shared across research tasks, while the selected `SKILL.md` describes the steps for a particular workflow. Claude Code can import those rules through `CLAUDE.md`. In a web chat, the prompt above asks the assistant to fetch the same files.
+
+```mermaid
+flowchart LR
+    TASK["Research task"] --> AI["AI assistant"]
+    RULES["AGENTS.md: shared rules"] --> AI
+    CLAUDE["CLAUDE.md: Claude Code import"] --> RULES
+    SKILL["Relevant SKILL.md: task workflow"] --> AI
+    AI --> RESULT["Evidence, tests and reported limits"]
+```
+
+Which skills and checks can actually run depends on the client and its available tools. The [installation guide](INSTALL.md) explains how each client finds the rules and skills.
 
 ## Optional tools
 

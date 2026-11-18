@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Refine the README with a short project description, live release, CI and skill-count badges, and a linked row of supported clients.
+- Add two GitHub alerts for installation and responsible research use, make the web-chat prompt collapsible, and explain how shared rules and selected skills fit together in a Mermaid diagram.
+- Keep the existing table of contents, with no logo or extra navigation block.
+
 ## 0.3.0
 
 - Add `code-cleanup` to analyse dead code, unnecessary complexity, duplication and design consistency. It refactors and tests a named function, or prepares a prioritised action plan for an entire repository without changing the implementation.
