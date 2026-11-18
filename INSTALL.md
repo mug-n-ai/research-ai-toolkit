@@ -170,6 +170,11 @@ Run `setup-matt-pocock-skills` in the research project if your chosen workflow u
 
 If you already use the upstream Matt Pocock plugin, use that installation or the toolkit copies for that agent. Both use the same skill names.
 
+## Optional AI footprint hook
+
+To see estimated electricity, water and CO₂e after each reply in Claude Code
+or Codex, follow the [hook setup and activation guide](integrations/ai-footprint/README.md).
+
 ## Official documentation
 
 - [Codex project instructions](https://learn.chatgpt.com/docs/agent-configuration/agents-md) and [skills](https://learn.chatgpt.com/docs/build-skills)

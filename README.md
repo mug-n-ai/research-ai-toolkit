@@ -127,6 +127,29 @@ Use `reproduce-analysis` when you have a figure, table or number and want to fin
 - **Plan and check research software.** Matt Pocock's skills help you work through a design before writing code, trace answers to primary sources, reproduce bugs and test changes in small steps. [Matt Pocock's skills](skills/README.md#matt-pococks-skills)
 - **Check data, calculations and plots.** Use K-Dense's skills to inspect missing data and outliers, check units and propagate uncertainty, or prepare a figure that shows the data clearly. [Scientific analysis skills](skills/README.md#scientific-analysis)
 
+## Estimate the footprint of a reply
+
+Claude Code and Codex can show a line after each reply with the estimated
+electricity (Wh), water (mL) and emissions (g CO₂e) for that turn. The
+calculation uses the token counts from the local transcript and the
+[ai-footprint](https://github.com/abreparentesis/ai-footprint) model. The water
+estimate includes both data-centre cooling and electricity generation. The
+data centre and its actual consumption are unknown, so the figures depend on
+the scenario you choose.
+
+The feature is off by default. [Set up the hook once](integrations/ai-footprint/README.md)
+in Claude Code or Codex, then start a session with:
+
+```sh
+RESEARCH_AI_FOOTPRINT=1 claude
+# or
+RESEARCH_AI_FOOTPRINT=1 codex
+```
+
+To switch it off, start the client normally. This feature requires the local
+client and its transcript. The toolkit prompt for ChatGPT or Claude in a
+browser cannot enable it.
+
 ## Keep a local knowledge base
 
 If you ask an assistant why a parameter was fixed in an analysis, the answer should point you to the code, the methods notes or the paper that explains the choice. A plausible answer can still get the reason wrong. Keep the sources your project relies on in a local repository or folder so the assistant has somewhere specific to look.
