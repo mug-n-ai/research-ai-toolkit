@@ -4,7 +4,7 @@ Each link opens a `SKILL.md`. In ChatGPT, ask to read that file and the supporti
 
 ## Original toolkit skills
 
-[Literature review](literature-review/SKILL.md) helps you find and read academic sources, check which claims each paper supports and decide what belongs in the synthesis. It works for an exploratory search, an update to an existing text or a review with a formal protocol. Use it when the outcome depends on the strength and limits of the evidence across studies.
+[Literature review](literature-review/SKILL.md) helps you find and read papers, work out what each study supports and decide which results belong in the synthesis. You can use it for an exploratory search, to revise a draft or to carry out a review with a formal protocol. When you compare studies, record where their evidence agrees and what its limits allow you to conclude.
 
 ## Writing
 
