@@ -14,11 +14,11 @@ Use the tables that help you resume the work or check a claim. For a quick searc
 
 ## Sources
 
-| Source ID, citation and DOI or link | Version and access | Extent of reading | Decision and reason |
-| --- | --- | --- | --- |
-| [identity] | [version, corrections, access status] | [abstract, selected sections or full text, with relevant supplements] | [integrate, cite briefly, retain for context, omit or revisit] |
+| Source ID, citation and DOI or link | Version and access | Extent of reading | Original figures inspected | Decision and reason |
+| --- | --- | --- | --- | --- |
+| [identity] | [version, corrections, access status] | [abstract, selected sections or full text, with relevant supplements] | [all figures, specific figure numbers and gaps, or no figures in source] | [integrate, cite briefly, retain for context, omit or revisit] |
 
-Use **access blocked** in the access column when the original could not be obtained. Record the sections actually checked when reading is partial.
+Use **access blocked** in the access column when the original could not be obtained. Record the sections actually checked when reading is partial and leave the source review incomplete when an original figure could not be inspected.
 
 ## Claims
 
