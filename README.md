@@ -36,18 +36,21 @@ If web access is unavailable, paste or attach [`AGENTS.md`](AGENTS.md) and the r
 
 ### Literature review
 
-Lorenzo V. Mugnai developed this workflow while reviewing sources for a research textbook. Use it to find papers for a new question, check the evidence behind a draft, or work through a reading list over several sessions.
+Lorenzo V. Mugnai developed this workflow for the toolkit. Use it to find papers for a new question, check the evidence behind a draft, or work through a reading list over several sessions.
 
 - **Rule.** Read each source used as evidence in full and inspect the figures in the original paper. For each substantive claim, point to the passage that supports it. Carry the study's assumptions and limits into the result. [Shared research group rules](AGENTS.md#shared-research-group-rules)
 - **Skill.** `literature-review` takes you from finding and reading sources to comparing their evidence and deciding what belongs in the output. It includes an optional record for tracking sources, claims and figure decisions. [Literature review skill](skills/literature-review/SKILL.md)
 
-### Git workflow and signatures
+### Rules for research software
 
-Work on a separate branch and open a pull request into `develop` or `main`, according to the project's branch structure. Ask for approval before any direct commit or push to either branch and before each merge. Delete temporary working branches after merge unless the user asks to keep them or another open pull request depends on them. Use the user's authorised identity for commits and signatures. [Git workflow](AGENTS.md#git-branches-and-pull-requests) · [Attribution and signatures](AGENTS.md#attribution-and-signatures)
-
-### Versioning and code documentation
-
-For each update to `main`, explain the recommended version change or why the update needs no bump. When you add or change code, document its use cases, examples, inputs, outputs and errors. Where the code implements physics, describe the model in the docstring and explain the physical reasoning alongside the calculations. [Versioning](AGENTS.md#versioning-on-main) · [Code documentation and physics](AGENTS.md#code-documentation-and-physics)
+| Rule | What to do |
+| --- | --- |
+| [Branches and pull requests](AGENTS.md#git-branches-and-pull-requests) | Work on a separate branch. With `develop`, open a PR into it and a separate PR when promoting the changes to `main`. In a `main`-only project, open the PR there. Get explicit approval for any direct commit or push to either branch and for each merge. |
+| [Branch cleanup](AGENTS.md#git-branches-and-pull-requests) | Delete the temporary working branch after merge, unless the user asks to keep it or another open PR depends on it. |
+| [Versioning](AGENTS.md#versioning-on-main) | Before each update to `main`, recommend no bump, a patch, a minor or a major release and give the reason. Follow the project's release policy and flag any effect on compatibility or existing scientific results. |
+| [Docstrings](AGENTS.md#code-documentation-and-physics) | When adding or changing code, document its use cases, an example, the inputs and outputs, and the errors callers may encounter. |
+| [Physics in code](AGENTS.md#code-documentation-and-physics) | Explain the model, equations, units, assumptions and limits in the docstring. Use comments beside the calculations to explain the physical reasoning. |
+| [Signatures and attribution](AGENTS.md#attribution-and-signatures) | Use the user's authorised identity for commits and signatures. Keep any AI-use disclosure required by the project or publisher. |
 
 ## Third-party skills for research work
 
