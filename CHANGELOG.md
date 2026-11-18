@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Explain near the start that assistants can select relevant installed skills from a task description without the user naming them. Clarify opt-in skills and web-chat limitations, and make the workflow examples and diagram reflect automatic selection.
 - Refine the README with a short project description, live release, CI and skill-count badges, and a linked row of supported clients.
 - Add two GitHub alerts for installation and responsible research use, make the web-chat prompt collapsible, and explain how shared rules and selected skills fit together in a Mermaid diagram.
 - Keep the existing table of contents, with no logo or extra navigation block.

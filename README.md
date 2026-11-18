@@ -14,6 +14,10 @@ Use this toolkit when you want an AI assistant to help with your own research, f
 
 **Core principles:** Verify sources · Reproduce results · Reuse workflows
 
+**You do not need to choose a skill yourself.** Once the toolkit is installed in a client that can discover its skills, just describe what you want to do. The assistant can match your request to an available skill and follow its instructions when relevant. For example, asking “Does this paragraph agree with the published evidence?” can bring in `literature-review` automatically. You do not need to say “use literature-review” or know the names of the skills.
+
+Some workflows are marked **By request** and need to be invoked explicitly. In a web chat without installed skills, start with the [chat prompt](#use-the-toolkit-in-a-chat) so the assistant knows where to find the catalogue. Automatic selection also depends on the client and which skills it can access.
+
 ## Contents
 
 - [Quick start](#quick-start) · [Use the toolkit](#use-the-toolkit) · [Research workflows](#research-workflows)
@@ -76,17 +80,19 @@ If the assistant cannot open the links, paste or attach [`AGENTS.md`](AGENTS.md)
 
 ## Research workflows
 
+The workflows below show what the toolkit can help with, not commands you have to memorise. When a matching skill is available, the assistant can choose it from the task you describe. The links let you inspect the instructions and examples.
+
 ### Literature review
 
-Use `literature-review` to find papers, check a claim or continue a reading list. Read each source used as evidence in full and inspect its figures in the original paper. Record which passage supports the claim and the conditions that limit what you can conclude. [Skill instructions](skills/literature-review/SKILL.md) · [Example: sodium in HD 209458 b](examples/literature-review/README.md)
+The `literature-review` skill can find papers, check a claim or continue a reading list. Read each source used as evidence in full and inspect its figures in the original paper. Record which passage supports the claim and the conditions that limit what you can conclude. [Skill instructions](skills/literature-review/SKILL.md) · [Example: sodium in HD 209458 b](examples/literature-review/README.md)
 
 ### Reproduce an analysis
 
-Use `reproduce-analysis` to trace a figure, table or number to its inputs, code and run settings. Rerun it in a separate output directory and record what matches, what differs and what you could not check. [Skill instructions](skills/reproduce-analysis/SKILL.md) · [Example: Anscombe's quartet](examples/reproduce-analysis/README.md)
+The `reproduce-analysis` skill traces a figure, table or number to its inputs, code and run settings. Rerun it in a separate output directory and record what matches, what differs and what you could not check. [Skill instructions](skills/reproduce-analysis/SKILL.md) · [Example: Anscombe's quartet](examples/reproduce-analysis/README.md)
 
 ### Clean up code
 
-Use `code-cleanup` when you want to find dead code, remove unnecessary complexity, reduce duplication or check whether an implementation still follows the project's design. **For a single function**, it makes a targeted refactor and tests the behaviour. **For a whole repository**, it identifies candidates and writes a prioritised plan without changing the implementation. Static-analysis findings are leads, not proof that code is safe to remove. [Skill instructions](skills/code-cleanup/SKILL.md) · [Cleanup plan template](skills/code-cleanup/cleanup-plan-template.md)
+The `code-cleanup` skill can find dead code, remove unnecessary complexity, reduce duplication or check whether an implementation still follows the project's design. **For a single function**, it makes a targeted refactor and tests the behaviour. **For a whole repository**, it identifies candidates and writes a prioritised plan without changing the implementation. Static-analysis findings are leads, not proof that code is safe to remove. [Skill instructions](skills/code-cleanup/SKILL.md) · [Cleanup plan template](skills/code-cleanup/cleanup-plan-template.md)
 
 ### Third-party skills for research work
 
@@ -130,21 +136,24 @@ A skill is a folder of instructions for a task you expect to repeat. Its `SKILL.
 
 ### How the assistant chooses a skill
 
-Codex, Claude Code, OpenCode and ChatGPT workspaces with Skills enabled can select eligible skills from their descriptions. For example, “Check what evidence supports this paragraph” can bring in `literature-review`. Request skills marked **By request** by name and check your client's settings if a skill is missing. Without installed skills, the [chat prompt](#use-the-toolkit-in-a-chat) points the assistant to the public catalogue.
+In clients that support skill discovery, the assistant reads the descriptions of available skills and chooses a relevant workflow for the task. You can also name a skill if you want a specific one. Skills marked **By request** are deliberately not selected automatically: ask for them by name. If a skill is missing, check its installation and the client's settings. Without installed skills, the [chat prompt](#use-the-toolkit-in-a-chat) tells the assistant where to find the public catalogue.
 
 To create your own skill, follow the [instructions in CONTRIBUTING.md](CONTRIBUTING.md#create-a-skill). They include an example `SKILL.md` and a prompt you can give an assistant.
 
 ### How the pieces fit together
 
-The project rules and task-specific skills do different jobs. `AGENTS.md` provides guidance shared across research tasks, while the selected `SKILL.md` describes the steps for a particular workflow. Claude Code can import those rules through `CLAUDE.md`. In a web chat, the prompt above asks the assistant to fetch the same files.
+The project rules and task-specific skills do different jobs. `AGENTS.md` provides guidance shared across research tasks. The assistant can select a matching `SKILL.md` when a task needs one; you do not have to pick it in advance. Claude Code can import the shared rules through `CLAUDE.md`. In a web chat, the prompt above asks the assistant to fetch the same files.
 
 ```mermaid
 flowchart LR
     TASK["Research task"] --> AI["AI assistant"]
     RULES["AGENTS.md: shared rules"] --> AI
     CLAUDE["CLAUDE.md: Claude Code import"] --> RULES
-    SKILL["Relevant SKILL.md: task workflow"] --> AI
-    AI --> RESULT["Evidence, tests and reported limits"]
+    AI --> CHOOSE["Check available skills"]
+    CHOOSE -->|Relevant skill| SKILL["Matching SKILL.md"]
+    CHOOSE -->|No skill needed| WORK["Carry out task"]
+    SKILL --> WORK
+    WORK --> RESULT["Evidence, tests and reported limits"]
 ```
 
 Which skills and checks can actually run depends on the client and its available tools. The [installation guide](INSTALL.md) explains how each client finds the rules and skills.
