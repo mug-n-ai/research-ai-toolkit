@@ -36,10 +36,10 @@ If web access is unavailable, paste or attach [`AGENTS.md`](AGENTS.md) and the r
 
 ### Literature review
 
-Lorenzo V. Mugnai developed this workflow for the toolkit. Use it to find papers for a new question, check the evidence behind a draft, or work through a reading list over several sessions.
+Use `literature-review` when you need to find papers for a new question, check what supports a claim in a draft, or pick up a reading list over several sessions.
 
 - **Rule.** Read each source used as evidence in full and inspect the figures in the original paper. For each substantive claim, point to the passage that supports it. Carry the study's assumptions and limits into the result. [Shared research group rules](AGENTS.md#shared-research-group-rules)
-- **Skill.** `literature-review` takes you from finding and reading sources to comparing their evidence and deciding what belongs in the output. It includes an optional record for tracking sources, claims and figure decisions. [Literature review skill](skills/literature-review/SKILL.md)
+- **Skill.** Compare what the papers support and use that evidence to decide what belongs in the text. The optional review record keeps track of the sources, the claims they support and how you decided to use the figures. [Literature review skill](skills/literature-review/SKILL.md)
 
 ### Rules for research software
 
