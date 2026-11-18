@@ -30,6 +30,28 @@ My task: [describe what you want to do]
 
 If web access is unavailable, paste or attach [`AGENTS.md`](AGENTS.md) and the relevant `SKILL.md` directly in the chat. For a project that already uses the toolkit, provide its own instruction file so ChatGPT can see the project-specific details.
 
+## Keep a local knowledge base
+
+If you ask an assistant why a parameter was fixed in an analysis, the answer should point you to the code, the methods notes or the paper that explains the choice. A plausible answer can still get the reason wrong. Keep the sources your project relies on in a local repository or folder so the assistant has somewhere specific to look.
+
+Start with the papers the group has checked, the versions of the code used in the analysis, and the notes that record how decisions were made. Keep the DOI or original link for each paper and record the relevant version or commit where you can. Ask the assistant to cite the file and the relevant passage for each claim that matters. Check that the passage supports the claim, especially before using it in a paper or analysis. If the sources leave a question open, ask the assistant to say what evidence is missing.
+
+### Search the sources with Carsen
+
+[Carsen](https://github.com/LorenzoMugnai/Carsen) indexes selected code and document folders locally. An assistant can query that index through the Model Context Protocol (MCP) and get back passages with source paths and line ranges. This gives you a place to check where an answer came from.
+
+You can ask a coding assistant with terminal access to install Carsen, configure it for your project and test it. Give it the paths to the folders you want to index and point it to the [Carsen setup guide for AI agents](https://github.com/LorenzoMugnai/Carsen/blob/main/docs/agent-setup.md).
+
+```text
+Install and configure Carsen for this project. Follow the setup guide at
+https://github.com/LorenzoMugnai/Carsen/blob/main/docs/agent-setup.md
+
+Index the code in [path to code] and the documents in [path to documents].
+Connect the resulting knowledge base to my MCP client [name of client].
+Test it by searching for [a phrase known to be in the sources] and show
+me the file and line range returned by the search.
+```
+
 ## What the files do
 
 | File | When it is useful |
