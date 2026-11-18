@@ -21,7 +21,7 @@ git -C "$toolkit_dir" pull --ff-only origin main
 For a project that needs a fixed version, clone a [release tag](https://github.com/mug-n-ai/research-ai-toolkit/releases) into its own directory. Use that clone as `toolkit_dir` before following the rest of this guide.
 
 ```sh
-version="v0.1.0"
+version="v0.2.0"
 mkdir -p "$HOME/.local/share"
 toolkit_dir="$HOME/.local/share/research-ai-toolkit-$version"
 git clone --branch "$version" --single-branch https://github.com/mug-n-ai/research-ai-toolkit.git "$toolkit_dir"
@@ -204,7 +204,7 @@ Run `setup-matt-pocock-skills` in the research project if your chosen workflow u
 
 If you already use the upstream Matt Pocock plugin, use that installation or the toolkit copies for that agent. Both use the same skill names.
 
-If an update to `main` removes a skill you linked from this clone, its symlink will no longer resolve. Check where it points with `ls -l` before removing the link. For OpenCode setups that list individual skill folders, remove the missing path from the configuration. To keep using a workflow from the original collection, use a separate [v0.1.0 clone](#choose-a-version) and install the skill with its companions. [Changelog](CHANGELOG.md)
+If an update to `main` removes a skill you linked from this clone, its symlink will no longer resolve. Check where it points with `ls -l` before removing the link. For OpenCode setups that list individual skill folders, remove the missing path from the configuration. To keep using a workflow from the original collection, [clone a separate copy](#choose-a-version) with `version="v0.1.0"` and install the skill with its companions. [Changelog](CHANGELOG.md)
 
 ## Verify the setup
 
