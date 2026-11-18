@@ -45,6 +45,10 @@ Lorenzo V. Mugnai developed this workflow while reviewing sources for a research
 
 Work on a separate branch and open a pull request into `develop` or `main`, according to the project's branch structure. Ask for approval before any direct commit or push to either branch and before each merge. Delete temporary working branches after merge unless the user asks to keep them or another open pull request depends on them. Use the user's authorised identity for commits and signatures. [Git workflow](AGENTS.md#git-branches-and-pull-requests) · [Attribution and signatures](AGENTS.md#attribution-and-signatures)
 
+### Versioning and code documentation
+
+For each update to `main`, explain the recommended version change or why the update needs no bump. When you add or change code, document its use cases, examples, inputs, outputs and errors. Where the code implements physics, describe the model in the docstring and explain the physical reasoning alongside the calculations. [Versioning](AGENTS.md#versioning-on-main) · [Code documentation and physics](AGENTS.md#code-documentation-and-physics)
+
 ## Third-party skills for research work
 
 - **Review a draft.** No AI Slop flags vague attributions, stock phrases and inflated wording. It can report the passages to check or make a light edit that preserves the author's voice. [No AI Slop](skills/README.md#writing)
