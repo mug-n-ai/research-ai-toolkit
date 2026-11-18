@@ -4,7 +4,7 @@
 [![Agent Skills: Catalogue](docs/badges/skills.svg)](skills/README.md)
 [![Contributions welcome](docs/badges/contributing.svg)](CONTRIBUTING.md)
 
-Use this toolkit when you want an AI assistant to help with your own research, from checking the evidence behind a draft to rerunning an analysis. The department shares the repository, and contributors from different research groups can add workflows that others can use in their own projects.
+Use this toolkit when you want an AI assistant to help with your own research, from checking the evidence behind a draft to rerunning an analysis.
 
 ## Choose your tool
 
