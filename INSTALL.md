@@ -21,7 +21,7 @@ git -C "$toolkit_dir" pull --ff-only origin main
 For a project that needs a fixed version, clone a [release tag](https://github.com/mug-n-ai/research-ai-toolkit/releases) into its own directory. Use that clone as `toolkit_dir` before following the rest of this guide.
 
 ```sh
-version="v0.3.0"
+version="v0.4.0"
 mkdir -p "$HOME/.local/share"
 toolkit_dir="$HOME/.local/share/research-ai-toolkit-$version"
 git clone --branch "$version" --single-branch https://github.com/mug-n-ai/research-ai-toolkit.git "$toolkit_dir"

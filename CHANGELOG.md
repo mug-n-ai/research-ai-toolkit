@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.4.0
 
 - Split the shared rules into modules under `rules/`. `AGENTS.md` now holds only the rules, generated from the modules, and the project starter with empty context and workflow sections moves to `templates/AGENTS.md`. You can import single modules to load only the rules you want in every session. CI fails if a generated file is out of date.
 - Add `scripts/install.py`, an installer for Claude Code, OpenCode and Codex. It links skills, loads the rules, supports skill and rule selection, `--dry-run` and `--uninstall`, and removes links to skills that no longer exist. It leaves personal skills, manual imports and commented OpenCode configurations untouched and reports them.
