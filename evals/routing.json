@@ -1,0 +1,18 @@
+{
+  "description": "Requests and the toolkit skill an assistant should load first. Run with python3 scripts/run_routing_evals.py; see evals/README.md.",
+  "cases": [
+    {"prompt": "Does this sentence agree with the published evidence? 'Sodium absorption in the atmosphere of HD 209458 b was first detected by Charbonneau et al. in 2002 with HST/STIS.'", "expect": "literature-review"},
+    {"prompt": "Find recent papers that compare atmospheric retrieval codes for exoplanet transmission spectra and summarise where their conclusions agree.", "expect": "literature-review"},
+    {"prompt": "How does numpy.random.Generator derive independent streams from a SeedSequence? Check the official docs and source and write me a note.", "expect": "research"},
+    {"prompt": "Which arguments does matplotlib's savefig accept for embedding PDF metadata? Look it up in the documentation and source code.", "expect": "research"},
+    {"prompt": "I'm about to launch a sweep of 40 simulations over grid resolution and time step. Set things up so every output can be traced back to the configuration and code that made it.", "expect": "simulation-provenance"},
+    {"prompt": "Rerun the analysis behind Figure 3 of our paper from this repository and tell me whether the plotted values still match the published ones.", "expect": "reproduce-analysis"},
+    {"prompt": "Is a Reynolds number of 3e7 plausible for blood flow in a capillary? Sanity check the units too.", "expect": "uncertainty-and-units"},
+    {"prompt": "Before I fit a model, profile data/measurements.csv for missing values, outliers and possible leakage between the train and test splits.", "expect": "exploratory-data-analysis"},
+    {"prompt": "Make my matplotlib light-curve figure publication-ready for a journal, colour-blind safe and with honest error bars.", "expect": "scientific-visualization"},
+    {"prompt": "This abstract sounds like it was written by an AI. Edit it to be more direct without changing the scientific claims.", "expect": "no-ai-slop"},
+    {"prompt": "Write the pull request description for the changes on my current branch.", "expect": "pr"},
+    {"prompt": "Audit this repository for dead code, unnecessary complexity and duplication, and give me a prioritised cleanup plan without changing files.", "expect": "code-cleanup"},
+    {"prompt": "What is 17 times 23?", "expect": null}
+  ]
+}

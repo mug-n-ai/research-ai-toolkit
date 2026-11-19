@@ -267,7 +267,7 @@ def main():
     errors = list(check_skills(skill_files))
     docs = [
         *ROOT.glob("*.md"), CATALOGUE, ROOT / "integrations/ai-footprint/README.md",
-        *ROOT.glob("examples/*/*.md"), *ROOT.glob("rules/*.md"), ROOT / "templates/AGENTS.md",
+        *ROOT.glob("examples/*/*.md"), *ROOT.glob("rules/*.md"), ROOT / "templates/AGENTS.md", ROOT / "evals/README.md",
     ]
     for path in docs:
         errors.extend(check_links(path))

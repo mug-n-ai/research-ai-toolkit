@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- Split the shared rules into modules under `rules/`. `AGENTS.md` now holds only the rules, generated from the modules, and the project starter with empty context and workflow sections moves to `templates/AGENTS.md`. You can import single modules to load only the rules you want in every session. CI fails if a generated file is out of date.
+- Add `scripts/install.py`, an installer for Claude Code, OpenCode and Codex. It links skills, loads the rules, supports skill and rule selection, `--dry-run` and `--uninstall`, and removes links to skills that no longer exist. It leaves personal skills, manual imports and commented OpenCode configurations untouched and reports them.
+- Add `simulation-provenance`, an original skill that records the code revision, configuration, inputs, environment and seeds of each simulation or pipeline run before it starts.
+- Narrow the `research` description to software documentation, APIs and source code, so that questions about papers go to `literature-review`.
+- Add skill routing checks in `evals/` with a script that runs them in Claude Code.
+- Require a `license` field in every `SKILL.md` that matches its `LICENSE`, and an 80 to 600 character description for skills the assistant selects by itself. Expand the `pr` description and shorten the `uncertainty-and-units` one.
+- Move the CLI details, version pins and source lists of the three K-Dense skills verbatim into reference files to shorten their `SKILL.md`.
+- Replace the non-portable `cp -n` in the project setup with an explicit check for an existing file.
+
 - Explain near the start that assistants can select relevant installed skills from a task description without the user naming them. Clarify opt-in skills and web-chat limitations, and make the workflow examples and diagram reflect automatic selection.
 - Refine the README with a short project description, live release, CI and skill-count badges, and a linked row of supported clients.
 - Add two GitHub alerts for installation and responsible research use, make the web-chat prompt collapsible, and explain how shared rules and selected skills fit together in a Mermaid diagram.

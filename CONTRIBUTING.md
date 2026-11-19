@@ -67,7 +67,7 @@ python -m unittest discover -s scripts
 python -m unittest discover -s integrations/ai-footprint
 ```
 
-The setup checks exercise the documented file layout in a temporary home and project. To check discovery in a running client, follow [Verify the setup](INSTALL.md#verify-the-setup).
+The setup checks exercise the documented file layout in a temporary home and project. If you change a skill description or add a skill, also run the [skill routing checks](evals/README.md), which need an authenticated Claude Code and are not part of CI. To check discovery in a running client, follow [Verify the setup](INSTALL.md#verify-the-setup).
 
 ## Open a pull request
 
