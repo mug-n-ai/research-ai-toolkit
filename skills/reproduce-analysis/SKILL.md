@@ -2,6 +2,8 @@
 name: reproduce-analysis
 description: Trace a reported scientific result to its code, inputs and environment, rerun the analysis and compare with the reference. Use to reproduce a figure, table, numerical value or simulation output, or to check whether a published analysis can be rerun.
 license: MIT
+metadata:
+  author: Lorenzo V. Mugnai
 ---
 
 # Reproduce an analysis

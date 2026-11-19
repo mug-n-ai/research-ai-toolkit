@@ -1,6 +1,7 @@
 ---
 name: literature-review
 description: Search, read and synthesise scholarly literature with evidence tied to specific claims. Use for exploratory paper searches, checking whether a draft or claim agrees with published evidence, reviewing a manuscript or reading list, comparing studies, or carrying out a systematic review under a defined protocol. For software documentation and API facts, use research instead.
+license: MIT
 metadata:
   author: Lorenzo V. Mugnai
 ---

@@ -11,7 +11,7 @@ If a rule or skill gets in the way of a research task, tell us what you were try
 ## Create a skill
 
 1. Pick a task you do more than once. Write down the inputs, the expected output and how you check the result.
-2. Create `skills/<skill-name>/SKILL.md` in the toolkit. Start with a YAML header containing `name` and `description`, then write the workflow in Markdown. Use a lowercase, hyphenated name that matches the folder. The description should say what the skill does and when to use it.
+2. Create `skills/<skill-name>/SKILL.md` in the toolkit. Start with a YAML header containing `name`, `description` and `license`, then write the workflow in Markdown. Add the licence text as `LICENSE` in the same folder. Use a lowercase, hyphenated name that matches the folder. The description should say what the skill does and when to use it.
 3. Keep any templates or reference files in the skill folder and link to them from `SKILL.md` with relative paths. Try the instructions on a real example and a case with missing inputs. Add the skill to the [catalogue](skills/README.md) if you are contributing it to the toolkit.
 
 For example, save this file as `skills/check-simulation-convergence/SKILL.md`.

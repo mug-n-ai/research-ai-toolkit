@@ -2,6 +2,8 @@
 name: code-cleanup
 description: Identify dead code, needless complexity, duplication and deviations from existing implementation principles. Use for clean-code audits, safe refactoring or DRY improvements. For a named function, make and verify a focused refactor; for an entire repository, report a prioritised cleanup plan without changing code.
 license: MIT
+metadata:
+  author: Lorenzo V. Mugnai
 ---
 
 # Code cleanup

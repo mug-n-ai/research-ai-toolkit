@@ -22,6 +22,8 @@ LINK = re.compile(r"\]\(([^()\s]+)\)")
 SUPPORT = re.compile(r"\x60((?:assets|references|scripts)/[\w./-]+\.\w+)\x60")
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 CATALOGUE = ROOT / "skills/README.md"
+MIN_DESCRIPTION = 80
+MAX_DESCRIPTION = 600
 
 
 def front_matter(path):
@@ -107,9 +109,20 @@ def check_skills(skill_files):
                 raise ValueError("description must contain 1 to 1024 characters")
             if not (path.parent / "LICENSE").is_file():
                 raise ValueError("missing bundled licence")
+            licence = metadata.get("license")
+            first_line = (path.parent / "LICENSE").read_text(encoding="utf-8").strip().splitlines()[:1]
+            if not isinstance(licence, str) or not first_line or not first_line[0].startswith(licence):
+                raise ValueError("license field must name the licence in the bundled LICENSE")
             manual = metadata.get("disable-model-invocation", False)
             if not isinstance(manual, bool):
                 raise ValueError("disable-model-invocation must be a boolean")
+            # Descriptions of skills the assistant selects by itself are loaded into
+            # every session and drive the choice, so keep them informative but short.
+            if not manual and not MIN_DESCRIPTION <= len(description) <= MAX_DESCRIPTION:
+                raise ValueError(
+                    f"description of an automatically selected skill must contain "
+                    f"{MIN_DESCRIPTION} to {MAX_DESCRIPTION} characters"
+                )
             sidecar = path.parent / "agents/openai.yaml"
             codex_policy = yaml.safe_load(sidecar.read_text()) if sidecar.is_file() else {}
             if codex_policy.get("policy", {}).get("allow_implicit_invocation", True) is not (not manual):
