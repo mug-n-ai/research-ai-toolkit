@@ -4,7 +4,7 @@
 
 - Split the shared rules into modules under `rules/`. `AGENTS.md` now holds only the rules, generated from the modules, and the project starter with empty context and workflow sections moves to `templates/AGENTS.md`. You can import single modules to load only the rules you want in every session. CI fails if a generated file is out of date.
 - Add `scripts/install.py`, an installer for Claude Code, OpenCode and Codex. It links skills, loads the rules, supports skill and rule selection, `--dry-run` and `--uninstall`, and removes links to skills that no longer exist. It leaves personal skills, manual imports and commented OpenCode configurations untouched and reports them.
-- Add `simulation-provenance`, an original skill that records the code revision, configuration, inputs, environment and seeds of each simulation or pipeline run before it starts.
+- Add `run-provenance`, an original skill that records the code revision, configuration, inputs, environment and seeds of each computational run (simulation, model training, pipeline or batch analysis) before it starts.
 - Narrow the `research` description to software documentation, APIs and source code, so that questions about papers go to `literature-review`.
 - Add skill routing checks in `evals/` with a script that runs them in Claude Code.
 - Require a `license` field in every `SKILL.md` that matches its `LICENSE`, and an 80 to 600 character description for skills the assistant selects by itself. Expand the `pr` description and shorten the `uncertainty-and-units` one.

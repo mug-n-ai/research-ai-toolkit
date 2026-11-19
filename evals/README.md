@@ -1,6 +1,6 @@
 # Skill routing checks
 
-The README says you can describe a task without naming a skill. [`routing.json`](routing.json) lists requests and the skill an assistant should load first for each one, including pairs that are easy to confuse, such as `research` and `literature-review` or `simulation-provenance` and `reproduce-analysis`.
+The README says you can describe a task without naming a skill. [`routing.json`](routing.json) lists requests and the skill an assistant should load first for each one, including pairs that are easy to confuse, such as `research` and `literature-review` or `run-provenance` and `reproduce-analysis`.
 
 Run the checks after changing a skill description or adding a skill:
 

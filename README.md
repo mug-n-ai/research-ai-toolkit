@@ -90,9 +90,9 @@ The `literature-review` skill can find papers, check a claim or continue a readi
 
 The `reproduce-analysis` skill traces a figure, table or number to its inputs, code and run settings. Rerun it in a separate output directory and record what matches, what differs and what you could not check. [Skill instructions](skills/reproduce-analysis/SKILL.md) · [Example: Anscombe's quartet](examples/reproduce-analysis/README.md)
 
-### Record simulation runs
+### Record computational runs
 
-The `simulation-provenance` skill records what each simulation or pipeline run needs before it starts: the code revision, the copied configuration, input checksums, the environment and the seeds. Each run gets its own directory, and figures and numbers name the runs they came from. [Skill instructions](skills/simulation-provenance/SKILL.md) · [Run record](skills/simulation-provenance/run-record.md)
+The `run-provenance` skill records what each computational run needs before it starts, whether it is a simulation, a model training, a data-processing pipeline or a batch analysis: the code revision, the copied configuration, input checksums, the environment and the seeds. Each run gets its own directory, and figures and numbers name the runs they came from. [Skill instructions](skills/run-provenance/SKILL.md) · [Run record](skills/run-provenance/run-record.md)
 
 ### Clean up code
 
