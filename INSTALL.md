@@ -29,6 +29,20 @@ git clone --branch "$version" --single-branch https://github.com/mug-n-ai/resear
 
 To move the project to another version, use a new clone for that tag and update the paths or copies the project uses. Record the toolkit revision and client version alongside the workflow you want to rerun.
 
+## Install with the script
+
+From the clone, run the installer for the clients you use. It links the skills, loads the rules in every session and reports anything it leaves for you to do. Python 3.9 or newer is enough.
+
+```sh
+python3 "$toolkit_dir/scripts/install.py" --client claude --client opencode
+```
+
+Add `--client codex` for Codex. Use `--dry-run` first to see the changes without making them. `--skills literature-review reproduce-analysis` links only those skills, and `--rules research-practice testing` loads only those [rule modules](rules) in every session. `--uninstall` removes what the script added.
+
+The script keeps your existing configuration. It does not touch a skill folder of the same name that did not come from the toolkit, an import you added by hand or an OpenCode file with comments. It reports these instead. Before it edits a file, it saves a copy with the suffix `.research-ai-toolkit.bak`. Run it again after each `git pull` to link new skills and remove links to skills that no longer exist.
+
+Claude Code and OpenCode share one set of links: OpenCode v2 also reads skills from `~/.claude/skills`. The sections below describe the same setup by hand, for each client.
+
 ## Ask an assistant to set it up
 
 Paste this into an assistant session with terminal access on the machine where you run your tools. For a remote machine, run it in a session that can access that machine.
@@ -40,7 +54,9 @@ Install [all skills or the following skills and their required companions].
 Read https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/INSTALL.md.
 
 Check my OS, installed client versions and current configuration. Choose a
-supported setup for each client. Reuse an existing clone if available.
+supported setup for each client. Reuse an existing clone if available. For a
+setup across my projects, prefer scripts/install.py and run it with --dry-run
+first.
 Keep my existing instructions, settings and skills. Report any name clashes.
 Verify that the toolkit rules and a skill I selected are discoverable in the
 requested scope. Use literature-review if I selected all skills. Tell me what
@@ -105,7 +121,7 @@ for skill_file in "$toolkit_dir"/skills/*/SKILL.md; do
 done
 ```
 
-If the clone follows `main`, its links use the updated files after a pull. Run the loop again to pick up any new skill names you want.
+If the clone follows `main`, its links use the updated files after a pull. Run the loop again to pick up any new skill names you want, or use the [installer](#install-with-the-script), which also removes links to skills that no longer exist.
 
 ### Install a selection
 

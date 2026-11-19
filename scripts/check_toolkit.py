@@ -210,6 +210,18 @@ def smoke_setup(skill_files):
             setup_shell(snippet, project, env)
             assert (copied / "SKILL.md").read_text() == "Project copy\n"
 
+        installer = next(body for body in shell if "scripts/install.py" in body)
+        installer_home = home / "installer-home"
+        installer_home.mkdir()
+        installer_env = {key: value for key, value in env.items() if key != "XDG_CONFIG_HOME"}
+        setup_shell(installer, project, {**installer_env, "HOME": str(installer_home)})
+        for path in skill_files:
+            linked = installer_home / ".claude/skills" / path.parent.name / "SKILL.md"
+            assert linked.resolve() == path, f"Installer did not link {path.parent.name}"
+        assert f"@{ROOT}/CLAUDE.md" in (installer_home / ".claude/CLAUDE.md").read_text()
+        installed = json.loads((installer_home / ".config/opencode/opencode.json").read_text())
+        assert installed["instructions"] == [f"{ROOT}/AGENTS.md"]
+
         opencode = [json.loads(body) for _, language, body in blocks if language == "json"]
         v2, v1 = opencode
         assert v2["instructions"] == ["~/.local/share/research-ai-toolkit/AGENTS.md"]
