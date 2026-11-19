@@ -90,6 +90,10 @@ The `literature-review` skill can find papers, check a claim or continue a readi
 
 The `reproduce-analysis` skill traces a figure, table or number to its inputs, code and run settings. Rerun it in a separate output directory and record what matches, what differs and what you could not check. [Skill instructions](skills/reproduce-analysis/SKILL.md) · [Example: Anscombe's quartet](examples/reproduce-analysis/README.md)
 
+### Record simulation runs
+
+The `simulation-provenance` skill records what each simulation or pipeline run needs before it starts: the code revision, the copied configuration, input checksums, the environment and the seeds. Each run gets its own directory, and figures and numbers name the runs they came from. [Skill instructions](skills/simulation-provenance/SKILL.md) · [Run record](skills/simulation-provenance/run-record.md)
+
 ### Clean up code
 
 The `code-cleanup` skill can find dead code, remove unnecessary complexity, reduce duplication or check whether an implementation still follows the project's design. **For a single function**, it makes a targeted refactor and tests the behaviour. **For a whole repository**, it identifies candidates and writes a prioritised plan without changing the implementation. Static-analysis findings are leads, not proof that code is safe to remove. [Skill instructions](skills/code-cleanup/SKILL.md) · [Cleanup plan template](skills/code-cleanup/cleanup-plan-template.md)
