@@ -4,14 +4,14 @@ If a rule or skill gets in the way of a research task, tell us what you were try
 
 ## Where changes belong
 
-- Use [`AGENTS.md`](AGENTS.md) for shared rules that apply across tasks. Put the details of a specific workflow in its skill.
+- Put shared rules that apply across tasks in the matching module under [`rules/`](rules), then run `python scripts/build_rules.py` to regenerate `AGENTS.md` and `templates/AGENTS.md`. Do not edit the generated files by hand. A new module needs an entry in `RULE_ORDER` in that script. Put the details of a specific workflow in its skill.
 - Add a skill under `skills/<skill-name>/` with a `SKILL.md` that says what it does and when to use it. Keep any templates or references in the same directory. Add it to the [skill catalogue](skills/README.md) and update the README if the change affects how people discover or use the toolkit.
 - When importing a skill, record its source repository and revision, keep its copyright and licence notices, and explain any changes made for this toolkit. Toolkit contributions use the [MIT Licence](LICENSE).
 
 ## Create a skill
 
 1. Pick a task you do more than once. Write down the inputs, the expected output and how you check the result.
-2. Create `skills/<skill-name>/SKILL.md` in the toolkit. Start with a YAML header containing `name` and `description`, then write the workflow in Markdown. Use a lowercase, hyphenated name that matches the folder. The description should say what the skill does and when to use it.
+2. Create `skills/<skill-name>/SKILL.md` in the toolkit. Start with a YAML header containing `name`, `description` and `license`, then write the workflow in Markdown. Add the licence text as `LICENSE` in the same folder. Use a lowercase, hyphenated name that matches the folder. The description should say what the skill does and when to use it.
 3. Keep any templates or reference files in the skill folder and link to them from `SKILL.md` with relative paths. Try the instructions on a real example and a case with missing inputs. Add the skill to the [catalogue](skills/README.md) if you are contributing it to the toolkit.
 
 For example, save this file as `skills/check-simulation-convergence/SKILL.md`.
@@ -20,6 +20,7 @@ For example, save this file as `skills/check-simulation-convergence/SKILL.md`.
 ---
 name: check-simulation-convergence
 description: Compare results across grid resolutions. Use after a simulation grid changes or when checking convergence.
+license: MIT
 ---
 
 # Check simulation convergence
@@ -60,11 +61,13 @@ From the repository root, run the automated checks with Python 3.11 or newer and
 
 ```sh
 python -m pip install PyYAML==6.0.3
+python scripts/build_rules.py --check
 python scripts/check_toolkit.py
+python -m unittest discover -s scripts
 python -m unittest discover -s integrations/ai-footprint
 ```
 
-The setup checks exercise the documented file layout in a temporary home and project. To check discovery in a running client, follow [Verify the setup](INSTALL.md#verify-the-setup).
+The setup checks exercise the documented file layout in a temporary home and project. If you change a skill description or add a skill, also run the [skill routing checks](evals/README.md), which need an authenticated Claude Code and are not part of CI. To check discovery in a running client, follow [Verify the setup](INSTALL.md#verify-the-setup).
 
 ## Open a pull request
 

@@ -90,6 +90,10 @@ The `literature-review` skill can find papers, check a claim or continue a readi
 
 The `reproduce-analysis` skill traces a figure, table or number to its inputs, code and run settings. Rerun it in a separate output directory and record what matches, what differs and what you could not check. [Skill instructions](skills/reproduce-analysis/SKILL.md) · [Example: Anscombe's quartet](examples/reproduce-analysis/README.md)
 
+### Record computational runs
+
+The `run-provenance` skill records what each computational run needs before it starts, whether it is a simulation, a model training, a data-processing pipeline or a batch analysis: the code revision, the copied configuration, input checksums, the environment and the seeds. Each run gets its own directory, and figures and numbers name the runs they came from. [Skill instructions](skills/run-provenance/SKILL.md) · [Run record](skills/run-provenance/run-record.md)
+
 ### Clean up code
 
 The `code-cleanup` skill can find dead code, remove unnecessary complexity, reduce duplication or check whether an implementation still follows the project's design. **For a single function**, it makes a targeted refactor and tests the behaviour. **For a whole repository**, it identifies candidates and writes a prioritised plan without changing the implementation. Static-analysis findings are leads, not proof that code is safe to remove. [Skill instructions](skills/code-cleanup/SKILL.md) · [Cleanup plan template](skills/code-cleanup/cleanup-plan-template.md)
@@ -104,8 +108,10 @@ Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software
 
 | File | When to use it |
 | --- | --- |
-| [`AGENTS.md`](AGENTS.md) | Shared project instructions. Codex and OpenCode read it from the project. Add context and rules that apply across your tasks. |
-| [`CLAUDE.md`](CLAUDE.md) | Claude Code's instruction file. This template imports the neighbouring `AGENTS.md` with `@AGENTS.md`. Put Claude-specific instructions below the import. |
+| [`rules/`](rules) | The shared rules, one module per topic: [research practice](rules/research-practice.md), [Git workflow and versioning](rules/git-workflow.md), [attribution](rules/attribution.md), [testing](rules/testing.md) and [code documentation](rules/code-documentation.md). Import only the modules you want if you do not need them all in every session. |
+| [`AGENTS.md`](AGENTS.md) | All the rule modules in one file, for a personal installation across your projects. Codex and OpenCode read it directly. It is generated from `rules/`. |
+| [`CLAUDE.md`](CLAUDE.md) | Claude Code's entry point. It imports the neighbouring `AGENTS.md` with `@AGENTS.md`. |
+| [`templates/AGENTS.md`](templates/AGENTS.md) | Starter instructions for one project: the same rules with empty sections for the project's context and workflow. Copy it into the project with `CLAUDE.md`, and put Claude-specific instructions below the import. |
 
 ### Rules for research software
 

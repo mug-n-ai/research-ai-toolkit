@@ -21,13 +21,27 @@ git -C "$toolkit_dir" pull --ff-only origin main
 For a project that needs a fixed version, clone a [release tag](https://github.com/mug-n-ai/research-ai-toolkit/releases) into its own directory. Use that clone as `toolkit_dir` before following the rest of this guide.
 
 ```sh
-version="v0.3.0"
+version="v0.4.0"
 mkdir -p "$HOME/.local/share"
 toolkit_dir="$HOME/.local/share/research-ai-toolkit-$version"
 git clone --branch "$version" --single-branch https://github.com/mug-n-ai/research-ai-toolkit.git "$toolkit_dir"
 ```
 
 To move the project to another version, use a new clone for that tag and update the paths or copies the project uses. Record the toolkit revision and client version alongside the workflow you want to rerun.
+
+## Install with the script
+
+From the clone, run the installer for the clients you use. It links the skills, loads the rules in every session and reports anything it leaves for you to do. Python 3.9 or newer is enough.
+
+```sh
+python3 "$toolkit_dir/scripts/install.py" --client claude --client opencode
+```
+
+Add `--client codex` for Codex. Use `--dry-run` first to see the changes without making them. `--skills literature-review reproduce-analysis` links only those skills, and `--rules research-practice testing` loads only those [rule modules](rules) in every session. `--uninstall` removes what the script added.
+
+The script keeps your existing configuration. It does not touch a skill folder of the same name that did not come from the toolkit, an import you added by hand or an OpenCode file with comments. It reports these instead. Before it edits a file, it saves a copy with the suffix `.research-ai-toolkit.bak`. Run it again after each `git pull` to link new skills and remove links to skills that no longer exist.
+
+Claude Code and OpenCode share one set of links: OpenCode v2 also reads skills from `~/.claude/skills`. The sections below describe the same setup by hand, for each client.
 
 ## Ask an assistant to set it up
 
@@ -40,7 +54,9 @@ Install [all skills or the following skills and their required companions].
 Read https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/INSTALL.md.
 
 Check my OS, installed client versions and current configuration. Choose a
-supported setup for each client. Reuse an existing clone if available.
+supported setup for each client. Reuse an existing clone if available. For a
+setup across my projects, prefer scripts/install.py and run it with --dry-run
+first.
 Keep my existing instructions, settings and skills. Report any name clashes.
 Verify that the toolkit rules and a skill I selected are discoverable in the
 requested scope. Use literature-review if I selected all skills. Tell me what
@@ -74,6 +90,8 @@ printf '@%s/CLAUDE.md\n' "$toolkit_dir"
 
 If the path includes spaces, escape each one with a backslash in the import line. Keep any instructions already in your personal file.
 
+To load only some of the rules in every session, import the modules you want from `rules/` instead, one line each, for example `@/path/to/research-ai-toolkit/rules/research-practice.md`. You can then copy [`templates/AGENTS.md`](templates/AGENTS.md) into the projects where you want the full set.
+
 Claude Code discovers skills through its personal directory. Run the [linking commands below](#link-skills-from-the-clone) with `skill_root="$HOME/.claude/skills"`. Start Claude Code from one of your research projects. Check the instructions with `/memory` and look for `/literature-review`.
 
 ### Link skills from the clone
@@ -103,7 +121,7 @@ for skill_file in "$toolkit_dir"/skills/*/SKILL.md; do
 done
 ```
 
-If the clone follows `main`, its links use the updated files after a pull. Run the loop again to pick up any new skill names you want.
+If the clone follows `main`, its links use the updated files after a pull. Run the loop again to pick up any new skill names you want, or use the [installer](#install-with-the-script), which also removes links to skills that no longer exist.
 
 ### Install a selection
 
@@ -122,6 +140,8 @@ In OpenCode v2, add the toolkit paths to your personal `~/.config/opencode/openc
 }
 ```
 
+To load only some rule modules, list paths such as `~/.local/share/research-ai-toolkit/rules/research-practice.md` in `instructions` instead of `AGENTS.md`.
+
 Start a new OpenCode session from a research project and ask it to use `@literature-review`. OpenCode reads the rules from `AGENTS.md` and discovers the skill folders under the configured path. If you follow `main`, a pull makes new and updated skills available to new sessions.
 
 If OpenCode v2 already discovers the toolkit skills through `~/.agents/skills/` or `~/.claude/skills/`, add only the `instructions` entry for the toolkit. [OpenCode skill locations](https://opencode.ai/docs/skills/#discovery)
@@ -139,13 +159,13 @@ On OpenCode v1, put the skill directory in `skills.paths`. Replace `/absolute/pa
 
 ## Shared project instructions
 
-Use `AGENTS.md` in Codex, Claude Code and OpenCode. If your project already has one, open both files and integrate the toolkit guidance alongside the instructions that belong to the project. For a project without an `AGENTS.md`, copy the starter file and fill in the project sections as needed.
+Use `AGENTS.md` in Codex, Claude Code and OpenCode. If your project already has one, open both files and integrate the toolkit guidance alongside the instructions that belong to the project. For a project without an `AGENTS.md`, copy the starter file from `templates/` and fill in the project sections as needed.
 
 ```sh
-cp -n "$toolkit_dir/AGENTS.md" ./AGENTS.md
+[ -e AGENTS.md ] || cp "$toolkit_dir/templates/AGENTS.md" ./AGENTS.md
 ```
 
-The `-n` option preserves an existing file. Commit the resulting `AGENTS.md` if you want those instructions versioned with the project.
+The test leaves an existing file untouched. Commit the resulting `AGENTS.md` if you want those instructions versioned with the project.
 
 ## Codex
 
@@ -156,7 +176,7 @@ With `AGENTS.md` in place, use `.agents/skills/` as the destination when [copyin
 With `AGENTS.md` in place, copy `CLAUDE.md` into the root of your project.
 
 ```sh
-cp -n "$toolkit_dir/CLAUDE.md" ./CLAUDE.md
+[ -e CLAUDE.md ] || cp "$toolkit_dir/CLAUDE.md" ./CLAUDE.md
 ```
 
 If you already have a root `CLAUDE.md`, add `@AGENTS.md` on its own line if the import is missing. If you keep your instructions in `.claude/CLAUDE.md`, use `@../AGENTS.md` there instead of creating a second file. The path is relative to the file containing the import. Recent Claude Code versions can also read `AGENTS.md` directly, depending on their project instruction settings. The explicit import supports installations that read `CLAUDE.md`.

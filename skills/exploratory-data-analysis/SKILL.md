@@ -35,44 +35,11 @@ Do not:
 - claim a bounded prefix/sample is a complete validation; or
 - make confirmatory, clinical, mechanistic, or causal claims from EDA.
 
-## Version baseline (verified 2026-09-30)
+## Version baseline
 
-The bundled core CSV/TSV/strict-JSON tools use only the Python standard
-library. Optional inspectors were verified against these stable PyPI releases:
-
-| Package | Version | Published | Used for |
-|---|---:|---:|---|
-| NumPy | `2.5.3` | 2026-09-06 | NPY/NPZ |
-| h5py | `3.16.0` | 2026-03-06 | HDF5 metadata |
-| Biopython | `1.88` | 2026-08-06 | FASTA/FASTQ streaming |
-| Pillow | `12.3.0` | 2026-07-01 | PNG/JPEG metadata |
-| tifffile | `2026.9.20` | 2026-09-21 | TIFF/OME-TIFF metadata |
-| pandas | `3.0.6` | 2026-09-17 | Documented alternate tabular I/O |
-| Polars | `1.44.2` | 2026-09-09 | Documented alternate tabular I/O |
-
-NumPy 2.5.3 and tifffile
-2026.9.20 require Python 3.12+. These pins are a dated direct-dependency
-snapshot, not a transitive lockfile.
-
-The isolated suite exercises these releases with Python 3.13 on synthetic local
-fixtures; the pandas/Polars examples are executed separately. No scientific
-service endpoints, authentication, or network I/O are used by bundled CLIs.
-Install only capabilities needed for the task in a dedicated environment:
-
-```bash
-uv pip install \
-  "numpy==2.5.3" \
-  "h5py==3.16.0" \
-  "biopython==1.88" \
-  "pillow==12.3.0" \
-  "tifffile==2026.9.20"
-```
-
-Optional alternate table engines:
-
-```bash
-uv pip install "pandas==3.0.6" "polars==1.44.2"
-```
+The core CSV/TSV/strict-JSON tools use only the Python standard library. The optional
+inspectors were verified against pinned releases; read `references/version-baseline.md`
+before installing or upgrading their dependencies.
 
 ## Exact capability matrix
 
@@ -271,26 +238,8 @@ raw values, paths, and sensitive metadata out of the report.
 
 ## Source basis
 
-Current parser APIs and format guidance were checked 2026-09-30. Detailed links are in
-the six references. Key sources include:
-
-- Python [`csv`](https://docs.python.org/3/library/csv.html) and
-  [`json`](https://docs.python.org/3/library/json.html);
-- NumPy [`load`](https://numpy.org/doc/stable/reference/generated/numpy.load.html)
-  and [security](https://numpy.org/doc/stable/reference/security.html);
-- [pandas I/O](https://pandas.pydata.org/docs/user_guide/io.html),
-  [Polars `read_csv`](https://docs.pola.rs/api/python/stable/reference/api/polars.read_csv.html),
-  and [h5py links](https://docs.h5py.org/en/stable/high/group.html);
-- [Biopython SeqIO](https://biopython.org/docs/latest/Tutorial/chapter_seqio.html),
-  [Pillow decompression-bomb guidance](https://pillow.readthedocs.io/en/stable/reference/Image.html),
-  and the [OME-TIFF specification](https://ome-model.readthedocs.io/en/stable/ome-tiff/specification.html);
-- NIST [EDA handbook](https://www.itl.nist.gov/div898/handbook/eda/eda.htm),
-  FDA/ICH [E9(R1)](https://www.fda.gov/regulatory-information/search-fda-guidance-documents/e9r1-statistical-principles-clinical-trials-addendum-estimands-and-sensitivity-analysis-clinical),
-  EPA [detection-limit guidance](https://www.epa.gov/system/files/documents/2025-09/wqxdetectionlimitsbestpracticesguide_final.pdf),
-  and scikit-learn [data-leakage guidance](https://scikit-learn.org/stable/common_pitfalls.html);
-- Benjamini–Hochberg [FDR](https://academic.oup.com/jrsssb/article/57/1/289/7035855),
-  National Academies [reproducibility](https://doi.org/10.17226/25303), and
-  Wilkinson et al. [FAIR principles](https://doi.org/10.1038/sdata.2016.18).
+The parser APIs and format guidance were checked 2026-09-30. `references/sources.md` lists
+the key sources; the six format references hold the detailed links.
 
 ## Citing Scientific Agent Skills
 

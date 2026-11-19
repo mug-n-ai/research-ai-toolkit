@@ -8,6 +8,8 @@ Each link opens a `SKILL.md`. An assistant can [pick an available skill from its
 
 [Reproduce analysis](reproduce-analysis/SKILL.md) traces a reported result to its inputs and run settings, reruns the workflow and compares the new output with the reference. It includes an optional [reproduction record](reproduce-analysis/reproduction-record.md).
 
+[Run provenance](run-provenance/SKILL.md) records the code revision, configuration, inputs, environment and seeds of each computational run before it starts, such as a simulation, a model training, a data-processing pipeline or a batch analysis, so every figure and number can be traced to the run that made it. It includes an optional [run record](run-provenance/run-record.md). Use `reproduce-analysis` when you later need to rerun a reported result and compare it with the reference.
+
 [Code cleanup](code-cleanup/SKILL.md) checks for dead code, avoidable complexity, duplication and inconsistencies with the project's design choices. For a named function it performs and tests a targeted refactor; for a repository it delivers a prioritised [cleanup plan](code-cleanup/cleanup-plan-template.md) without modifying the code. It complements `codebase-design` and `code-review`, rather than replacing either.
 
 ## Scientific analysis
@@ -36,7 +38,7 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 
 | Skill | When to use it | Companions |
 | --- | --- | --- |
-| [research](research/SKILL.md) | Ask a background agent to investigate a question against primary sources and write a cited Markdown note. | |
+| [research](research/SKILL.md) | Ask a background agent to investigate a software question, such as library, API or tool behaviour, against primary sources and write a cited Markdown note. For papers and scientific claims, use `literature-review`. | |
 | [grill-with-docs](grill-with-docs/SKILL.md) | Work through a design and record terms and durable decisions in a glossary and architecture decision records (ADRs). By request. | `grilling`, `domain-modeling` |
 | [domain-modeling](domain-modeling/SKILL.md) | Agree what a term means in your code and capture decisions future maintainers need to understand. | |
 | [prototype](prototype/SKILL.md) | Try an interface or state model in a disposable prototype before committing to a design. | |
@@ -66,13 +68,14 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 - **Literature review** is a toolkit contribution by Lorenzo V. Mugnai. See its [MIT licence](literature-review/LICENSE).
 - **Reproduce analysis** is an original toolkit skill under the [MIT licence](reproduce-analysis/LICENSE).
 - **Code cleanup** is an original toolkit skill under the [MIT licence](code-cleanup/LICENSE).
-- **Scientific analysis skills** come from [K-Dense Scientific Agent Skills at commit `ec59a29`](https://github.com/K-Dense-AI/scientific-agent-skills/tree/ec59a29a03d5c40f73ab40878df04860bc00e876). Each imported folder includes the upstream MIT notice. The toolkit copies use the client's usual tool permissions, and the units skill's commands resolve from its own directory.
+- **Run provenance** is an original toolkit skill under the [MIT licence](run-provenance/LICENSE).
+- **Scientific analysis skills** come from [K-Dense Scientific Agent Skills at commit `ec59a29`](https://github.com/K-Dense-AI/scientific-agent-skills/tree/ec59a29a03d5c40f73ab40878df04860bc00e876). Each imported folder includes the upstream MIT notice. The toolkit copies use the client's usual tool permissions, and the units skill's commands resolve from its own directory. To keep the main instructions short, the toolkit moves the CLI details, pinned versions and dated source lists verbatim from each `SKILL.md` into `references/cli-reference.md`, `references/version-baseline.md` or `references/sources.md`, leaving a short pointer. The units skill's description is shortened to stay within the toolkit's length limit.
 - **No AI Slop** comes from [Peter Yang's repository at commit `000650b`](https://github.com/petergyang/no-ai-slop/tree/000650b156983f5159695b441477f4e63b25dc85). Its [MIT licence](no-ai-slop/LICENSE) is included with the skill.
-- **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This toolkit includes a selection of 19 skills from that snapshot. The tracker templates omit the Wayfinder setup. The [v0.1.0 release](https://github.com/mug-n-ai/research-ai-toolkit/releases/tag/v0.1.0) includes the original collection of 27. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata.
+- **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This toolkit includes a selection of 19 skills from that snapshot. The tracker templates omit the Wayfinder setup. The [v0.1.0 release](https://github.com/mug-n-ai/research-ai-toolkit/releases/tag/v0.1.0) includes the original collection of 27. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The toolkit replaces the one-line `pr` description with one that says what the skill produces and when to use it. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata. The toolkit narrows the `research` description to software documentation, APIs and source code, so that questions about papers and scientific claims go to `literature-review`. The workflow itself is unchanged.
 
 ## Skill format
 
-Give each skill its own directory under `skills/`. The main file is `skills/<skill-name>/SKILL.md`. It starts with YAML front matter containing `name` and `description`, followed by the Markdown workflow. Use the same lowercase, hyphenated name for the directory and the `name` field. Write the description so someone can tell which task calls for the skill.
+Give each skill its own directory under `skills/`. The main file is `skills/<skill-name>/SKILL.md`. It starts with YAML front matter containing `name`, `description` and `license`, followed by the Markdown workflow. The `license` value must match the bundled `LICENSE` file. A skill the assistant can select by itself needs a description of 80 to 600 characters, because that text is loaded into every session and decides when the skill is used. Move long reference material into files alongside `SKILL.md`. Use the same lowercase, hyphenated name for the directory and the `name` field. Write the description so someone can tell which task calls for the skill.
 
 The workflow can state what inputs the assistant needs, what it should produce and how to check the result. Keep any references or templates alongside the skill and link to them with relative paths so the directory can be copied as a unit.
 

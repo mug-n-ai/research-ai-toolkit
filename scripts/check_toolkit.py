@@ -22,6 +22,8 @@ LINK = re.compile(r"\]\(([^()\s]+)\)")
 SUPPORT = re.compile(r"\x60((?:assets|references|scripts)/[\w./-]+\.\w+)\x60")
 SLUG = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*")
 CATALOGUE = ROOT / "skills/README.md"
+MIN_DESCRIPTION = 80
+MAX_DESCRIPTION = 600
 
 
 def front_matter(path):
@@ -107,9 +109,20 @@ def check_skills(skill_files):
                 raise ValueError("description must contain 1 to 1024 characters")
             if not (path.parent / "LICENSE").is_file():
                 raise ValueError("missing bundled licence")
+            licence = metadata.get("license")
+            first_line = (path.parent / "LICENSE").read_text(encoding="utf-8").strip().splitlines()[:1]
+            if not isinstance(licence, str) or not first_line or not first_line[0].startswith(licence):
+                raise ValueError("license field must name the licence in the bundled LICENSE")
             manual = metadata.get("disable-model-invocation", False)
             if not isinstance(manual, bool):
                 raise ValueError("disable-model-invocation must be a boolean")
+            # Descriptions of skills the assistant selects by itself are loaded into
+            # every session and drive the choice, so keep them informative but short.
+            if not manual and not MIN_DESCRIPTION <= len(description) <= MAX_DESCRIPTION:
+                raise ValueError(
+                    f"description of an automatically selected skill must contain "
+                    f"{MIN_DESCRIPTION} to {MAX_DESCRIPTION} characters"
+                )
             sidecar = path.parent / "agents/openai.yaml"
             codex_policy = yaml.safe_load(sidecar.read_text()) if sidecar.is_file() else {}
             if codex_policy.get("policy", {}).get("allow_implicit_invocation", True) is not (not manual):
@@ -138,7 +151,7 @@ def smoke_setup(skill_files):
         'skill_selection=""', f'skill_selection="{" ".join(selection)}"', 1,
     )
     copy_skill = next(body for body in shell if body.startswith("skill_name="))
-    project_rules = [body for body in shell if body.startswith("cp -n")]
+    project_rules = [body for body in shell if body.startswith("[ -e ")]
     assert len(project_rules) == 2, "Expected project instruction snippets for AGENTS.md and CLAUDE.md"
     assert "skill-name-from-the-catalogue" in copy_skill, "Missing skill name placeholder"
     copy_skill = copy_skill.replace("skill-name-from-the-catalogue", "literature-review")
@@ -191,8 +204,14 @@ def smoke_setup(skill_files):
 
         for snippet in project_rules:
             setup_shell(snippet, project, env)
-        assert (project / "AGENTS.md").read_bytes() == (ROOT / "AGENTS.md").read_bytes()
+        assert (project / "AGENTS.md").read_bytes() == (ROOT / "templates/AGENTS.md").read_bytes()
         assert (project / "CLAUDE.md").read_bytes() == (ROOT / "CLAUDE.md").read_bytes()
+        for name in ("AGENTS.md", "CLAUDE.md"):
+            (project / name).write_text("Existing project rules\n")
+        for snippet in project_rules:
+            setup_shell(snippet, project, env)
+        for name in ("AGENTS.md", "CLAUDE.md"):
+            assert (project / name).read_text() == "Existing project rules\n", f"Project setup overwrote {name}"
         for destination in (".claude/skills", ".agents/skills", ".opencode/skills"):
             snippet = copy_skill.replace(".claude/skills", destination, 1)
             setup_shell(snippet, project, env)
@@ -203,6 +222,18 @@ def smoke_setup(skill_files):
             (copied / "SKILL.md").write_text("Project copy\n")
             setup_shell(snippet, project, env)
             assert (copied / "SKILL.md").read_text() == "Project copy\n"
+
+        installer = next(body for body in shell if "scripts/install.py" in body)
+        installer_home = home / "installer-home"
+        installer_home.mkdir()
+        installer_env = {key: value for key, value in env.items() if key != "XDG_CONFIG_HOME"}
+        setup_shell(installer, project, {**installer_env, "HOME": str(installer_home)})
+        for path in skill_files:
+            linked = installer_home / ".claude/skills" / path.parent.name / "SKILL.md"
+            assert linked.resolve() == path, f"Installer did not link {path.parent.name}"
+        assert f"@{ROOT}/CLAUDE.md" in (installer_home / ".claude/CLAUDE.md").read_text()
+        installed = json.loads((installer_home / ".config/opencode/opencode.json").read_text())
+        assert installed["instructions"] == [f"{ROOT}/AGENTS.md"]
 
         opencode = [json.loads(body) for _, language, body in blocks if language == "json"]
         v2, v1 = opencode
@@ -236,7 +267,7 @@ def main():
     errors = list(check_skills(skill_files))
     docs = [
         *ROOT.glob("*.md"), CATALOGUE, ROOT / "integrations/ai-footprint/README.md",
-        *ROOT.glob("examples/*/*.md"),
+        *ROOT.glob("examples/*/*.md"), *ROOT.glob("rules/*.md"), ROOT / "templates/AGENTS.md", ROOT / "evals/README.md",
     ]
     for path in docs:
         errors.extend(check_links(path))

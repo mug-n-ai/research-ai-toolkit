@@ -1,6 +1,7 @@
 ---
 name: pr
-description: "Use when writing a PR body."
+description: Write a pull request description with a summary of the change, before-and-after evidence, how it was tested and the risks of merging. Use when opening a pull request or when asked to write or improve a PR body.
+license: MIT
 metadata:
   credits: "show-me by Dex Horthy (HumanLayer), https://github.com/humanlayer/skills/blob/main/plugins/show-me/skills/show-me/SKILL.md"
 ---
