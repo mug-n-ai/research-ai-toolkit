@@ -20,6 +20,7 @@ For example, save this file as `skills/check-simulation-convergence/SKILL.md`.
 ---
 name: check-simulation-convergence
 description: Compare results across grid resolutions. Use after a simulation grid changes or when checking convergence.
+license: MIT
 ---
 
 # Check simulation convergence
