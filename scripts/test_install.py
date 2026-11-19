@@ -154,6 +154,12 @@ class ClaudeRulesTest(Sandbox):
         self.assertEqual(self.claude_md().read_text(), original)
         self.assertTrue(any("kept the manual toolkit import" in line for line in self.output))
 
+    def test_manual_import_through_a_symlinked_path_is_recognised(self):
+        alias = self.home / "alias"
+        alias.symlink_to(self.toolkit)
+        text = f"@{alias}/CLAUDE.md\n@relative.md\n@/elsewhere/CLAUDE.md\n"
+        self.assertEqual(install.manual_imports(text, self.toolkit), [f"@{alias}/CLAUDE.md"])
+
     def test_import_lines_escape_spaces(self):
         lines = install.import_lines(Path("/a b/toolkit"), ["one"])
         self.assertEqual(lines, ["@/a\\ b/toolkit/rules/one.md"])

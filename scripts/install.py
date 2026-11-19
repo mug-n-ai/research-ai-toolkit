@@ -190,10 +190,22 @@ def strip_block(text):
 
 
 def manual_imports(text, toolkit):
-    """Return lines outside the managed block that import a file from the toolkit."""
+    """Return lines outside the managed block that import a file from the toolkit.
+
+    Paths are compared after resolving symlinks and '~', so an import written
+    through a symlinked clone path is still recognised.
+    """
     outside, _ = strip_block(text)
-    prefix = str(toolkit).replace(" ", "\\ ") + "/"
-    return [line for line in outside.splitlines() if line.strip().startswith("@" + prefix)]
+    root = Path(toolkit).resolve()
+    found = []
+    for line in outside.splitlines():
+        stripped = line.strip()
+        if not stripped.startswith("@") or len(stripped) < 2:
+            continue
+        target = Path(stripped[1:].replace("\\ ", " ")).expanduser()
+        if target.is_absolute() and root in target.resolve().parents:
+            found.append(line)
+    return found
 
 
 def plan_claude_rules(home, modules, toolkit=TOOLKIT, uninstall=False):
