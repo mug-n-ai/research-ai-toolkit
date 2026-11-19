@@ -138,7 +138,7 @@ def smoke_setup(skill_files):
         'skill_selection=""', f'skill_selection="{" ".join(selection)}"', 1,
     )
     copy_skill = next(body for body in shell if body.startswith("skill_name="))
-    project_rules = [body for body in shell if body.startswith("cp -n")]
+    project_rules = [body for body in shell if body.startswith("[ -e ")]
     assert len(project_rules) == 2, "Expected project instruction snippets for AGENTS.md and CLAUDE.md"
     assert "skill-name-from-the-catalogue" in copy_skill, "Missing skill name placeholder"
     copy_skill = copy_skill.replace("skill-name-from-the-catalogue", "literature-review")
@@ -191,8 +191,14 @@ def smoke_setup(skill_files):
 
         for snippet in project_rules:
             setup_shell(snippet, project, env)
-        assert (project / "AGENTS.md").read_bytes() == (ROOT / "AGENTS.md").read_bytes()
+        assert (project / "AGENTS.md").read_bytes() == (ROOT / "templates/AGENTS.md").read_bytes()
         assert (project / "CLAUDE.md").read_bytes() == (ROOT / "CLAUDE.md").read_bytes()
+        for name in ("AGENTS.md", "CLAUDE.md"):
+            (project / name).write_text("Existing project rules\n")
+        for snippet in project_rules:
+            setup_shell(snippet, project, env)
+        for name in ("AGENTS.md", "CLAUDE.md"):
+            assert (project / name).read_text() == "Existing project rules\n", f"Project setup overwrote {name}"
         for destination in (".claude/skills", ".agents/skills", ".opencode/skills"):
             snippet = copy_skill.replace(".claude/skills", destination, 1)
             setup_shell(snippet, project, env)
@@ -236,7 +242,7 @@ def main():
     errors = list(check_skills(skill_files))
     docs = [
         *ROOT.glob("*.md"), CATALOGUE, ROOT / "integrations/ai-footprint/README.md",
-        *ROOT.glob("examples/*/*.md"),
+        *ROOT.glob("examples/*/*.md"), *ROOT.glob("rules/*.md"), ROOT / "templates/AGENTS.md",
     ]
     for path in docs:
         errors.extend(check_links(path))

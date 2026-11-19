@@ -4,7 +4,7 @@ If a rule or skill gets in the way of a research task, tell us what you were try
 
 ## Where changes belong
 
-- Use [`AGENTS.md`](AGENTS.md) for shared rules that apply across tasks. Put the details of a specific workflow in its skill.
+- Put shared rules that apply across tasks in the matching module under [`rules/`](rules), then run `python scripts/build_rules.py` to regenerate `AGENTS.md` and `templates/AGENTS.md`. Do not edit the generated files by hand. A new module needs an entry in `RULE_ORDER` in that script. Put the details of a specific workflow in its skill.
 - Add a skill under `skills/<skill-name>/` with a `SKILL.md` that says what it does and when to use it. Keep any templates or references in the same directory. Add it to the [skill catalogue](skills/README.md) and update the README if the change affects how people discover or use the toolkit.
 - When importing a skill, record its source repository and revision, keep its copyright and licence notices, and explain any changes made for this toolkit. Toolkit contributions use the [MIT Licence](LICENSE).
 
@@ -60,7 +60,9 @@ From the repository root, run the automated checks with Python 3.11 or newer and
 
 ```sh
 python -m pip install PyYAML==6.0.3
+python scripts/build_rules.py --check
 python scripts/check_toolkit.py
+python -m unittest discover -s scripts
 python -m unittest discover -s integrations/ai-footprint
 ```
 

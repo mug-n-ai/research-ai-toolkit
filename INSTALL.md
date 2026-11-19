@@ -74,6 +74,8 @@ printf '@%s/CLAUDE.md\n' "$toolkit_dir"
 
 If the path includes spaces, escape each one with a backslash in the import line. Keep any instructions already in your personal file.
 
+To load only some of the rules in every session, import the modules you want from `rules/` instead, one line each, for example `@/path/to/research-ai-toolkit/rules/research-practice.md`. You can then copy [`templates/AGENTS.md`](templates/AGENTS.md) into the projects where you want the full set.
+
 Claude Code discovers skills through its personal directory. Run the [linking commands below](#link-skills-from-the-clone) with `skill_root="$HOME/.claude/skills"`. Start Claude Code from one of your research projects. Check the instructions with `/memory` and look for `/literature-review`.
 
 ### Link skills from the clone
@@ -122,6 +124,8 @@ In OpenCode v2, add the toolkit paths to your personal `~/.config/opencode/openc
 }
 ```
 
+To load only some rule modules, list paths such as `~/.local/share/research-ai-toolkit/rules/research-practice.md` in `instructions` instead of `AGENTS.md`.
+
 Start a new OpenCode session from a research project and ask it to use `@literature-review`. OpenCode reads the rules from `AGENTS.md` and discovers the skill folders under the configured path. If you follow `main`, a pull makes new and updated skills available to new sessions.
 
 If OpenCode v2 already discovers the toolkit skills through `~/.agents/skills/` or `~/.claude/skills/`, add only the `instructions` entry for the toolkit. [OpenCode skill locations](https://opencode.ai/docs/skills/#discovery)
@@ -139,13 +143,13 @@ On OpenCode v1, put the skill directory in `skills.paths`. Replace `/absolute/pa
 
 ## Shared project instructions
 
-Use `AGENTS.md` in Codex, Claude Code and OpenCode. If your project already has one, open both files and integrate the toolkit guidance alongside the instructions that belong to the project. For a project without an `AGENTS.md`, copy the starter file and fill in the project sections as needed.
+Use `AGENTS.md` in Codex, Claude Code and OpenCode. If your project already has one, open both files and integrate the toolkit guidance alongside the instructions that belong to the project. For a project without an `AGENTS.md`, copy the starter file from `templates/` and fill in the project sections as needed.
 
 ```sh
-cp -n "$toolkit_dir/AGENTS.md" ./AGENTS.md
+[ -e AGENTS.md ] || cp "$toolkit_dir/templates/AGENTS.md" ./AGENTS.md
 ```
 
-The `-n` option preserves an existing file. Commit the resulting `AGENTS.md` if you want those instructions versioned with the project.
+The test leaves an existing file untouched. Commit the resulting `AGENTS.md` if you want those instructions versioned with the project.
 
 ## Codex
 
@@ -156,7 +160,7 @@ With `AGENTS.md` in place, use `.agents/skills/` as the destination when [copyin
 With `AGENTS.md` in place, copy `CLAUDE.md` into the root of your project.
 
 ```sh
-cp -n "$toolkit_dir/CLAUDE.md" ./CLAUDE.md
+[ -e CLAUDE.md ] || cp "$toolkit_dir/CLAUDE.md" ./CLAUDE.md
 ```
 
 If you already have a root `CLAUDE.md`, add `@AGENTS.md` on its own line if the import is missing. If you keep your instructions in `.claude/CLAUDE.md`, use `@../AGENTS.md` there instead of creating a second file. The path is relative to the file containing the import. Recent Claude Code versions can also read `AGENTS.md` directly, depending on their project instruction settings. The explicit import supports installations that read `CLAUDE.md`.

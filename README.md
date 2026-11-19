@@ -104,8 +104,10 @@ Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software
 
 | File | When to use it |
 | --- | --- |
-| [`AGENTS.md`](AGENTS.md) | Shared project instructions. Codex and OpenCode read it from the project. Add context and rules that apply across your tasks. |
-| [`CLAUDE.md`](CLAUDE.md) | Claude Code's instruction file. This template imports the neighbouring `AGENTS.md` with `@AGENTS.md`. Put Claude-specific instructions below the import. |
+| [`rules/`](rules) | The shared rules, one module per topic: [research practice](rules/research-practice.md), [Git workflow and versioning](rules/git-workflow.md), [attribution](rules/attribution.md), [testing](rules/testing.md) and [code documentation](rules/code-documentation.md). Import only the modules you want if you do not need them all in every session. |
+| [`AGENTS.md`](AGENTS.md) | All the rule modules in one file, for a personal installation across your projects. Codex and OpenCode read it directly. It is generated from `rules/`. |
+| [`CLAUDE.md`](CLAUDE.md) | Claude Code's entry point. It imports the neighbouring `AGENTS.md` with `@AGENTS.md`. |
+| [`templates/AGENTS.md`](templates/AGENTS.md) | Starter instructions for one project: the same rules with empty sections for the project's context and workflow. Copy it into the project with `CLAUDE.md`, and put Claude-specific instructions below the import. |
 
 ### Rules for research software
 
