@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Ask assistants to share what they found, what they would change and how they would check it before editing code for a feature, a substantial change or an issue that needs investigation. Quick fixes and work covered by an approved plan can proceed directly.
+
 ## 0.4.0
 
 - Split the shared rules into modules under `rules/`. `AGENTS.md` now holds only the rules, generated from the modules, and the project starter with empty context and workflow sections moves to `templates/AGENTS.md`. You can import single modules to load only the rules you want in every session. CI fails if a generated file is out of date.

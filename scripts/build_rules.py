@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # 'rules/' must be listed, so a new module cannot be silently left out.
 RULE_ORDER = (
     "research-practice",
+    "code-planning",
     "git-workflow",
     "attribution",
     "testing",

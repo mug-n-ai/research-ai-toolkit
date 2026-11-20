@@ -108,7 +108,7 @@ Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software
 
 | File | When to use it |
 | --- | --- |
-| [`rules/`](rules) | The shared rules, one module per topic: [research practice](rules/research-practice.md), [Git workflow and versioning](rules/git-workflow.md), [attribution](rules/attribution.md), [testing](rules/testing.md) and [code documentation](rules/code-documentation.md). Import only the modules you want if you do not need them all in every session. |
+| [`rules/`](rules) | The shared rules, one module per topic: [research practice](rules/research-practice.md), [planning code changes](rules/code-planning.md), [Git workflow and versioning](rules/git-workflow.md), [attribution](rules/attribution.md), [testing](rules/testing.md) and [code documentation](rules/code-documentation.md). Import only the modules you want if you do not need them all in every session. |
 | [`AGENTS.md`](AGENTS.md) | All the rule modules in one file, for a personal installation across your projects. Codex and OpenCode read it directly. It is generated from `rules/`. |
 | [`CLAUDE.md`](CLAUDE.md) | Claude Code's entry point. It imports the neighbouring `AGENTS.md` with `@AGENTS.md`. |
 | [`templates/AGENTS.md`](templates/AGENTS.md) | Starter instructions for one project: the same rules with empty sections for the project's context and workflow. Copy it into the project with `CLAUDE.md`, and put Claude-specific instructions below the import. |
@@ -117,6 +117,7 @@ Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software
 
 | Rule | What to do |
 | --- | --- |
+| [Before changing code](AGENTS.md#before-changing-code) | For a feature, a substantial change or an issue that needs investigation, tell the user what you found, what you propose to change and how you would check it before editing. Quick fixes and work covered by an approved plan can go straight to the edit. |
 | [Branches and pull requests](AGENTS.md#git-branches-and-pull-requests) | Work on a separate branch. With `develop`, open a PR into it and a separate PR when promoting the changes to `main`. In a `main`-only project, open the PR there. Get explicit approval for any direct commit or push to either branch and for each merge. |
 | [Branch cleanup](AGENTS.md#git-branches-and-pull-requests) | Delete the temporary working branch after merge, unless the user asks to keep it or another open PR depends on it. |
 | [Versioning](AGENTS.md#versioning-on-main) | Before each update to `main`, recommend no bump, a patch, a minor or a major release and give the reason. Follow the project's release policy and flag any effect on compatibility or existing scientific results. |

@@ -11,6 +11,12 @@
 - **Confidential material.** Keep unpublished manuscripts, peer-review material and restricted data in approved environments. Before uploading, sending or publishing any of it, confirm that the destination and the material to be shared are authorised under the project's policies. A local file or client can still send material to a remote model or tool. Keep credentials out of prompts, logs and commits, and use the project's approved way to supply them.
 - Use a task-specific skill when it fits the work. In a chat without installed skills, read the public skill files or use the copies provided by the user. The [skill catalogue](https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/skills/README.md) explains when to use each one.
 
+## Before changing code
+
+- For a new feature, a substantial change or a problem that needs investigation, inspect the relevant code and context first. Before writing or editing code, give the user a short update on what you found, what you propose to change and how you would check it. Describe the parts of the system and the behaviour involved, and flag any uncertainty that could change the approach.
+- If the user asked you to implement the change, share the update and then proceed within the agreed scope. For a request limited to investigation, finish by reporting your findings and the changes you would propose.
+- For a quick, clearly scoped fix or work already covered by an approved plan, you can go straight to the edit.
+
 ## Git branches and pull requests
 
 - Start code changes on a working branch. Get the user's explicit approval before committing or pushing directly to `develop` or `main`.
