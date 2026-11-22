@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Ask assistants to share what they found, what they would change and how they would check it before editing code for a feature, a substantial change or an issue that needs investigation. Quick fixes and work covered by an approved plan can proceed directly.
+- Write or extend a focused test before implementing a new behaviour or fixing a bug when practical. Check that it fails for the expected reason before the change and passes afterwards.
 
 ## 0.4.0
 
