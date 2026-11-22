@@ -20,11 +20,9 @@ See [tests.md](tests.md) for examples and [mocking.md](mocking.md) for mocking g
 
 A **seam** is the public boundary you test at: the interface where you observe behavior without reaching inside. Tests live at seams, never against internals.
 
-**Test only at pre-agreed seams.** Before writing any test, write down the seams under test and confirm them with the user. No test is written at an unconfirmed seam. You can't test everything, so agreeing the seams up front is how testing effort lands on the critical paths and complex logic instead of every edge case.
+Use the project's existing test entry points and conventions when the expected behaviour is clear from the request, the spec or the project's tests. For a bug with a known expected outcome, write the regression test at the existing interface.
 
-Ask: "What's the public interface, and which seams should we test?" Give each proposed seam a one-line note on what it catches and what it misses.
-
-When the shape of that interface is itself in question (how deep the module is, where the seam belongs, what the interface should expose), call the Skill tool with "codebase-design" for the vocabulary. It is the shared source of the module, interface, depth, seam, adapter, leverage and locality terms, and it is a reference to consult, not a session to run.
+Ask when the expected behaviour or interface is unresolved and the choice would change what the test verifies. Explain the choice in terms of what callers would observe. Consult `codebase-design` when the interface itself needs designing.
 
 ## Anti-patterns
 
@@ -34,6 +32,6 @@ When the shape of that interface is itself in question (how deep the module is, 
 
 ## Rules of the loop
 
-- **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
+- **Red before green.** Write the test and confirm that it fails for the expected reason. Implement enough to pass it and run it again.
 - **One slice at a time.** One seam, one test, one minimal implementation per cycle.
 - **Refactoring is not part of the loop.** It belongs to the review stage (see the `code-review` skill), not the red → green implementation cycle.
