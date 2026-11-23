@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Document an optional arXiv MCP server setup for Claude Code, Codex and OpenCode, reusing existing connections and keeping the toolkit installer unchanged. Let `literature-review` prefer available scholarly source tools while still verifying original sources and figures.
 - Require fast, deterministic tests with small representative inputs. Keep expensive validation outside routine PR CI where practical without weakening meaningful coverage or scientific correctness.
 
 ## 0.4.2
