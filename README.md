@@ -116,7 +116,7 @@ Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software
 
 | Rule | What to do |
 | --- | --- |
-| [Before changing code](AGENTS.md#before-changing-code) | For a feature, a substantial change or an issue that needs investigation, tell the user what you found, what you propose to change and how you would check it before editing. Quick fixes and work covered by an approved plan can go straight to the edit. When adding code, follow the project's conventions and reuse existing components where they fit. |
+| [Before changing code](AGENTS.md#before-changing-code) | Inspect and plan meaningful changes before editing. For bugs and conflicts, trace the cause and select the simplest correct fix consistent with the project's architecture and scientific assumptions, rather than a shortcut. Quick changes can skip the planning update, not the diagnosis or quality checks. |
 | [Branches and pull requests](AGENTS.md#git-branches-and-pull-requests) | Work on a separate branch. With `develop`, open a PR into it and a separate PR when promoting the changes to `main`. In a `main`-only project, open the PR there. Get explicit approval for any direct commit or push to either branch and for each merge. |
 | [Branch cleanup](AGENTS.md#git-branches-and-pull-requests) | Delete the temporary working branch after merge, unless the user asks to keep it or another open PR depends on it. |
 | [Versioning](AGENTS.md#versioning-on-main) | Before each update to `main`, recommend no bump, a patch, a minor or a major release and give the reason. Follow the project's release policy and flag any effect on compatibility or existing scientific results. |
