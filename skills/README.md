@@ -38,7 +38,7 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 
 | Skill | When to use it | Companions |
 | --- | --- | --- |
-| [research](research/SKILL.md) | Ask a background agent to investigate a software question, such as library, API or tool behaviour, against primary sources and write a cited Markdown note. For papers and scientific claims, use `literature-review`. | |
+| [research](research/SKILL.md) | Investigate a software question or compare candidate dependencies or implementations against primary sources. Write the findings in a cited Markdown note. For papers and scientific claims, use `literature-review`. | |
 | [grill-with-docs](grill-with-docs/SKILL.md) | Work through a design and record terms and durable decisions in a glossary and architecture decision records (ADRs). By request. | `grilling`, `domain-modeling` |
 | [domain-modeling](domain-modeling/SKILL.md) | Agree what a term means in your code and capture decisions future maintainers need to understand. | |
 | [prototype](prototype/SKILL.md) | Try an interface or state model in a disposable prototype before committing to a design. | |
@@ -48,8 +48,8 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 | [triage](triage/SKILL.md) | Decide what each issue needs next and apply the project's triage labels. By request. | `setup-matt-pocock-skills`, plus `grilling` and `domain-modeling` as needed |
 | [tdd](tdd/SKILL.md) | Change a small piece of behaviour by writing a test that fails first, implementing the change and running the test again. | `codebase-design` for interface questions |
 | [diagnosing-bugs](diagnosing-bugs/SKILL.md) | Reproduce a bug or performance regression, narrow it down, test a fix and capture a regression check. | |
-| [implement](implement/SKILL.md) | Carry out a spec or set of tickets on the current branch with tests and review. By request. | `tdd`, `code-review` |
-| [code-review](code-review/SKILL.md) | Review a diff against both the project's coding standards and the scope of the original spec. | `setup-matt-pocock-skills` |
+| [implement](implement/SKILL.md) | Carry out a spec or set of tickets on the current branch with tests and review. By request. | `tdd`, `code-review`, `research` when comparing external options |
+| [code-review](code-review/SKILL.md) | Review a diff against the project's coding standards and the original spec. Check scientific outputs when the change could affect them. | `setup-matt-pocock-skills`, `reproduce-analysis` when reconstructing a reference result |
 | [pr](pr/SKILL.md) | Write a pull request description with a clear summary, before-and-after evidence and the risks of merging. | |
 | [codebase-design](codebase-design/SKILL.md) | Evaluate module boundaries and design interfaces that callers can use and test. | |
 | [improve-codebase-architecture](improve-codebase-architecture/SKILL.md) | Survey the code and discuss where a different module boundary could make it easier to change or test. By request. | `codebase-design`, `grilling`, `domain-modeling` |
@@ -60,7 +60,7 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 | Skill | When to use it | Companions |
 | --- | --- | --- |
 | [grilling](grilling/SKILL.md) | Work through open questions in dependency order, using the repo for facts it already answers. | |
-| [handoff](handoff/SKILL.md) | Give the next session enough context to pick up work without rereading the whole conversation. By request. | |
+| [handoff](handoff/SKILL.md) | Give the next session the decisions, last check and next action it needs. Link existing run records when they matter. By request. | |
 | [writing-for-agents](writing-for-agents/SKILL.md) | Write or revise agent instructions and skills so the essential guidance is easy to find. | |
 
 ## Sources and licences
@@ -71,7 +71,7 @@ If you [install only some skills](../INSTALL.md#install-a-selection), start with
 - **Run provenance** is an original toolkit skill under the [MIT licence](run-provenance/LICENSE).
 - **Scientific analysis skills** come from [K-Dense Scientific Agent Skills at commit `ec59a29`](https://github.com/K-Dense-AI/scientific-agent-skills/tree/ec59a29a03d5c40f73ab40878df04860bc00e876). Each imported folder includes the upstream MIT notice. The toolkit copies use the client's usual tool permissions, and the units skill's commands resolve from its own directory. To keep the main instructions short, the toolkit moves the CLI details, pinned versions and dated source lists verbatim from each `SKILL.md` into `references/cli-reference.md`, `references/version-baseline.md` or `references/sources.md`, leaving a short pointer. The units skill's description is shortened to stay within the toolkit's length limit.
 - **No AI Slop** comes from [Peter Yang's repository at commit `000650b`](https://github.com/petergyang/no-ai-slop/tree/000650b156983f5159695b441477f4e63b25dc85). Its [MIT licence](no-ai-slop/LICENSE) is included with the skill.
-- **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This toolkit includes a selection of 19 skills from that snapshot. The tracker templates omit the Wayfinder setup. The [v0.1.0 release](https://github.com/mug-n-ai/research-ai-toolkit/releases/tag/v0.1.0) includes the original collection of 27. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The toolkit replaces the one-line `pr` description with one that says what the skill produces and when to use it. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata. The toolkit narrows the `research` description to software documentation, APIs and source code, so that questions about papers and scientific claims go to `literature-review`. The workflow itself is unchanged.
+- **Matt Pocock's collection** comes from [commit `5863806`](https://github.com/mattpocock/skills/tree/5863806dd4e15c63174bee4e7515a4256792ecfa). This toolkit includes a selection of 19 skills from that snapshot. The tracker templates omit the Wayfinder setup. The [v0.1.0 release](https://github.com/mug-n-ai/research-ai-toolkit/releases/tag/v0.1.0) includes the original collection of 27. Each directory includes the MIT licence, and [`pr`](pr/CREDITS.md) also includes the [HumanLayer MIT notice](pr/LICENSE-HUMANLAYER) for the credited `show-me` material. The toolkit replaces the one-line `pr` description with one that says what the skill produces and when to use it. The `pr` credit is a text field in the YAML for compatibility with Agent Skills metadata. The toolkit narrows the `research` description to software documentation, APIs and source code, so that questions about papers and scientific claims go to `literature-review`. This toolkit also adapts `tdd`, `implement`, `research`, `code-review` and `handoff` for research software.
 
 ## Skill format
 

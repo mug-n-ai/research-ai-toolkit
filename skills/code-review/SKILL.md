@@ -74,9 +74,17 @@ Issue both sub-agent calls together, in the foreground, and aggregate the report
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
 
-### 5. Aggregate
+### 5. Check scientific outputs when the diff can affect them
+
+Use the smallest reference case that exercises the changed code. Set the quantity to compare, its units and the tolerance or statistical criterion up front. Compare the baseline and proposed revisions with matching inputs, configuration and seeds, using separate output directories. Reuse existing test or run evidence if it covers the comparison. Use `reproduce-analysis` if you need to reconstruct a reported reference.
+
+Report the observed difference, whether it was expected and which figures, tables or downstream results should be regenerated. Cite the commands and run records or output paths. If the reference or execution is unavailable, say what remains unverified.
+
+### 6. Aggregate
 
 Present the two reports under `## Standards` and `## Spec` headings, verbatim or lightly cleaned. Do **not** merge or rerank findings, because the two axes are deliberately separate (see _Why two axes_).
+
+Report the scientific comparison when it applies.
 
 End with a one-line summary: total findings per axis, and the worst issue _within each axis_ (if any). Don't pick a single winner across axes: that's the reranking the separation exists to prevent.
 
