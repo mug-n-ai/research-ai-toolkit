@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Require fast, deterministic tests with small representative inputs. Keep expensive validation outside routine PR CI where practical without weakening meaningful coverage or scientific correctness.
+
 ## 0.4.2
 
 - Recommend starting with three rule modules and four skills. Document the full installation as an option.
