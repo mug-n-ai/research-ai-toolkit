@@ -21,7 +21,7 @@ git -C "$toolkit_dir" pull --ff-only origin main
 For a project that needs a fixed version, clone a [release tag](https://github.com/mug-n-ai/research-ai-toolkit/releases) into its own directory. Use that clone as `toolkit_dir` before following the rest of this guide.
 
 ```sh
-version="v0.4.0"
+version="v0.4.1"
 mkdir -p "$HOME/.local/share"
 toolkit_dir="$HOME/.local/share/research-ai-toolkit-$version"
 git clone --branch "$version" --single-branch https://github.com/mug-n-ai/research-ai-toolkit.git "$toolkit_dir"
@@ -128,6 +128,20 @@ If the clone follows `main`, its links use the updated files after a pull. Run t
 For Codex or Claude Code, use the loop above with a list such as `skill_selection="literature-review reproduce-analysis"`. Check the [companion skills](skills/README.md#installing-a-selection) before choosing a workflow from Matt Pocock's collection. For any client, you can [copy selected skill folders into one project](#copying-skills).
 
 For a personal selection in OpenCode v2, keep the `instructions` entry below. In the `skills` array, list the full path to each chosen folder, such as `/path/to/research-ai-toolkit/skills/literature-review`, in place of the toolkit's full `skills` directory. Keep any entries for other sources. OpenCode may also discover skills you installed through its compatibility paths. For v1, you can [copy the selected folders into the project](#copying-skills).
+
+### Estimate the context cost
+
+In v0.4.1, the shared rules are about 1,700 tokens. Names and descriptions for the installed skills account for about 1,100 to 1,300 more before file paths. The full initial context contributed by the toolkit is roughly 2,800 to 3,600 tokens, depending on which skills the client lists and whether it includes paths. For a smaller setup, use three rule modules and four skills, about 1,200 tokens including example paths.
+
+```sh
+python3 "$toolkit_dir/scripts/install.py" --client codex \
+  --rules research-practice code-planning testing \
+  --skills literature-review reproduce-analysis run-provenance tdd
+```
+
+For Codex, follow the installer's message to merge the selected modules into your Codex instructions. With `--client claude`, the installer adds imports for those modules.
+
+These estimates count the toolkit text with OpenAI's `o200k_base` encoding. Actual context varies with the client, model and other installed skills. Full skill instructions are loaded on demand in clients such as Codex and Claude Code. A paper, tool output or sub-agent review adds its own usage. The context figures do not predict how much of a subscription allowance a task will use.
 
 ## OpenCode from the clone
 
