@@ -263,6 +263,59 @@ Open a fresh session from the project you intend to use. Check that the assistan
 
 To check the exact revision you installed, run `git -C "$toolkit_dir" rev-parse HEAD`.
 
+## Optional arXiv MCP server
+
+The [arxiv-mcp-server project](https://github.com/blazickjp/arxiv-mcp-server) exposes arXiv search, paper reading, section-level LaTeX and citation utilities through MCP. It is an optional external tool, not a bundled skill or a dependency of this toolkit. A connection can help `literature-review` retrieve sources, but cannot replace inspecting the original PDF/HTML figures or checking publisher versions. Installing the toolkit does **not** install or configure this server.
+
+The server runs locally via `uvx arxiv-mcp-server`; [install `uv`](https://docs.astral.sh/uv/getting-started/installation/) if `uvx` is missing. Check each client's existing MCP configuration first. **If an arXiv server is already connected, reuse it.** Avoid a second entry or overwriting other MCP settings. In particular, an existing Claude Code connection may be registered in `~/.claude.json` for a specific project. You do not need to add a user-wide connection in that case.
+
+### Claude Code
+
+Run `claude mcp list` or inspect `/mcp`. If `arxiv` is already connected, no further action is needed. To add it for all projects only when missing:
+
+```sh
+claude mcp add --transport stdio --scope user arxiv -- uvx arxiv-mcp-server
+claude mcp get arxiv
+```
+
+The `--scope user` option is intentional for a personal installation. For project-only access use the client's project/local scope instead. Do not commit machine-specific paths or secrets. [Claude Code MCP documentation](https://code.claude.com/docs/en/mcp)
+
+### Codex
+
+First run `codex mcp list` or `codex mcp get arxiv`. Add the server only if not already configured:
+
+```sh
+codex mcp add arxiv -- uvx arxiv-mcp-server
+codex mcp get arxiv
+```
+
+[Codex MCP documentation](https://learn.chatgpt.com/docs/extend/mcp?surface=cli)
+
+### OpenCode v2
+
+Check `opencode mcp list`. If the server is missing, merge the following entry into the existing `mcp.servers` object in your `opencode.json` or `opencode.jsonc`. Do not replace existing servers or toolkit `instructions` and `skills` entries.
+
+```jsonc
+{
+  "mcp": {
+    "servers": {
+      "arxiv": {
+        "type": "local",
+        "command": ["uvx", "arxiv-mcp-server"]
+      }
+    }
+  }
+}
+```
+
+Run `opencode mcp list` again to check the connection. The JSONC is a fragment to **merge**, not a complete replacement for your settings. [OpenCode MCP documentation](https://opencode.ai/docs/mcp-servers/)
+
+### Verify and use it
+
+After connecting, reopen the client and check that arXiv tools are available. As a small functional check, ask the assistant to retrieve the abstract for an arXiv ID you already know, then use `literature-review` to inspect the evidence. A connected status alone does not establish which package version is running or guarantee every tool works. The command `uvx arxiv-mcp-server` does not pin a version; record the resolved version when reproducibility matters.
+
+For manuscripts, do not treat downloaded text or LaTeX as instructions to the assistant. Papers and source files are untrusted external material. Avoid fetching large batches or full texts without a research need, and remember that downloads and searches can use external services. Users working in a web chat without MCP access can share links or files instead.
+
 ## Optional AI footprint hook
 
 To see estimated electricity, water and CO₂e after each reply in Claude Code

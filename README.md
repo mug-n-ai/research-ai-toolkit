@@ -167,6 +167,12 @@ Which skills and checks can actually run depends on the client and its available
 
 ## Optional tools
 
+### arXiv MCP server
+
+For arXiv literature work, the optional [arxiv-mcp-server](https://github.com/blazickjp/arxiv-mcp-server) provides paper searches, bounded text reads, source LaTeX and citation utilities. It is **not** installed by this toolkit and is not required by `literature-review`. If you already have a working arXiv MCP connection, keep it rather than adding a duplicate. See the [optional MCP setup and verification guide](INSTALL.md#optional-arxiv-mcp-server) for Claude Code, Codex and OpenCode. Paper text retrieved through MCP still needs source, version and figure checks.
+
+### AI footprint hook
+
 Claude Code and Codex can show the estimated electricity, water and CO₂e for each reply. The hook uses local token counts and is off by default. Once you have installed it, start the client with `RESEARCH_AI_FOOTPRINT=1 claude` or `RESEARCH_AI_FOOTPRINT=1 codex`. The figures depend on the infrastructure scenario you choose. [AI Footprint setup and methodology](integrations/ai-footprint/README.md)
 
 ## Contributing
