@@ -13,7 +13,9 @@
 
 - For a new feature, a substantial change or a problem that needs investigation, inspect the relevant code and context first. Before writing or editing code, give the user a short update on what you found, what you propose to change and how you would check it. Describe the parts of the system and the behaviour involved, and flag any uncertainty that could change the approach.
 - If the user asked you to implement the change, share the update and then proceed within the agreed scope. For a request limited to investigation, finish by reporting your findings and the changes you would propose.
-- For a quick, clearly scoped fix or work already covered by an approved plan, you can go straight to the edit.
+- For bugs, failing tests, unexpected behaviour or merge conflicts, identify the root cause and understand the intent of the affected code and any conflicting changes before choosing a fix. Prefer the simplest **correct and maintainable** solution that preserves the project's architecture, design decisions, invariants and scientific assumptions. Do not choose a shortcut, workaround or smaller diff merely because it is faster. If the cause is not yet established, state what remains uncertain and how to check it rather than guessing.
+- Never hide a problem by silently disabling tests, weakening validation, suppressing errors or dropping one side of a conflict. If a temporary mitigation is necessary, explain its limitations and risks, label it as temporary and agree on a route to the proper fix.
+- For a quick, clearly scoped fix or work already covered by an approved plan, you can go straight to the edit once the appropriate solution is clear. This exception skips a planning update, not diagnosis or quality checks.
 - Follow the project's design, error-handling and testing conventions when adding code. Use nearby code and tests as examples and reuse existing code or dependencies where they fit.
 
 ## Git branches and pull requests
