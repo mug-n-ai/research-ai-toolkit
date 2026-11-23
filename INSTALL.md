@@ -21,7 +21,7 @@ git -C "$toolkit_dir" pull --ff-only origin main
 For a project that needs a fixed version, clone a [release tag](https://github.com/mug-n-ai/research-ai-toolkit/releases) into its own directory. Use that clone as `toolkit_dir` before following the rest of this guide.
 
 ```sh
-version="v0.4.1"
+version="v0.4.2"
 mkdir -p "$HOME/.local/share"
 toolkit_dir="$HOME/.local/share/research-ai-toolkit-$version"
 git clone --branch "$version" --single-branch https://github.com/mug-n-ai/research-ai-toolkit.git "$toolkit_dir"
@@ -33,11 +33,31 @@ To move the project to another version, use a new clone for that tag and update 
 
 From the clone, run the installer for the clients you use. It links the skills, loads the rules in every session and reports anything it leaves for you to do. Python 3.9 or newer is enough.
 
+### Recommended installation
+
+Start with research practice, code planning and testing, plus four skills for reading papers, reproducing analyses, recording runs and test-first development.
+
+```sh
+python3 "$toolkit_dir/scripts/install.py" --client codex \
+  --rules research-practice code-planning testing \
+  --skills literature-review reproduce-analysis run-provenance tdd
+```
+
+Use `--client claude` for Claude Code or `--client opencode` for OpenCode. You can repeat `--client` to configure more than one. Add `--dry-run` to preview the changes. For Codex, follow the installer's message to merge the selected modules into your Codex instructions.
+
+Add skills and their [companions](skills/README.md#installing-a-selection) as your work calls for them. Keep your selected rule modules in the command when adding skills. For pull requests, releases or code documentation, add the corresponding [rule modules](rules).
+
+If you already installed everything and want to switch to the smaller setup, run `--uninstall` for those clients first and follow any notes about manual configuration. Selecting skills in a new installer run keeps valid links already installed.
+
+### Install everything
+
+To install all rules and all skills, omit `--rules` and `--skills`.
+
 ```sh
 python3 "$toolkit_dir/scripts/install.py" --client claude --client opencode
 ```
 
-Add `--client codex` for Codex. Use `--dry-run` first to see the changes without making them. `--skills literature-review reproduce-analysis` links only those skills, and `--rules research-practice testing` loads only those [rule modules](rules) in every session. `--uninstall` removes what the script added.
+Use `--uninstall` to remove what the installer added.
 
 The script keeps your existing configuration. It does not touch a skill folder of the same name that did not come from the toolkit, an import you added by hand or an OpenCode file with comments. It reports these instead. Before it edits a file, it saves a copy with the suffix `.research-ai-toolkit.bak`. Run it again after each `git pull` to link new skills and remove links to skills that no longer exist.
 
@@ -50,7 +70,7 @@ Paste this into an assistant session with terminal access on the machine where y
 ```text
 Install Research AI Toolkit for [Codex, Claude Code, OpenCode, or several].
 Use it [across my projects or only in this project].
-Install [all skills or the following skills and their required companions].
+Use the recommended selection unless I ask for all skills or name a selection.
 Read https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/INSTALL.md.
 
 Check my OS, installed client versions and current configuration. Choose a
@@ -58,9 +78,8 @@ supported setup for each client. Reuse an existing clone if available. For a
 setup across my projects, prefer scripts/install.py and run it with --dry-run
 first.
 Keep my existing instructions, settings and skills. Report any name clashes.
-Verify that the toolkit rules and a skill I selected are discoverable in the
-requested scope. Use literature-review if I selected all skills. Tell me what
-you changed and how to update the toolkit.
+Verify that the toolkit rules and a selected skill are discoverable in the
+requested scope. Tell me what you changed and how to update the toolkit.
 If you cannot access the machine or start a client, tell me what remains to do.
 ```
 
@@ -131,15 +150,7 @@ For a personal selection in OpenCode v2, keep the `instructions` entry below. In
 
 ### Estimate the context cost
 
-In v0.4.1, the shared rules are about 1,700 tokens. Names and descriptions for the installed skills account for about 1,100 to 1,300 more before file paths. The full initial context contributed by the toolkit is roughly 2,800 to 3,600 tokens, depending on which skills the client lists and whether it includes paths. For a smaller setup, use three rule modules and four skills, about 1,200 tokens including example paths.
-
-```sh
-python3 "$toolkit_dir/scripts/install.py" --client codex \
-  --rules research-practice code-planning testing \
-  --skills literature-review reproduce-analysis run-provenance tdd
-```
-
-For Codex, follow the installer's message to merge the selected modules into your Codex instructions. With `--client claude`, the installer adds imports for those modules.
+The [recommended installation](#recommended-installation) adds roughly 1,200 tokens of initial context, including example skill paths. A full installation adds roughly 2,800 to 3,600 tokens, depending on which skills the client lists and whether it includes paths. The complete rules account for about 1,700 of those tokens.
 
 These estimates count the toolkit text with OpenAI's `o200k_base` encoding. Actual context varies with the client, model and other installed skills. Full skill instructions are loaded on demand in clients such as Codex and Claude Code. A paper, tool output or sub-agent review adds its own usage. The context figures do not predict how much of a subscription allowance a task will use.
 

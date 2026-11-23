@@ -26,7 +26,7 @@ Some workflows are marked **By request** and need to be invoked explicitly. In a
 
 ## Quick start
 
-[Use the chat prompt](#use-the-toolkit-in-a-chat) or [install the toolkit](INSTALL.md), then give the assistant a task and the material it needs. Here are four requests to adapt.
+[Use the chat prompt](#use-the-toolkit-in-a-chat) or [start with the recommended selection](INSTALL.md#recommended-installation), then give the assistant a task and the material it needs. Here are four requests to adapt.
 
 > [!TIP]
 > **You can ask an AI assistant to install the toolkit.** Give Claude Code, Codex or OpenCode the [setup prompt](INSTALL.md#ask-an-assistant-to-set-it-up). It should check your existing configuration, preserve your settings and verify the installation.
@@ -53,30 +53,29 @@ An assistant with terminal access on the machine where you run Codex, Claude Cod
 
 ### Use the toolkit in a chat
 
-Paste this prompt into ChatGPT, Claude, or any other assistant that can open public links. Replace the last line with your task. The assistant can then read the rules and choose a relevant workflow for that conversation.
+Paste this prompt into ChatGPT, Claude, or any other assistant that can open public links. Replace the last line with your task so the assistant can open the rules and workflow it needs.
 
 <details>
 <summary>Show the prompt for a web chat</summary>
 
 ```text
-Use the Research AI Toolkit for this conversation.
-Read the README and AGENTS.md at these URLs before starting:
-https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/README.md
-https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/AGENTS.md
+Use the Research AI Toolkit. Base URL for the paths below:
+https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/main/
 
-When my task calls for a specific workflow, check the skill catalogue:
-https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/skills/README.md
-If a listed skill matches, open its SKILL.md and any supporting files it needs.
-Use skills marked "By request" only when I name them. Resolve catalogue links
-relative to the catalogue URL above. Tell me when a step needs a tool you lack.
-Tell me if you cannot fetch a file you need so I can paste or attach it.
+Read rules/research-practice.md for research. For code changes, read
+rules/code-planning.md and rules/testing.md. Open other rule modules as needed.
+
+Open skills/<name>/SKILL.md and any references needed. Match the task:
+papers → literature-review, reruns → reproduce-analysis, new runs → run-provenance,
+test-first coding → tdd. For other workflows, consult skills/README.md. Use
+"By request" skills only if I name them. Report any blocked step.
 
 My task: [describe what you want to do]
 ```
 
 </details>
 
-If the assistant cannot open the links, paste or attach [`AGENTS.md`](AGENTS.md), the relevant `SKILL.md` and any supporting files it needs. For a project that already uses the toolkit, share its own instruction file for project-specific details.
+If the assistant cannot open the links, paste or attach the relevant [rule modules](rules), `SKILL.md` and supporting files. For a project that already uses the toolkit, share its own instructions for project-specific details.
 
 ## Research workflows
 
@@ -149,7 +148,7 @@ To create your own skill, follow the [instructions in CONTRIBUTING.md](CONTRIBUT
 
 ### How the pieces fit together
 
-The project rules and task-specific skills do different jobs. `AGENTS.md` provides guidance shared across research tasks. The assistant can select a matching `SKILL.md` when a task needs one; you do not have to pick it in advance. Claude Code can import the shared rules through `CLAUDE.md`. In a web chat, the prompt above asks the assistant to fetch the same files.
+The shared rules give the assistant guidance across research tasks. You can use the combined `AGENTS.md` or select individual modules. Claude Code can import either through `CLAUDE.md`. The assistant opens a matching `SKILL.md` when it needs one. The web chat prompt points it to individual modules and the relevant workflow.
 
 ```mermaid
 flowchart LR

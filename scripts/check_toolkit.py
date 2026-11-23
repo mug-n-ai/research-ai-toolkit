@@ -223,17 +223,41 @@ def smoke_setup(skill_files):
             setup_shell(snippet, project, env)
             assert (copied / "SKILL.md").read_text() == "Project copy\n"
 
-        installer = next(body for body in shell if "scripts/install.py" in body)
+        installer = next(body for body in shell if "scripts/install.py" in body and "--skills" not in body)
         installer_home = home / "installer-home"
         installer_home.mkdir()
-        installer_env = {key: value for key, value in env.items() if key != "XDG_CONFIG_HOME"}
-        setup_shell(installer, project, {**installer_env, "HOME": str(installer_home)})
+        installer_env = {
+            key: value for key, value in env.items()
+            if key not in {"CODEX_HOME", "XDG_CONFIG_HOME"}
+        }
+        installer_env["HOME"] = str(installer_home)
+        setup_shell(installer, project, installer_env)
         for path in skill_files:
             linked = installer_home / ".claude/skills" / path.parent.name / "SKILL.md"
             assert linked.resolve() == path, f"Installer did not link {path.parent.name}"
         assert f"@{ROOT}/CLAUDE.md" in (installer_home / ".claude/CLAUDE.md").read_text()
         installed = json.loads((installer_home / ".config/opencode/opencode.json").read_text())
         assert installed["instructions"] == [f"{ROOT}/AGENTS.md"]
+
+        recommended = next(body for body in shell if "scripts/install.py" in body and "--skills" in body)
+        recommended_home = home / "recommended-home"
+        recommended_home.mkdir()
+        installer_env["HOME"] = str(recommended_home)
+        # Codex links skills and reports which rules to merge by hand.
+        output = setup_shell(recommended, project, installer_env)
+        expected_skills = {"literature-review", "reproduce-analysis", "run-provenance", "tdd"}
+        assert {skill.name for skill in (recommended_home / ".agents/skills").iterdir()} == expected_skills
+        assert "merge the selected modules" in output
+        setup_shell(
+            recommended.replace("--client codex", "--client claude --client opencode"),
+            project, installer_env,
+        )
+        assert {skill.name for skill in (recommended_home / ".claude/skills").iterdir()} == expected_skills
+        expected_rules = [f"{ROOT}/rules/{module}.md" for module in ("code-planning", "research-practice", "testing")]
+        claude_instructions = (recommended_home / ".claude/CLAUDE.md").read_text().splitlines()
+        assert [line[1:] for line in claude_instructions if line.startswith("@")] == expected_rules
+        installed = json.loads((recommended_home / ".config/opencode/opencode.json").read_text())
+        assert installed["instructions"] == expected_rules
 
         opencode = [json.loads(body) for _, language, body in blocks if language == "json"]
         v2, v1 = opencode
