@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2
+
+- Recommend starting with three rule modules and four skills. Document the full installation as an option.
+- Shorten the web chat prompt so it opens the relevant rules and skill directly for common research and coding tasks.
+
 ## 0.4.1
 
 - Follow the project's design, error-handling and testing conventions when extending code. Use existing tests and interfaces for TDD when the expected behaviour is clear, check for reusable implementations before adding dependencies or algorithms, and verify affected scientific outputs during review. Link relevant run records in session handoffs.
