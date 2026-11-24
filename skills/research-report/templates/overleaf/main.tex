@@ -1,0 +1,36 @@
+% Research note template, not a journal manuscript or paper draft.
+% Replace placeholders with verified work and preserve provenance.
+\documentclass[11pt,a4paper]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{mathtools,amssymb}
+\usepackage{siunitx}
+\usepackage{booktabs,tabularx}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+\title{Research note: describe the analysis}
+\author{}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Scope and provenance}
+State the specific research question, inputs, code revision, run identifiers and
+which results were checked. Replace this instructional text with your own record.
+
+\input{sections/model}
+\input{sections/workflow}
+\input{sections/checks}
+
+% Enable the following when verified sources are cited in references.bib:
+% \bibliographystyle{plainnat}
+% \bibliography{references}
+\end{document}
+

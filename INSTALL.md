@@ -21,7 +21,7 @@ git -C "$toolkit_dir" pull --ff-only origin main
 For a project that needs a fixed version, clone a [release tag](https://github.com/mug-n-ai/research-ai-toolkit/releases) into its own directory. Use that clone as `toolkit_dir` before following the rest of this guide.
 
 ```sh
-version="v0.4.3"
+version="v0.4.4"
 mkdir -p "$HOME/.local/share"
 toolkit_dir="$HOME/.local/share/research-ai-toolkit-$version"
 git clone --branch "$version" --single-branch https://github.com/mug-n-ai/research-ai-toolkit.git "$toolkit_dir"
@@ -44,6 +44,8 @@ python3 "$toolkit_dir/scripts/install.py" --client codex \
 ```
 
 Use `--client claude` for Claude Code or `--client opencode` for OpenCode. You can repeat `--client` to configure more than one. Add `--dry-run` to preview the changes. For Codex, follow the installer's message to merge the selected modules into your Codex instructions.
+
+For technical research notes and Overleaf-ready LaTeX, add `research-report` to the `--skills` selection when you need it. It has an optional standard-library report helper; neither LaTeX nor Overleaf access is needed for the toolkit installer. [Research report workflow](skills/research-report/SKILL.md)
 
 Add skills and their [companions](skills/README.md#installing-a-selection) as your work calls for them. Keep your selected rule modules in the command when adding skills. For pull requests, releases or code documentation, add the corresponding [rule modules](rules).
 
