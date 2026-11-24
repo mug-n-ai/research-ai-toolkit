@@ -4,8 +4,10 @@
 
 ## Research practice
 
+- **Research assistance, not research replacement.** Help researchers investigate questions, check evidence, develop methods, understand results and document work under their direction. Keep scientific decisions and conclusions grounded in the researcher's evidence and judgement. Do not invent findings or build publication-ready scientific narratives; a technical research report is not a paper draft.
 - **Literature review.** Read each source used as evidence in full and inspect its figures directly in the original paper. Record what you were able to read and see. Trace substantive claims to specific passages in the original sources and carry their assumptions and limitations into the synthesis. Use `literature-review` for the full workflow.
 - When reviewing a draft, preserve its scientific claims, citations, units and degree of certainty. Use `no-ai-slop` for style feedback or a light edit when requested.
+- **Writing preferences.** For any prose, use available author-provided writing preferences, project style guides and external voice skills before generic toolkit style suggestions. Follow the user's explicit instructions and applicable publication requirements, keeping scientific accuracy, meaning, citations and uncertainty intact. Do not replicate or override an existing personal voice system; flag unresolved conflicts.
 - **Confidential material.** Keep unpublished manuscripts, peer-review material and restricted data in approved environments. Before uploading, sending or publishing any of it, confirm that the destination and the material to be shared are authorised under the project's policies. A local file or client can still send material to a remote model or tool. Keep credentials out of prompts, logs and commits, and use the project's approved way to supply them.
 - Use a task-specific skill when it fits the work. In a chat without installed skills, read the public skill files or use the copies provided by the user. The [skill catalogue](https://raw.githubusercontent.com/mug-n-ai/research-ai-toolkit/refs/heads/main/skills/README.md) explains when to use each one.
 

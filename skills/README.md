@@ -10,6 +10,8 @@ Each link opens a `SKILL.md`. An assistant can [pick an available skill from its
 
 [Run provenance](run-provenance/SKILL.md) records the code revision, configuration, inputs, environment and seeds of each computational run before it starts, such as a simulation, a model training, a data-processing pipeline or a batch analysis, so every figure and number can be traced to the run that made it. It includes an optional [run record](run-provenance/run-record.md). Use `reproduce-analysis` when you later need to rerun a reported result and compare it with the reference.
 
+[Research report](research-report/SKILL.md) documents existing investigations as rigorous, portable LaTeX technical reports with equations, code and data provenance and useful diagrams. It creates an Overleaf-importable ZIP without drafting journal manuscripts, and respects external author voice skills. The [helper and template](research-report/SKILL.md#write-portable-latex) are optional; see its [LaTeX conventions](research-report/references/latex-conventions.md).
+
 [Code cleanup](code-cleanup/SKILL.md) checks for dead code, avoidable complexity, duplication and inconsistencies with the project's design choices. For a named function it performs and tests a targeted refactor; for a repository it delivers a prioritised [cleanup plan](code-cleanup/cleanup-plan-template.md) without modifying the code. It complements `codebase-design` and `code-review`, rather than replacing either.
 
 ## Scientific analysis

@@ -93,6 +93,10 @@ The `reproduce-analysis` skill traces a figure, table or number to its inputs, c
 
 The `run-provenance` skill records what each computational run needs before it starts, whether it is a simulation, a model training, a data-processing pipeline or a batch analysis: the code revision, the copied configuration, input checksums, the environment and the seeds. Each run gets its own directory, and figures and numbers name the runs they came from. [Skill instructions](skills/run-provenance/SKILL.md) · [Run record](skills/run-provenance/run-record.md)
 
+### Document an investigation in LaTeX
+
+The [`research-report` skill](skills/research-report/SKILL.md) helps document physical models, methods, analyses, code and verified results as a technical research note. It is **not** a journal paper drafting tool: the researcher remains responsible for scientific decisions and conclusions. The skill uses equations, provenance and explanatory diagrams when useful, while respecting external author voice preferences. Its default `scrartcl` template and [small standard-library helper](skills/research-report/scripts/report_project.py) create a portable `overleaf/` source folder and `report-overleaf.zip` with `main.tex` at the archive root. Local PDF compilation is optional and requires a TeX installation; the ZIP can be prepared without one.
+
 ### Clean up code
 
 The `code-cleanup` skill can find dead code, remove unnecessary complexity, reduce duplication or check whether an implementation still follows the project's design. **For a single function**, it makes a targeted refactor and tests the behaviour. **For a whole repository**, it identifies candidates and writes a prioritised plan without changing the implementation. Static-analysis findings are leads, not proof that code is safe to remove. [Skill instructions](skills/code-cleanup/SKILL.md) · [Cleanup plan template](skills/code-cleanup/cleanup-plan-template.md)
@@ -116,6 +120,7 @@ Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software
 
 | Rule | What to do |
 | --- | --- |
+| [Research scope and writing style](AGENTS.md#research-practice) | Assist research and document evidence; never invent findings or draft research papers. Follow author/project writing preferences and external voice skills ahead of generic toolkit style suggestions. |
 | [Before changing code](AGENTS.md#before-changing-code) | Inspect and plan meaningful changes before editing. For bugs and conflicts, trace the cause and select the simplest correct fix consistent with the project's architecture and scientific assumptions, rather than a shortcut. Quick changes can skip the planning update, not the diagnosis or quality checks. |
 | [Branches and pull requests](AGENTS.md#git-branches-and-pull-requests) | Work on a separate branch. With `develop`, open a PR into it and a separate PR when promoting the changes to `main`. In a `main`-only project, open the PR there. Get explicit approval for any direct commit or push to either branch and for each merge. |
 | [Branch cleanup](AGENTS.md#git-branches-and-pull-requests) | Delete the temporary working branch after merge, unless the user asks to keep it or another open PR depends on it. |

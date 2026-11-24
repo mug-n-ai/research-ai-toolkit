@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Add the `research-report` skill for physics-first, provenance-aware technical LaTeX notes, with a `scrartcl` template, optional diagrams, a portable Overleaf ZIP helper and fast file-safety tests. Explicitly keep paper drafting outside the toolkit's scope.
+- Prioritise external writing voice and project preferences over generic toolkit style rules without compromising scientific evidence.
+
+## 0.4.4
+
 - Require root-cause analysis and architecture-aligned fixes for bugs and conflicts instead of expedient workarounds. Clarify that a quick edit does not waive correctness checks.
 
 ## 0.4.3
