@@ -175,6 +175,8 @@ For arXiv literature work, the optional [arxiv-mcp-server](https://github.com/bl
 
 Claude Code and Codex can show the estimated electricity, water and CO₂e for each reply. The hook uses local token counts and is off by default. Once you have installed it, start the client with `RESEARCH_AI_FOOTPRINT=1 claude` or `RESEARCH_AI_FOOTPRINT=1 codex`. The figures depend on the infrastructure scenario you choose. [AI Footprint setup and methodology](integrations/ai-footprint/README.md)
 
+**If you find this toolkit useful, consider starring the repository.** It helps other researchers find it.
+
 ## Contributing
 
 See the [contribution guide](CONTRIBUTING.md) to propose a rule, add a skill or improve the documentation.
