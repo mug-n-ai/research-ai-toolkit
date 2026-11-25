@@ -22,6 +22,12 @@
 - For a quick, clearly scoped fix or work already covered by an approved plan, you can go straight to the edit once the appropriate solution is clear. This exception skips a planning update, not diagnosis or quality checks.
 - Follow the project's design, error-handling and testing conventions when adding code. Use nearby code and tests as examples and reuse existing code or dependencies where they fit.
 
+## End-of-task cleanup
+
+- **Leave the workspace tidy.** Before handing work back, inspect the repository and task-created files, folders and temporary environments. Remove confirmed disposable scratch files, intermediate builds and unused task-specific artefacts. Preserve deliverables, scientific data, reproducibility records, useful logs, and anything whose ownership or future use is uncertain. Limit cleanup to the authorised task workspace; do not sweep unrelated projects or the user's computer.
+- **Close temporary Git resources.** After a pull request is merged and no dependent work remains, remove the task's temporary worktree if it is no longer active, then delete its merged working branch locally and remotely where access permits. First check the worktree status, uncommitted or untracked files, unmerged commits and open pull requests. Retain active worktrees, unmerged work and protected or long-lived branches.
+- **Avoid data loss.** Prefer targeted cleanup to broad `git clean`, hard resets or recursive/system-wide deletions. If deleting something could discard work or its purpose is unclear, keep it and ask first. Verify the resulting repository state and report what was cleaned up, what remains and any cleanup you could not perform.
+
 ## Git branches and pull requests
 
 - Start code changes on a working branch. Get the user's explicit approval before committing or pushing directly to `develop` or `main`.

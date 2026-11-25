@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Require safe end-of-task workspace cleanup of confirmed disposable files, temporary worktrees and merged working branches, while protecting uncommitted work, research records and unrelated files.
+
+## 0.5.0
+
 - Add the `research-report` skill for physics-first, provenance-aware technical LaTeX notes, with a `scrartcl` template, optional diagrams, a portable Overleaf ZIP helper and fast file-safety tests. Explicitly keep paper drafting outside the toolkit's scope.
 - Prioritise external writing voice and project preferences over generic toolkit style rules without compromising scientific evidence.
 
