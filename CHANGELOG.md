@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Require supervisor-ready work: critically check methods, evidence and results before handover, and present concise, verifiable findings with limitations and source pointers.
+
+## 0.5.1
+
 - Require safe end-of-task workspace cleanup of confirmed disposable files, temporary worktrees and merged working branches, while protecting uncommitted work, research records and unrelated files.
 
 ## 0.5.0

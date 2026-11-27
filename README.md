@@ -121,6 +121,7 @@ Use No AI Slop to review a draft, Matt Pocock's skills to plan and test software
 | Rule | What to do |
 | --- | --- |
 | [Research scope and writing style](AGENTS.md#research-practice) | Assist research and document evidence; never invent findings or draft research papers. Follow author/project writing preferences and external voice skills ahead of generic toolkit style suggestions. |
+| [Supervisor-ready work](AGENTS.md#research-practice) | Check the approach, assumptions and results critically before handing work over, then give a concise, evidence-linked summary that the researcher can inspect and challenge. |
 | [Before changing code](AGENTS.md#before-changing-code) | Inspect and plan meaningful changes before editing. For bugs and conflicts, trace the cause and select the simplest correct fix consistent with the project's architecture and scientific assumptions, rather than a shortcut. Quick changes can skip the planning update, not the diagnosis or quality checks. |
 | [Branches and pull requests](AGENTS.md#git-branches-and-pull-requests) | Work on a separate branch. With `develop`, open a PR into it and a separate PR when promoting the changes to `main`. In a `main`-only project, open the PR there. Get explicit approval for any direct commit or push to either branch and for each merge. |
 | [Branch cleanup](AGENTS.md#git-branches-and-pull-requests) | Delete the temporary working branch after merge, unless the user asks to keep it or another open PR depends on it. |
